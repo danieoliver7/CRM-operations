@@ -1,260 +1,144 @@
 import { useMemo } from 'react';
-import { 
-  Rocket, 
-  ShieldCheck, 
-  AlertTriangle, 
-  Clock, 
-  TrendingUp, 
-  MoreHorizontal,
-  ArrowRight
-} from 'lucide-react';
-import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer 
-} from 'recharts';
-import {
-  CampaignChannelIcon,
-  CampaignMetric,
-  CampaignOwner,
-  CampaignStatusBadge,
-} from '@/components/shared/campaign';
+import { AlertTriangle, CalendarClock, Clock, Rocket, ShieldCheck } from 'lucide-react';
 import { cn } from '@/utils/cn';
-import { getCampaignOperationalMetrics, useCampaigns } from '@/modules/campaigns';
+import { useCampaigns } from '@/modules/campaigns';
+import {
+  CampaignChannelDistribution,
+  CampaignHealthCard,
+  CampaignStatusDistribution,
+  OperationalAlert,
+  OperationalMetricCard,
+  UpcomingCampaignsList,
+} from '@/modules/dashboard';
+import {
+  getCampaignChannelDistribution,
+  getCampaignOperationalMetrics,
+  getCampaignStatusDistribution,
+  getDelayedCampaigns,
+  getUpcomingCampaigns,
+  getUrgentCampaigns,
+} from '@/modules/dashboard/utils';
 import { MOCK_ACTIVITIES } from '@/modules/dashboard/services';
-import type { CampaignChannel } from '@/types/campaign';
-
-const performanceData = [
-  { name: '08:00', value: 30 },
-  { name: '10:00', value: 45 },
-  { name: '12:00', value: 38 },
-  { name: '14:00', value: 65 },
-  { name: '16:00', value: 50 },
-  { name: '18:00', value: 80 },
-  { name: '20:00', value: 40 },
-];
 
 export default function Dashboard() {
   const { campaigns } = useCampaigns();
   const metrics = useMemo(() => getCampaignOperationalMetrics(campaigns), [campaigns]);
-  const channelRows = useMemo(
-    () =>
-      (Object.entries(metrics.byChannel) as Array<[CampaignChannel, number]>).map(([channel, count]) => ({
-        channel,
-        count,
-        progress: metrics.total > 0 ? Math.round((count / metrics.total) * 100) : 0,
-      })),
-    [metrics.byChannel, metrics.total],
+  const statusDistribution = useMemo(() => getCampaignStatusDistribution(campaigns), [campaigns]);
+  const channelDistribution = useMemo(() => getCampaignChannelDistribution(campaigns), [campaigns]);
+  const urgentCampaigns = useMemo(() => getUrgentCampaigns(campaigns), [campaigns]);
+  const delayedCampaigns = useMemo(() => getDelayedCampaigns(campaigns), [campaigns]);
+  const upcomingCampaigns = useMemo(() => getUpcomingCampaigns(campaigns).slice(0, 5), [campaigns]);
+  const qaCampaigns = useMemo(
+    () => campaigns.filter((campaign) => campaign.status === 'qa' || campaign.status === 'approval'),
+    [campaigns],
   );
-  const qaQueue = campaigns
-    .filter((campaign) => campaign.status === 'qa' || campaign.status === 'approval')
-    .slice(0, 4);
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Operations Dashboard</h1>
-          <p className="text-on-surface-variant text-sm mt-1">Real-time oversight for global multi-channel delivery.</p>
+          <p className="text-on-surface-variant text-sm mt-1">
+            Operational intelligence for active CRM campaign delivery.
+          </p>
         </div>
         <div className="flex gap-2">
           <button className="bg-surface-container-high text-on-surface-variant px-3 py-1.5 rounded-lg border border-outline-variant text-xs font-semibold flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
-            All Regions
+            All Squads
           </button>
           <button className="bg-surface-container-high text-on-surface-variant px-3 py-1.5 rounded-lg border border-outline-variant text-xs font-semibold flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
-            Past 24 Hours
+            Live Operation
           </button>
         </div>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {[
-          { label: 'Total Campaigns', value: metrics.total, trend: 'Active operational flow', icon: Rocket, color: 'text-primary', trendClassName: 'text-green-500' },
-          { label: 'QA Campaigns', value: metrics.qa, trend: 'Needs validation', icon: ShieldCheck, color: 'text-secondary', trendClassName: 'text-secondary' },
-          { label: 'Delayed Tasks', value: metrics.delayed, trend: metrics.delayed > 0 ? 'Requires attention' : 'No delays', icon: AlertTriangle, color: 'text-error', border: 'border-error/20', trendClassName: metrics.delayed > 0 ? 'text-error' : 'text-green-500' },
-          { label: 'Urgent Campaigns', value: metrics.urgent, trend: 'Priority queue', icon: Clock, color: 'text-tertiary', border: 'border-tertiary/20', trendClassName: 'text-tertiary' },
-        ].map((stat, i) => (
-          <CampaignMetric
-            key={i}
-            label={stat.label}
-            value={stat.value}
-            trend={stat.trend}
-            icon={stat.icon}
-            colorClassName={stat.color}
-            borderClassName={stat.border}
-            trendClassName={stat.trendClassName}
+        <OperationalMetricCard
+          label="Active Campaigns"
+          value={metrics.active}
+          trend={`${metrics.total} total in workspace`}
+          icon={Rocket}
+          colorClassName="text-primary"
+          trendClassName="text-green-500"
+        />
+        <OperationalMetricCard
+          label="QA Pressure"
+          value={metrics.qa}
+          trend={`${qaCampaigns.length} in validation flow`}
+          icon={ShieldCheck}
+          colorClassName="text-secondary"
+          trendClassName="text-secondary"
+        />
+        <OperationalMetricCard
+          label="Risk Queue"
+          value={metrics.urgent + metrics.delayed}
+          trend={`${metrics.urgent} urgent / ${metrics.delayed} delayed`}
+          icon={AlertTriangle}
+          colorClassName="text-error"
+          borderClassName={metrics.urgent + metrics.delayed > 0 ? 'border-error/20' : undefined}
+          trendClassName={metrics.urgent + metrics.delayed > 0 ? 'text-error' : 'text-green-500'}
+        />
+        <OperationalMetricCard
+          label="Upcoming Sends"
+          value={metrics.upcoming}
+          trend={`${metrics.scheduled} scheduled campaigns`}
+          icon={CalendarClock}
+          colorClassName="text-tertiary"
+          borderClassName="border-tertiary/20"
+          trendClassName="text-tertiary"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-8 min-w-0">
+          <CampaignStatusDistribution items={statusDistribution} />
+        </div>
+        <div className="lg:col-span-4 min-w-0">
+          <CampaignHealthCard health={metrics.health} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-8 min-w-0">
+          <UpcomingCampaignsList campaigns={upcomingCampaigns} />
+        </div>
+        <div className="lg:col-span-4 min-w-0">
+          <OperationalAlert
+            urgentCampaigns={urgentCampaigns}
+            delayedCampaigns={delayedCampaigns}
+            qaCampaigns={qaCampaigns}
           />
-        ))}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Productivity Chart */}
-        <div className="lg:col-span-8 bg-surface-container border border-outline p-6 rounded-md flex flex-col gap-6 shadow-sm">
+        <div className="lg:col-span-4 min-w-0">
+          <CampaignChannelDistribution items={channelDistribution} total={metrics.total} />
+        </div>
+
+        <div className="lg:col-span-8 min-w-0 bg-surface-container border border-outline p-6 rounded-md flex flex-col gap-6 shadow-sm">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-semibold tracking-tight">Team Velocity & Output</h2>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-xs text-on-surface-variant">Deployments</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-secondary" />
-                <span className="text-xs text-on-surface-variant">Avg. Latency</span>
-              </div>
-            </div>
+            <h2 className="text-base font-semibold tracking-tight">Team Activity</h2>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
+              Operational log
+            </span>
           </div>
 
-          <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={performanceData}>
-                <defs>
-                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="100%">
-                    <stop offset="5%" stopColor="#d2bbff" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#d2bbff" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#2a2a2a" />
-                <XAxis 
-                  dataKey="name" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#958da1', fontSize: 10 }}
-                  dy={10}
-                />
-                <YAxis hide />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#1c1b1b', border: '1px solid #4a4455', borderRadius: '8px' }}
-                  itemStyle={{ color: '#d2bbff' }}
-                />
-                <Area 
-                  type="monotone" 
-                  dataKey="value" 
-                  stroke="#d2bbff" 
-                  strokeWidth={2}
-                  fillOpacity={1} 
-                  fill="url(#colorValue)" 
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="grid grid-cols-3 border-t border-outline-variant pt-4">
-            <div>
-              <p className="text-[10px] text-on-surface-variant font-bold uppercase">Peak Hour</p>
-              <p className="text-lg font-bold">14:22 GMT</p>
-            </div>
-            <div>
-              <p className="text-[10px] text-on-surface-variant font-bold uppercase">Error Rate</p>
-              <p className="text-lg font-bold text-green-400">0.02%</p>
-            </div>
-            <div>
-              <p className="text-[10px] text-on-surface-variant font-bold uppercase">Instances</p>
-              <p className="text-lg font-bold">114 Nodes</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Channel Volume */}
-        <div className="lg:col-span-4 bg-surface-container border border-outline p-6 rounded-md flex flex-col gap-6 shadow-sm">
-          <h2 className="text-base font-semibold tracking-tight">Scheduled Volume</h2>
-          <div className="space-y-6">
-            {channelRows.map((channel) => (
-              <div key={channel.channel} className="space-y-2">
-                <div className="flex justify-between items-center text-xs">
-                  <CampaignChannelIcon channel={channel.channel} showLabel />
-                  <span className="text-on-surface-variant font-mono">
-                    {channel.count} / {metrics.total}
-                  </span>
-                </div>
-                <div className="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-primary transition-all duration-500"
-                    style={{ width: `${channel.progress}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-auto p-4 bg-surface-container-low rounded-lg border border-outline-variant">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center shrink-0">
-                <TrendingUp className="text-secondary w-4 h-4" />
-              </div>
-              <div>
-                <p className="text-xs font-bold">High Throughput Alert</p>
-                <p className="text-[11px] text-on-surface-variant mt-1">Email relay approaching quota in US-East-1.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* QA Queue */}
-        <div className="lg:col-span-8 bg-surface-container border border-outline rounded-md overflow-hidden shadow-sm">
-          <div className="px-6 py-4 border-b border-outline flex items-center justify-between bg-surface-container-low/50">
-            <h2 className="text-base font-semibold tracking-tight">QA Approval Queue</h2>
-            <button className="text-primary text-xs font-bold flex items-center gap-1 hover:underline">
-              View All <ArrowRight className="w-3 h-3" />
-            </button>
-          </div>
-          <table className="w-full text-left">
-            <thead className="bg-surface-container-lowest border-b border-outline-variant">
-              <tr>
-                <th className="px-6 py-3 text-[10px] uppercase font-bold text-on-surface-variant">Campaign</th>
-                <th className="px-6 py-3 text-[10px] uppercase font-bold text-on-surface-variant">Status</th>
-                <th className="px-6 py-3 text-[10px] uppercase font-bold text-on-surface-variant">Owner</th>
-                <th className="px-6 py-3 text-[10px] uppercase font-bold text-on-surface-variant">ETA</th>
-                <th className="px-6 py-3 text-[10px] uppercase font-bold text-on-surface-variant"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-outline-variant">
-              {qaQueue.map((camp) => (
-                <tr key={camp.id} className="hover:bg-surface-variant/20 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col">
-                      <span className="text-sm font-bold">{camp.name}</span>
-                      <span className="text-[11px] text-on-surface-variant">{camp.segmentation}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <CampaignStatusBadge status={camp.status} compact />
-                  </td>
-                  <td className="px-6 py-4">
-                    <CampaignOwner owner={camp.owner} compact={false} avatarClassName="w-5 h-5" />
-                  </td>
-                  <td className="px-6 py-4 text-xs font-mono">{camp.sla}</td>
-                  <td className="px-6 py-4 text-right">
-                    <button className="text-on-surface-variant hover:text-on-surface">
-                      <MoreHorizontal className="w-5 h-5" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Activity & Team */}
-        <div className="lg:col-span-4 bg-surface-container border border-outline p-6 rounded-md flex flex-col gap-6 shadow-sm">
-          <h2 className="text-base font-semibold tracking-tight">Team Activity</h2>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {MOCK_ACTIVITIES.map((activity) => (
-              <div key={activity.id} className="flex gap-3">
-                <div className={cn(
-                  "w-2 h-2 rounded-full mt-1.5 shrink-0",
-                  activity.type === 'alert' ? 'bg-error' : 'bg-primary'
-                )} />
+              <div key={activity.id} className="flex gap-3 rounded-md border border-outline-variant bg-surface-container-low/40 p-4">
+                <div
+                  className={cn(
+                    'w-2 h-2 rounded-full mt-1.5 shrink-0',
+                    activity.type === 'alert' ? 'bg-error' : 'bg-primary',
+                  )}
+                />
                 <div className="flex flex-col gap-1">
                   <p className="text-xs text-on-surface-variant leading-relaxed">
                     <span className="text-on-surface font-bold">{activity.user.name || 'System'}</span>
-                    {' '}{activity.action}{' '}
+                    {' '}
+                    {activity.action}
+                    {' '}
                     <span className="text-primary font-medium">{activity.target}</span>
                   </p>
                   <span className="text-[10px] text-on-surface-variant/60">{activity.timestamp}</span>
@@ -263,16 +147,26 @@ export default function Dashboard() {
             ))}
           </div>
 
-          <div className="mt-auto border-t border-outline-variant pt-6">
-            <span className="text-[10px] uppercase font-bold text-on-surface-variant tracking-wider block mb-4">Operations Timeline</span>
+          <div className="border-t border-outline-variant pt-6">
+            <span className="text-[10px] uppercase font-bold text-on-surface-variant tracking-wider block mb-4">
+              Delivery Timeline
+            </span>
             <div className="flex justify-between items-center relative">
               <div className="absolute left-0 right-0 h-px bg-outline-variant top-1.5" />
-              {[0, 1, 2, 3].map((_, i) => (
-                <div key={i} className="flex flex-col items-center gap-2 relative z-10">
-                  <div className={cn("w-3 h-3 rounded-full border-2 border-surface shadow-lg", i === 0 ? 'bg-primary scale-125' : 'bg-surface-container-highest')} />
-                  <span className="text-[9px] font-bold text-on-surface-variant">
-                    {i === 0 ? '09:00' : i === 1 ? '11:00' : i === 2 ? '13:00' : '15:00'}
-                  </span>
+              {[
+                { label: 'Now', active: true },
+                { label: `${metrics.scheduledToday} today`, active: metrics.scheduledToday > 0 },
+                { label: `${metrics.upcoming} upcoming`, active: metrics.upcoming > 0 },
+                { label: `${metrics.completed} done`, active: false },
+              ].map((item) => (
+                <div key={item.label} className="flex flex-col items-center gap-2 relative z-10">
+                  <div
+                    className={cn(
+                      'w-3 h-3 rounded-full border-2 border-surface shadow-lg',
+                      item.active ? 'bg-primary scale-125' : 'bg-surface-container-highest',
+                    )}
+                  />
+                  <span className="text-[9px] font-bold text-on-surface-variant">{item.label}</span>
                 </div>
               ))}
             </div>
