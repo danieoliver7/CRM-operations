@@ -4,14 +4,14 @@ import type { CampaignStatus } from '@/modules/campaigns/types';
 import type { KanbanColumn } from '@/modules/kanban/types';
 
 export const KANBAN_COLUMNS: KanbanColumn[] = [
-  { id: 'Briefing', title: 'Briefing' },
-  { id: 'Copy', title: 'Copy' },
-  { id: 'Approval', title: 'Approval' },
-  { id: 'Development', title: 'Development' },
-  { id: 'QA', title: 'QA' },
-  { id: 'Scheduled', title: 'Scheduled' },
-  { id: 'Sent', title: 'Sent' },
-  { id: 'Completed', title: 'Completed' },
+  { id: 'briefing', title: 'Briefing' },
+  { id: 'copy', title: 'Copy' },
+  { id: 'approval', title: 'Approval' },
+  { id: 'development', title: 'Development' },
+  { id: 'qa', title: 'QA' },
+  { id: 'scheduled', title: 'Scheduled' },
+  { id: 'sent', title: 'Sent' },
+  { id: 'completed', title: 'Completed' },
 ];
 
 export async function getKanbanColumns(): Promise<KanbanColumn[]> {

@@ -13,11 +13,13 @@ import {
   isSameDay
 } from 'date-fns';
 import { cn } from '@/utils/cn';
-import { MOCK_CAMPAIGNS } from '@/modules/campaigns/services';
+import { useCampaigns } from '@/modules/campaigns';
 import { useCalendarMonth } from '@/modules/calendar';
+import { getCampaignPriorityLabel } from '@/types/campaign';
 
 export default function Calendar() {
   const { currentDate, days, nextMonth, previousMonth } = useCalendarMonth();
+  const { campaigns: allCampaigns } = useCampaigns();
 
   return (
     <div className="h-[calc(100vh-140px)] flex flex-col bg-surface-container-lowest/30 rounded-xl border border-outline-variant overflow-hidden">
@@ -111,7 +113,7 @@ export default function Calendar() {
 
           <div className="grid grid-cols-7">
             {days.map((day, i) => {
-              const campaigns = MOCK_CAMPAIGNS.filter(c => isSameDay(new Date(c.dueDate), day));
+              const campaigns = allCampaigns.filter(c => isSameDay(new Date(c.dueDate), day));
               return (
                 <div 
                   key={i} 
@@ -135,23 +137,23 @@ export default function Calendar() {
                         className={cn(
                           "p-2 rounded-lg border-l-4 shadow-lg group cursor-grab active:cursor-grabbing hover:scale-[1.02] transition-all",
                           "bg-surface-container-high/60 backdrop-blur-md",
-                          camp.channel === 'Email' ? 'border-primary' : camp.channel === 'Push' ? 'border-secondary' : 'border-tertiary'
+                          camp.channel === 'email' ? 'border-primary' : camp.channel === 'push' ? 'border-secondary' : 'border-tertiary'
                         )}
                       >
                         <div className="flex justify-between items-start mb-1">
                           <span className={cn(
                             "material-symbols-outlined text-[14px]",
-                            camp.channel === 'Email' ? 'text-primary' : camp.channel === 'Push' ? 'text-secondary' : 'text-tertiary'
+                            camp.channel === 'email' ? 'text-primary' : camp.channel === 'push' ? 'text-secondary' : 'text-tertiary'
                           )}>
-                            {camp.channel === 'Email' ? 'mail' : camp.channel === 'Push' ? 'trending_up' : 'chat'}
+                            {camp.channel === 'email' ? 'mail' : camp.channel === 'push' ? 'trending_up' : 'chat'}
                           </span>
-                          <span className="text-[8px] font-bold opacity-60 uppercase">{camp.priority}</span>
+                          <span className="text-[8px] font-bold opacity-60 uppercase">{getCampaignPriorityLabel(camp.priority)}</span>
                         </div>
                         <h4 className="text-[11px] font-bold truncate text-on-surface">{camp.name}</h4>
                         <div className="flex items-center gap-1 mt-2">
                           <div className={cn(
                             "w-1 h-1 rounded-full",
-                            camp.status === 'QA' ? 'bg-error' : 'bg-green-400'
+                            camp.status === 'qa' ? 'bg-error' : 'bg-green-400'
                           )} />
                           <span className="text-[9px] text-on-surface-variant font-medium">SLA: {camp.sla}</span>
                         </div>

@@ -1,9 +1,11 @@
+import type { CampaignChannel, CampaignPriority, CampaignStatus } from '@/types/campaign';
+
 export interface CampaignFilterShape {
-  channel?: string;
+  channel?: CampaignChannel | '';
   owner?: string;
-  priority?: string;
+  priority?: CampaignPriority | '';
   squad?: string;
-  status?: string;
+  status?: CampaignStatus | '';
 }
 
 export interface UseCampaignFiltersOptions<TCampaign extends CampaignFilterShape> {

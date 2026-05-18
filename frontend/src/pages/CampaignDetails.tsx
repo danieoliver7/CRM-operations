@@ -16,9 +16,15 @@ import {
   MessageSquare,
   PlusCircle
 } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+import { useCampaigns } from '@/modules/campaigns';
 import { cn } from '@/utils/cn';
 
 export default function CampaignDetails() {
+  const { id } = useParams();
+  const { campaigns } = useCampaigns();
+  const campaign = campaigns.find((item) => item.id === id) ?? campaigns[0];
+
   return (
     <div className="space-y-8 pb-32 max-w-[1200px] mx-auto">
       {/* Detail Header */}
@@ -28,7 +34,7 @@ export default function CampaignDetails() {
             <span className="text-[10px] font-black tracking-widest text-primary uppercase">Q4 Expansion • Email</span>
             <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-[10px] font-bold">Active</span>
           </div>
-          <h1 className="text-4xl font-bold tracking-tight">Cyber-Monday Global Launch</h1>
+          <h1 className="text-4xl font-bold tracking-tight">{campaign?.name ?? 'Campaign Details'}</h1>
         </div>
         <div className="flex items-center gap-3">
           <button className="glass px-4 py-2 rounded-lg text-xs font-bold border border-outline-variant hover:bg-surface-container transition-all flex items-center gap-2">
@@ -53,14 +59,15 @@ export default function CampaignDetails() {
               <div className="space-y-6">
                 <div>
                   <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest block mb-1">OBJECTIVE</label>
-                  <p className="text-sm text-on-surface leading-relaxed font-medium">Drive early-access signups for the Alpha platform by targeting active workspace owners with a personalized reward structure.</p>
+                  <p className="text-sm text-on-surface leading-relaxed font-medium">
+                    {campaign?.objective ?? 'Loading campaign objective.'}
+                  </p>
                 </div>
                 <div className="grid grid-cols-2 gap-6">
                   <div>
                     <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest block mb-1">KPI TARGET</label>
                     <div className="flex items-end gap-2">
-                      <span className="text-2xl font-black text-secondary">2.4%</span>
-                      <span className="text-[10px] font-bold text-on-surface-variant mb-1">CTR</span>
+                      <span className="text-2xl font-black text-secondary">{campaign?.metricsTarget?.expectedKpi ?? 'TBD'}</span>
                     </div>
                   </div>
                   <div>
@@ -83,16 +90,18 @@ export default function CampaignDetails() {
               <div className="space-y-4">
                 <div className="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30">
                   <label className="text-[9px] font-black text-outline uppercase tracking-widest block mb-1">SUBJECT LINE</label>
-                  <p className="text-sm italic font-medium">"Exclusive Invite: Shape the future of your workspace {`{first_name}`}..."</p>
+                  <p className="text-sm italic font-medium">"{campaign?.content?.subject ?? 'Subject line pending approval'}"</p>
                 </div>
                 <div className="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30">
                   <label className="text-[9px] font-black text-outline uppercase tracking-widest block mb-1">PRE-HEADER</label>
-                  <p className="text-sm text-on-surface-variant font-medium">Get early access to Linear Alpha features and 3 free months of Enterprise tier.</p>
+                  <p className="text-sm text-on-surface-variant font-medium">
+                    {campaign?.content?.preheader ?? 'Pre-header pending definition.'}
+                  </p>
                 </div>
                 <div className="bg-secondary-container/10 border border-secondary/20 p-4 rounded-xl flex justify-between items-center group cursor-pointer hover:bg-secondary-container/20 transition-all">
                   <div>
                     <label className="text-[9px] font-black text-secondary uppercase tracking-widest block mb-0.5">CALL TO ACTION</label>
-                    <p className="text-lg font-black text-secondary">Claim My Access</p>
+                    <p className="text-lg font-black text-secondary">{campaign?.content?.cta ?? 'Define CTA'}</p>
                   </div>
                   <ExternalLink className="w-5 h-5 text-secondary group-hover:scale-110 transition-transform" />
                 </div>

@@ -14,28 +14,31 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
-import { MOCK_CAMPAIGNS } from '@/modules/campaigns/services';
+import { useCampaigns } from '@/modules/campaigns';
 import { KANBAN_COLUMNS } from '@/modules/kanban';
+import { getCampaignChannelLabel } from '@/types/campaign';
 
 export default function KanbanBoard() {
+  const { campaigns: allCampaigns } = useCampaigns();
+
   return (
     <div className="h-[calc(100vh-100px)] overflow-x-auto no-scrollbar scroll-smooth">
       <div className="flex gap-6 h-full min-w-max pb-8 px-4">
         {KANBAN_COLUMNS.map((column) => {
-          const campaigns = MOCK_CAMPAIGNS.filter((campaign) => campaign.status === column.id);
+          const campaigns = allCampaigns.filter((campaign) => campaign.status === column.id);
           return (
             <div key={column.id} className="w-[240px] flex flex-col h-full space-y-4">
               <div className="flex items-center justify-between px-1">
                 <div className="flex items-center space-x-2">
                   <span className={cn(
                     "w-2.5 h-2.5 rounded-full",
-                    column.id === 'Briefing' ? 'bg-gray-600' : 
-                    column.id === 'Copy' ? 'bg-blue-500' : 
-                    column.id === 'Approval' ? 'bg-yellow-500' : 
-                    column.id === 'Development' ? 'bg-indigo-500' :
-                    column.id === 'QA' ? 'bg-indigo-500' :
-                    column.id === 'Scheduled' ? 'bg-green-500' :
-                    column.id === 'Sent' ? 'bg-primary' : 'bg-green-500'
+                    column.id === 'briefing' ? 'bg-gray-600' : 
+                    column.id === 'copy' ? 'bg-blue-500' : 
+                    column.id === 'approval' ? 'bg-yellow-500' : 
+                    column.id === 'development' ? 'bg-indigo-500' :
+                    column.id === 'qa' ? 'bg-indigo-500' :
+                    column.id === 'scheduled' ? 'bg-green-500' :
+                    column.id === 'sent' ? 'bg-primary' : 'bg-green-500'
                   )}></span>
                   <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">{column.title}</span>
                   <span className="text-[10px] bg-surface-container-high px-2 py-0.5 rounded text-on-surface-variant font-medium">
@@ -60,13 +63,13 @@ export default function KanbanBoard() {
                     <div className="flex justify-between items-start">
                       <span className={cn(
                         "text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider",
-                        camp.channel === 'Email' ? 'bg-primary/20 text-on-primary-container' : 
-                        camp.channel === 'Push' ? 'bg-tertiary/20 text-tertiary' : 
+                        camp.channel === 'email' ? 'bg-primary/20 text-on-primary-container' : 
+                        camp.channel === 'push' ? 'bg-tertiary/20 text-tertiary' : 
                         'bg-secondary/20 text-secondary'
                       )}>
-                        {camp.channel}
+                        {getCampaignChannelLabel(camp.channel)}
                       </span>
-                      {camp.priority === 'Urgent' && <span className="text-[10px] text-error font-medium">P1</span>}
+                      {camp.priority === 'urgent' && <span className="text-[10px] text-error font-medium">P1</span>}
                     </div>
 
                     <h4 className="text-xs font-semibold text-on-surface">{camp.name}</h4>

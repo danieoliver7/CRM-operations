@@ -22,7 +22,7 @@ import {
   ResponsiveContainer 
 } from 'recharts';
 import { cn } from '@/utils/cn';
-import { MOCK_CAMPAIGNS } from '@/modules/campaigns/services';
+import { useCampaigns } from '@/modules/campaigns';
 import { MOCK_ACTIVITIES } from '@/modules/dashboard/services';
 
 const performanceData = [
@@ -36,6 +36,8 @@ const performanceData = [
 ];
 
 export default function Dashboard() {
+  const { campaigns } = useCampaigns();
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-end">
@@ -204,7 +206,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant">
-              {MOCK_CAMPAIGNS.slice(0, 2).map((camp) => (
+              {campaigns.slice(0, 2).map((camp) => (
                 <tr key={camp.id} className="hover:bg-surface-variant/20 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex flex-col">
@@ -215,9 +217,9 @@ export default function Dashboard() {
                   <td className="px-6 py-4">
                     <span className={cn(
                       "px-2 py-0.5 rounded text-[10px] font-bold border",
-                      camp.status === 'QA' ? 'bg-primary/10 text-primary border-primary/20' : 'bg-tertiary/10 text-tertiary border-tertiary/20'
+                      camp.status === 'qa' ? 'bg-primary/10 text-primary border-primary/20' : 'bg-tertiary/10 text-tertiary border-tertiary/20'
                     )}>
-                      {camp.status === 'QA' ? 'QA Review' : 'Stakeholder'}
+                      {camp.status === 'qa' ? 'QA Review' : 'Stakeholder'}
                     </span>
                   </td>
                   <td className="px-6 py-4">

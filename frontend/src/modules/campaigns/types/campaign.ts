@@ -1,39 +1,21 @@
-import type { EntityId } from '@/types';
+export type {
+  Campaign,
+  CampaignChannel,
+  CampaignContent,
+  CampaignMetricsTarget,
+  CampaignOwner,
+  CampaignPriority,
+  CampaignStatus,
+} from '@/types/campaign';
 
-export type CampaignStatus =
-  | 'Briefing'
-  | 'Copy'
-  | 'Approval'
-  | 'Development'
-  | 'QA'
-  | 'Scheduled'
-  | 'Sent'
-  | 'Completed';
-
-export type CampaignChannel = 'Email' | 'Push' | 'WhatsApp' | 'SMS' | 'InApp' | 'Web Push';
-
-export type CampaignPriority = 'Urgent' | 'High' | 'Medium' | 'Low';
-
-export interface CampaignOwner {
-  name: string;
-  avatar: string;
-}
-
-export interface Campaign {
-  id: EntityId;
-  name: string;
-  status: CampaignStatus;
-  channel: CampaignChannel;
-  priority: CampaignPriority;
-  owner: CampaignOwner;
-  dueDate: string;
-  progress: number;
-  sla: string;
-  subject?: string;
-  preheader?: string;
-  cta?: string;
-  segmentation?: string;
-  objective?: string;
-  expectedKpi?: string;
-  squad?: string;
-}
+export {
+  CAMPAIGN_CHANNEL_LABELS,
+  CAMPAIGN_CHANNELS,
+  CAMPAIGN_PRIORITIES,
+  CAMPAIGN_PRIORITY_LABELS,
+  CAMPAIGN_STATUS_LABELS,
+  CAMPAIGN_STATUSES,
+  getCampaignChannelLabel,
+  getCampaignPriorityLabel,
+  getCampaignStatusLabel,
+} from '@/types/campaign';
