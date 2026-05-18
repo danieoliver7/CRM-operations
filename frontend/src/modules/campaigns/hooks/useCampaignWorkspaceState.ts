@@ -1,5 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useCampaignsStore } from '@/stores';
+import {
+  getCampaignWorkflowActions,
+  getNextStatus,
+  type CampaignWorkflowAction,
+} from '@/modules/campaigns/utils';
 import type { Campaign, CampaignPriority, CampaignStatus } from '@/types/campaign';
 
 export interface CampaignWorkspaceActivity {
@@ -16,28 +21,26 @@ export interface CampaignChecklistItem {
   done: boolean;
 }
 
-const statusFlow: CampaignStatus[] = [
-  'briefing',
-  'copy',
-  'approval',
-  'development',
-  'qa',
-  'scheduled',
-  'sent',
-  'completed',
-];
-
 function getInitialChecklist(campaign: Campaign): CampaignChecklistItem[] {
-  const currentIndex = statusFlow.indexOf(campaign.status);
-  const isAfter = (status: CampaignStatus) => currentIndex === -1 || currentIndex > statusFlow.indexOf(status);
+  const completedByStatus: Record<CampaignStatus, string[]> = {
+    briefing: [],
+    copy: ['briefing-completed'],
+    approval: ['briefing-completed', 'copy-approved'],
+    development: ['briefing-completed', 'copy-approved'],
+    qa: ['briefing-completed', 'copy-approved', 'assets-uploaded'],
+    scheduled: ['briefing-completed', 'copy-approved', 'assets-uploaded', 'qa-completed', 'scheduled'],
+    sent: ['briefing-completed', 'copy-approved', 'assets-uploaded', 'qa-completed', 'final-validation', 'scheduled'],
+    completed: ['briefing-completed', 'copy-approved', 'assets-uploaded', 'qa-completed', 'final-validation', 'scheduled'],
+  };
+  const completedItems = completedByStatus[campaign.status];
 
   return [
-    { id: 'briefing-completed', label: 'Briefing completed', done: isAfter('briefing') },
-    { id: 'copy-approved', label: 'Copy approved', done: isAfter('copy') },
-    { id: 'assets-uploaded', label: 'Assets uploaded', done: campaign.progress >= 50 },
-    { id: 'qa-completed', label: 'QA completed', done: isAfter('qa') || campaign.status === 'scheduled' },
-    { id: 'final-validation', label: 'Final validation', done: campaign.status === 'sent' || campaign.status === 'completed' },
-    { id: 'scheduled', label: 'Scheduled', done: ['scheduled', 'sent', 'completed'].includes(campaign.status) },
+    { id: 'briefing-completed', label: 'Briefing completed', done: completedItems.includes('briefing-completed') },
+    { id: 'copy-approved', label: 'Copy approved', done: completedItems.includes('copy-approved') },
+    { id: 'assets-uploaded', label: 'Assets uploaded', done: completedItems.includes('assets-uploaded') || campaign.progress >= 50 },
+    { id: 'qa-completed', label: 'QA completed', done: completedItems.includes('qa-completed') },
+    { id: 'final-validation', label: 'Final validation', done: completedItems.includes('final-validation') },
+    { id: 'scheduled', label: 'Scheduled', done: completedItems.includes('scheduled') },
   ];
 }
 
@@ -65,11 +68,6 @@ function getInitialActivities(campaign: Campaign): CampaignWorkspaceActivity[] {
       avatar: 'https://i.pravatar.cc/150?u=crm-strategy',
     },
   ];
-}
-
-function getNextStatus(status: CampaignStatus): CampaignStatus | undefined {
-  const index = statusFlow.indexOf(status);
-  return statusFlow[index + 1];
 }
 
 export function useCampaignWorkspaceState(initialCampaign: Campaign) {
@@ -111,17 +109,30 @@ export function useCampaignWorkspaceState(initialCampaign: Campaign) {
     showFeedback(`Campaign moved to ${status}`);
   }
 
-  function moveToNextStatus() {
-    const nextStatus = getNextStatus(campaign.status);
-    if (!nextStatus) return;
-
-    moveToStatus(nextStatus);
-  }
-
   function updatePriority(priority: CampaignPriority) {
     updateCampaignPriority(campaign.id, priority);
     pushActivity(`changed priority to ${priority}.`);
     showFeedback(`Priority updated to ${priority}`);
+  }
+
+  function executeWorkflowAction(action: CampaignWorkflowAction) {
+    if (action.targetStatus) {
+      updateCampaignStatus(campaign.id, action.targetStatus);
+      const derivedChecklist = getInitialChecklist({ ...campaign, status: action.targetStatus });
+      setChecklistItems((current) =>
+        current.map((item) => ({
+          ...item,
+          done: item.done || Boolean(derivedChecklist.find((derivedItem) => derivedItem.id === item.id)?.done),
+        })),
+      );
+    }
+
+    if (action.id === 'flag_qa_issue') {
+      updateCampaignPriority(campaign.id, 'urgent');
+    }
+
+    pushActivity(action.activity);
+    showFeedback(action.feedback);
   }
 
   function toggleChecklistItem(itemId: string) {
@@ -141,16 +152,18 @@ export function useCampaignWorkspaceState(initialCampaign: Campaign) {
   }
 
   const nextStatus = useMemo(() => getNextStatus(campaign.status), [campaign.status]);
+  const workflowActions = useMemo(() => getCampaignWorkflowActions(campaign), [campaign]);
 
   return {
     activities,
     campaign,
     checklistItems,
     feedback,
-    moveToNextStatus,
+    executeWorkflowAction,
     moveToStatus,
     nextStatus,
     toggleChecklistItem,
     updatePriority,
+    workflowActions,
   };
 }

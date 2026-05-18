@@ -47,12 +47,11 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
     activities,
     campaign,
     checklistItems,
+    executeWorkflowAction,
     feedback,
-    moveToNextStatus,
-    moveToStatus,
-    nextStatus,
     toggleChecklistItem,
     updatePriority,
+    workflowActions,
   } = useCampaignWorkspaceState(sourceCampaign);
 
   return (
@@ -167,11 +166,9 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
 
         <aside className="lg:col-span-4 flex flex-col gap-6 min-w-0">
           <CampaignQuickActions
-            currentStatus={campaign.status}
             currentPriority={campaign.priority}
-            nextStatus={nextStatus}
-            onMoveToNextStatus={moveToNextStatus}
-            onMoveToStatus={moveToStatus}
+            actions={workflowActions}
+            onAction={executeWorkflowAction}
             onPriorityChange={updatePriority}
           />
           <CampaignNextActions campaign={campaign} />
