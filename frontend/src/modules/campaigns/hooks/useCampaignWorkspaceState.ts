@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useCampaignsStore } from '@/stores';
 import type { Campaign, CampaignPriority, CampaignStatus } from '@/types/campaign';
 
 export interface CampaignWorkspaceActivity {
@@ -72,10 +73,12 @@ function getNextStatus(status: CampaignStatus): CampaignStatus | undefined {
 }
 
 export function useCampaignWorkspaceState(initialCampaign: Campaign) {
-  const [campaign, setCampaign] = useState(initialCampaign);
   const [checklistItems, setChecklistItems] = useState(() => getInitialChecklist(initialCampaign));
   const [activities, setActivities] = useState(() => getInitialActivities(initialCampaign));
   const [feedback, setFeedback] = useState<string | null>(null);
+  const updateCampaignStatus = useCampaignsStore((state) => state.updateCampaignStatus);
+  const updateCampaignPriority = useCampaignsStore((state) => state.updateCampaignPriority);
+  const campaign = initialCampaign;
 
   function pushActivity(text: string) {
     setActivities((current) => [
@@ -96,7 +99,14 @@ export function useCampaignWorkspaceState(initialCampaign: Campaign) {
   }
 
   function moveToStatus(status: CampaignStatus) {
-    setCampaign((current) => ({ ...current, status }));
+    updateCampaignStatus(campaign.id, status);
+    const derivedChecklist = getInitialChecklist({ ...campaign, status });
+    setChecklistItems((current) =>
+      current.map((item) => ({
+        ...item,
+        done: item.done || Boolean(derivedChecklist.find((derivedItem) => derivedItem.id === item.id)?.done),
+      })),
+    );
     pushActivity(`moved campaign to ${status}.`);
     showFeedback(`Campaign moved to ${status}`);
   }
@@ -109,7 +119,7 @@ export function useCampaignWorkspaceState(initialCampaign: Campaign) {
   }
 
   function updatePriority(priority: CampaignPriority) {
-    setCampaign((current) => ({ ...current, priority }));
+    updateCampaignPriority(campaign.id, priority);
     pushActivity(`changed priority to ${priority}.`);
     showFeedback(`Priority updated to ${priority}`);
   }
