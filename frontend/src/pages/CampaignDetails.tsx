@@ -5,22 +5,25 @@ import {
   CampaignAttachments,
   CampaignChecklist,
   CampaignNextActions,
+  CampaignQuickActions,
   CampaignSquadPanel,
   CampaignTimeline,
   CampaignWorkspaceHeader,
+  CampaignWorkspaceToast,
   useCampaigns,
+  useCampaignWorkspaceState,
 } from '@/modules/campaigns';
 
 export default function CampaignDetails() {
   const { id } = useParams();
   const { campaigns, isLoading } = useCampaigns();
-  const campaign = campaigns.find((item) => item.id === id);
+  const sourceCampaign = campaigns.find((item) => item.id === id);
 
   if (isLoading) {
     return <div className="text-sm text-on-surface-variant">Loading campaign context...</div>;
   }
 
-  if (!campaign) {
+  if (!sourceCampaign) {
     return (
       <div className="space-y-4">
         <Link to="/campaigns" className="text-primary text-xs font-bold hover:underline">
@@ -36,8 +39,25 @@ export default function CampaignDetails() {
     );
   }
 
+  return <CampaignWorkspace campaign={sourceCampaign} />;
+}
+
+function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable<ReturnType<typeof useCampaigns>['campaigns'][number]> }) {
+  const {
+    activities,
+    campaign,
+    checklistItems,
+    feedback,
+    moveToNextStatus,
+    moveToStatus,
+    nextStatus,
+    toggleChecklistItem,
+    updatePriority,
+  } = useCampaignWorkspaceState(sourceCampaign);
+
   return (
     <div className="space-y-6 pb-20 max-w-[1200px] mx-auto">
+      <CampaignWorkspaceToast message={feedback} />
       <CampaignWorkspaceHeader campaign={campaign} />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -146,10 +166,18 @@ export default function CampaignDetails() {
         </div>
 
         <aside className="lg:col-span-4 flex flex-col gap-6 min-w-0">
+          <CampaignQuickActions
+            currentStatus={campaign.status}
+            currentPriority={campaign.priority}
+            nextStatus={nextStatus}
+            onMoveToNextStatus={moveToNextStatus}
+            onMoveToStatus={moveToStatus}
+            onPriorityChange={updatePriority}
+          />
           <CampaignNextActions campaign={campaign} />
-          <CampaignChecklist campaign={campaign} />
+          <CampaignChecklist items={checklistItems} onToggleItem={toggleChecklistItem} />
           <CampaignSquadPanel campaign={campaign} />
-          <CampaignActivityFeed campaign={campaign} />
+          <CampaignActivityFeed activities={activities} />
         </aside>
       </div>
     </div>
