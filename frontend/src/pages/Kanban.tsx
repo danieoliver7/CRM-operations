@@ -1,22 +1,17 @@
-import React from 'react';
 import { 
-  MoreHorizontal, 
   Plus, 
-  CheckCircle, 
-  Clock, 
-  AlertCircle,
-  FileText,
-  Mail,
-  Video,
-  User,
-  MoreVertical,
   Paperclip,
   MessageCircle
 } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import {
+  CampaignChannelIcon,
+  CampaignOwner,
+  CampaignPriorityBadge,
+  CampaignProgress,
+  CAMPAIGN_STATUS_STYLES,
+} from '@/components/shared/campaign';
 import { useCampaigns } from '@/modules/campaigns';
 import { KANBAN_COLUMNS } from '@/modules/kanban';
-import { getCampaignChannelLabel } from '@/types/campaign';
 
 export default function KanbanBoard() {
   const { campaigns: allCampaigns } = useCampaigns();
@@ -30,16 +25,7 @@ export default function KanbanBoard() {
             <div key={column.id} className="w-[240px] flex flex-col h-full space-y-4">
               <div className="flex items-center justify-between px-1">
                 <div className="flex items-center space-x-2">
-                  <span className={cn(
-                    "w-2.5 h-2.5 rounded-full",
-                    column.id === 'briefing' ? 'bg-gray-600' : 
-                    column.id === 'copy' ? 'bg-blue-500' : 
-                    column.id === 'approval' ? 'bg-yellow-500' : 
-                    column.id === 'development' ? 'bg-indigo-500' :
-                    column.id === 'qa' ? 'bg-indigo-500' :
-                    column.id === 'scheduled' ? 'bg-green-500' :
-                    column.id === 'sent' ? 'bg-primary' : 'bg-green-500'
-                  )}></span>
+                  <span className={`w-2.5 h-2.5 rounded-full ${CAMPAIGN_STATUS_STYLES[column.id].dotClassName}`}></span>
                   <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">{column.title}</span>
                   <span className="text-[10px] bg-surface-container-high px-2 py-0.5 rounded text-on-surface-variant font-medium">
                     {campaigns.length}
@@ -61,15 +47,14 @@ export default function KanbanBoard() {
                     className="bg-surface-container border border-outline rounded-md p-3 space-y-3 hover:border-gray-600 transition-all cursor-pointer group shadow-lg relative overflow-hidden"
                   >
                     <div className="flex justify-between items-start">
-                      <span className={cn(
-                        "text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider",
-                        camp.channel === 'email' ? 'bg-primary/20 text-on-primary-container' : 
-                        camp.channel === 'push' ? 'bg-tertiary/20 text-tertiary' : 
-                        'bg-secondary/20 text-secondary'
-                      )}>
-                        {getCampaignChannelLabel(camp.channel)}
-                      </span>
-                      {camp.priority === 'urgent' && <span className="text-[10px] text-error font-medium">P1</span>}
+                      <CampaignChannelIcon
+                        channel={camp.channel}
+                        showLabel
+                        variant="badge"
+                      />
+                      {camp.priority === 'urgent' && (
+                        <CampaignPriorityBadge priority={camp.priority} shortLabel className="border-transparent bg-transparent px-0" />
+                      )}
                     </div>
 
                     <h4 className="text-xs font-semibold text-on-surface">{camp.name}</h4>
@@ -78,17 +63,9 @@ export default function KanbanBoard() {
                     </p>
 
                     <div className="flex items-center justify-between pt-1">
-                      <div className="flex items-center space-x-2 flex-1 mr-4">
-                        <div className="w-full h-1 bg-outline rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-primary transition-all duration-1000"
-                            style={{ width: `${camp.progress}%` }}
-                          />
-                        </div>
-                        <span className="text-[9px] text-on-surface-variant">{Math.round(camp.progress)}%</span>
-                      </div>
+                      <CampaignProgress value={camp.progress} showValue className="mr-4" />
                       <div className="flex items-center -space-x-1">
-                        <img src={camp.owner.avatar} className="w-5 h-5 rounded-full border border-surface shadow-sm" alt="" />
+                        <CampaignOwner owner={camp.owner} compact avatarClassName="border-surface shadow-sm" />
                       </div>
                     </div>
 

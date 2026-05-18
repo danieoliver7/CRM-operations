@@ -1,14 +1,10 @@
-import React from 'react';
+import { useMemo } from 'react';
 import { 
   Rocket, 
   ShieldCheck, 
   AlertTriangle, 
   Clock, 
   TrendingUp, 
-  Mail, 
-  MessageSquare,
-  ChevronLeft,
-  ChevronRight,
   MoreHorizontal,
   ArrowRight
 } from 'lucide-react';
@@ -21,9 +17,16 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
+import {
+  CampaignChannelIcon,
+  CampaignMetric,
+  CampaignOwner,
+  CampaignStatusBadge,
+} from '@/components/shared/campaign';
 import { cn } from '@/utils/cn';
-import { useCampaigns } from '@/modules/campaigns';
+import { getCampaignOperationalMetrics, useCampaigns } from '@/modules/campaigns';
 import { MOCK_ACTIVITIES } from '@/modules/dashboard/services';
+import type { CampaignChannel } from '@/types/campaign';
 
 const performanceData = [
   { name: '08:00', value: 30 },
@@ -37,6 +40,19 @@ const performanceData = [
 
 export default function Dashboard() {
   const { campaigns } = useCampaigns();
+  const metrics = useMemo(() => getCampaignOperationalMetrics(campaigns), [campaigns]);
+  const channelRows = useMemo(
+    () =>
+      (Object.entries(metrics.byChannel) as Array<[CampaignChannel, number]>).map(([channel, count]) => ({
+        channel,
+        count,
+        progress: metrics.total > 0 ? Math.round((count / metrics.total) * 100) : 0,
+      })),
+    [metrics.byChannel, metrics.total],
+  );
+  const qaQueue = campaigns
+    .filter((campaign) => campaign.status === 'qa' || campaign.status === 'approval')
+    .slice(0, 4);
 
   return (
     <div className="space-y-6">
@@ -58,23 +74,21 @@ export default function Dashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Campaigns', value: '1,284', trend: '+12% vs LY', icon: Rocket, color: 'text-primary' },
-          { label: 'SLA Adherence', value: '99.2%', trend: '+0.4% stability', icon: ShieldCheck, color: 'text-secondary' },
-          { label: 'Overdue Tasks', value: '14', trend: 'Requires Attention', icon: AlertTriangle, color: 'text-error', border: 'border-error/20' },
-          { label: 'Pending Approval', value: '28', trend: 'Awaiting Stakeholder', icon: Clock, color: 'text-tertiary', border: 'border-tertiary/20' },
+          { label: 'Total Campaigns', value: metrics.total, trend: 'Active operational flow', icon: Rocket, color: 'text-primary', trendClassName: 'text-green-500' },
+          { label: 'QA Campaigns', value: metrics.qa, trend: 'Needs validation', icon: ShieldCheck, color: 'text-secondary', trendClassName: 'text-secondary' },
+          { label: 'Delayed Tasks', value: metrics.delayed, trend: metrics.delayed > 0 ? 'Requires attention' : 'No delays', icon: AlertTriangle, color: 'text-error', border: 'border-error/20', trendClassName: metrics.delayed > 0 ? 'text-error' : 'text-green-500' },
+          { label: 'Urgent Campaigns', value: metrics.urgent, trend: 'Priority queue', icon: Clock, color: 'text-tertiary', border: 'border-tertiary/20', trendClassName: 'text-tertiary' },
         ].map((stat, i) => (
-          <div key={i} className={cn("bg-surface-container border border-outline p-4 rounded-md flex flex-col justify-between shadow-sm", stat.border)}>
-            <div className="flex items-start justify-between">
-              <span className="text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">{stat.label}</span>
-              <stat.icon className={cn("w-4 h-4", stat.color)} />
-            </div>
-            <div className="mt-4">
-              <span className="text-2xl font-bold text-on-surface">{stat.value}</span>
-              <p className={cn("text-[10px] mt-1 font-bold", i === 2 ? 'text-error' : i === 3 ? 'text-tertiary' : 'text-green-500')}>
-                {stat.trend}
-              </p>
-            </div>
-          </div>
+          <CampaignMetric
+            key={i}
+            label={stat.label}
+            value={stat.value}
+            trend={stat.trend}
+            icon={stat.icon}
+            colorClassName={stat.color}
+            borderClassName={stat.border}
+            trendClassName={stat.trendClassName}
+          />
         ))}
       </div>
 
@@ -149,22 +163,17 @@ export default function Dashboard() {
         <div className="lg:col-span-4 bg-surface-container border border-outline p-6 rounded-md flex flex-col gap-6 shadow-sm">
           <h2 className="text-base font-semibold tracking-tight">Scheduled Volume</h2>
           <div className="space-y-6">
-            {[
-              { label: 'Email', current: '4.2M', total: '5M', progress: 84, icon: Mail, color: 'text-primary' },
-              { label: 'Push', current: '1.8M', total: '2M', progress: 90, icon: TrendingUp, color: 'text-secondary' },
-              { label: 'WhatsApp', current: '850K', total: '1M', progress: 85, icon: MessageSquare, color: 'text-tertiary' },
-            ].map((channel, i) => (
-              <div key={i} className="space-y-2">
+            {channelRows.map((channel) => (
+              <div key={channel.channel} className="space-y-2">
                 <div className="flex justify-between items-center text-xs">
-                  <div className="flex items-center gap-2">
-                    <channel.icon className={cn("w-4 h-4", channel.color)} />
-                    <span className="font-semibold">{channel.label}</span>
-                  </div>
-                  <span className="text-on-surface-variant font-mono">{channel.current} / {channel.total}</span>
+                  <CampaignChannelIcon channel={channel.channel} showLabel />
+                  <span className="text-on-surface-variant font-mono">
+                    {channel.count} / {metrics.total}
+                  </span>
                 </div>
                 <div className="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
                   <div 
-                    className={cn("h-full transition-all duration-500", channel.color.replace('text-', 'bg-'))}
+                    className="h-full bg-primary transition-all duration-500"
                     style={{ width: `${channel.progress}%` }}
                   />
                 </div>
@@ -206,7 +215,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant">
-              {campaigns.slice(0, 2).map((camp) => (
+              {qaQueue.map((camp) => (
                 <tr key={camp.id} className="hover:bg-surface-variant/20 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex flex-col">
@@ -215,18 +224,10 @@ export default function Dashboard() {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className={cn(
-                      "px-2 py-0.5 rounded text-[10px] font-bold border",
-                      camp.status === 'qa' ? 'bg-primary/10 text-primary border-primary/20' : 'bg-tertiary/10 text-tertiary border-tertiary/20'
-                    )}>
-                      {camp.status === 'qa' ? 'QA Review' : 'Stakeholder'}
-                    </span>
+                    <CampaignStatusBadge status={camp.status} compact />
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      <img src={camp.owner.avatar} className="w-5 h-5 rounded-full" alt="" />
-                      <span className="text-xs text-on-surface-variant">{camp.owner.name}</span>
-                    </div>
+                    <CampaignOwner owner={camp.owner} compact={false} avatarClassName="w-5 h-5" />
                   </td>
                   <td className="px-6 py-4 text-xs font-mono">{camp.sla}</td>
                   <td className="px-6 py-4 text-right">

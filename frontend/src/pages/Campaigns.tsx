@@ -1,20 +1,17 @@
 import {
   Filter,
-  Mail,
-  MessageSquare,
   MoreHorizontal,
   Plus,
   Search,
-  TrendingUp,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useCampaigns } from '@/modules/campaigns';
 import {
-  getCampaignChannelLabel,
-  getCampaignPriorityLabel,
-  getCampaignStatusLabel,
-} from '@/types/campaign';
-import { cn } from '@/utils/cn';
+  CampaignChannelIcon,
+  CampaignOwner,
+  CampaignPriorityBadge,
+  CampaignStatusBadge,
+} from '@/components/shared/campaign';
+import { useCampaigns } from '@/modules/campaigns';
 
 export default function Campaigns() {
   const { campaigns } = useCampaigns();
@@ -77,57 +74,20 @@ export default function Campaigns() {
                   </Link>
                 </td>
                 <td className="px-6 py-5">
-                  <div className="flex items-center gap-2">
-                    {camp.channel === 'email' ? (
-                      <Mail className="w-4 h-4 text-primary" />
-                    ) : camp.channel === 'push' ? (
-                      <TrendingUp className="w-4 h-4 text-secondary" />
-                    ) : (
-                      <MessageSquare className="w-4 h-4 text-tertiary" />
-                    )}
-                    <span className="text-xs font-bold">{getCampaignChannelLabel(camp.channel)}</span>
-                  </div>
+                  <CampaignChannelIcon channel={camp.channel} showLabel />
                 </td>
                 <td className="px-6 py-5">
-                  <span
-                    className={cn(
-                      'px-2 py-0.5 rounded text-[9px] font-black border uppercase tracking-tighter',
-                      camp.priority === 'urgent'
-                        ? 'bg-error/10 text-error border-error/20'
-                        : camp.priority === 'high'
-                          ? 'bg-orange-500/10 text-orange-400 border-orange-500/20'
-                          : 'bg-outline-variant/10 text-on-surface-variant border-outline-variant/20',
-                    )}
-                  >
-                    {getCampaignPriorityLabel(camp.priority)}
-                  </span>
+                  <CampaignPriorityBadge priority={camp.priority} />
                 </td>
                 <td className="px-6 py-5">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={camp.owner.avatar}
-                      className="w-7 h-7 rounded-full grayscale group-hover:grayscale-0 transition-all border border-outline-variant/30"
-                      alt=""
-                    />
-                    <span className="text-xs font-medium text-on-surface-variant group-hover:text-on-surface">
-                      {camp.owner.name}
-                    </span>
-                  </div>
+                  <CampaignOwner
+                    owner={camp.owner}
+                    className="gap-3"
+                    avatarClassName="grayscale group-hover:grayscale-0 transition-all"
+                  />
                 </td>
                 <td className="px-6 py-5">
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={cn(
-                        'w-1.5 h-1.5 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.1)]',
-                        camp.status === 'qa'
-                          ? 'bg-primary'
-                          : camp.status === 'approval'
-                            ? 'bg-tertiary'
-                            : 'bg-outline',
-                      )}
-                    />
-                    <span className="text-xs font-bold opacity-80">{getCampaignStatusLabel(camp.status)}</span>
-                  </div>
+                  <CampaignStatusBadge status={camp.status} className="tracking-normal normal-case" />
                 </td>
                 <td className="px-6 py-5 text-right">
                   <button className="text-on-surface-variant hover:text-on-surface transition-colors p-1.5 rounded-lg border border-transparent hover:border-outline-variant/30">

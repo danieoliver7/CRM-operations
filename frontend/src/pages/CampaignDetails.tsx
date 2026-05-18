@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   ArrowLeft, 
   History, 
@@ -17,8 +16,11 @@ import {
   PlusCircle
 } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import {
+  CampaignChannelIcon,
+  CampaignStatusBadge,
+} from '@/components/shared/campaign';
 import { useCampaigns } from '@/modules/campaigns';
-import { cn } from '@/utils/cn';
 
 export default function CampaignDetails() {
   const { id } = useParams();
@@ -31,8 +33,11 @@ export default function CampaignDetails() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-[10px] font-black tracking-widest text-primary uppercase">Q4 Expansion • Email</span>
-            <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-[10px] font-bold">Active</span>
+            <span className="text-[10px] font-black tracking-widest text-primary uppercase flex items-center gap-2">
+              {campaign?.squad ?? 'Campaign'}
+              {campaign && <CampaignChannelIcon channel={campaign.channel} showLabel />}
+            </span>
+            {campaign && <CampaignStatusBadge status={campaign.status} className="rounded-full" />}
           </div>
           <h1 className="text-4xl font-bold tracking-tight">{campaign?.name ?? 'Campaign Details'}</h1>
         </div>
@@ -256,7 +261,7 @@ export default function CampaignDetails() {
           <div className="flex gap-3">
             <img src="https://i.pravatar.cc/150?u=collab1" className="w-8 h-8 rounded-full shadow-sm" alt="" />
             <div className="space-y-1">
-              <span className="text-[11px] font-black text-primary uppercase">@ElenaSoros • 12m ago</span>
+              <span className="text-[11px] font-black text-primary uppercase">@ElenaSoros - 12m ago</span>
               <p className="text-xs text-on-surface bg-surface-container-high p-3 rounded-2xl rounded-tl-none leading-relaxed shadow-sm">
                 Can we double check the merge tag for {`{first_name}`}? <span className="text-secondary font-bold">@JordanKox</span> please confirm in Braze production node.
               </p>
@@ -265,7 +270,7 @@ export default function CampaignDetails() {
           <div className="flex gap-3">
             <img src="https://i.pravatar.cc/150?u=collab2" className="w-8 h-8 rounded-full shadow-sm" alt="" />
             <div className="space-y-1">
-              <span className="text-[11px] font-black text-on-surface-variant uppercase">Jordan Kox • 5m ago</span>
+              <span className="text-[11px] font-black text-on-surface-variant uppercase">Jordan Kox - 5m ago</span>
               <p className="text-xs text-on-surface bg-surface-container-high p-3 rounded-2xl rounded-tl-none leading-relaxed shadow-sm">
                 Confirmed, Braze validation passed for segment A. Production relay is green.
               </p>
