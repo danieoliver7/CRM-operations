@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { CAMPAIGN_STATUS_STYLES } from '@/components/shared/campaign';
 import type { CampaignDistributionItem } from '@/modules/dashboard/utils';
 import type { CampaignStatus } from '@/types/campaign';
@@ -17,11 +18,13 @@ export function CampaignStatusDistribution({ items }: CampaignStatusDistribution
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((item) => (
-          <div key={item.id} className="space-y-2">
+          <Link key={item.id} to={`/kanban?status=${item.id}`} className="block space-y-2 group">
             <div className="flex justify-between items-center text-xs">
               <div className="flex items-center gap-2">
                 <span className={cn('w-2.5 h-2.5 rounded-full', CAMPAIGN_STATUS_STYLES[item.id].dotClassName)} />
-                <span className="font-bold uppercase tracking-wider text-on-surface-variant">{item.label}</span>
+                <span className="font-bold uppercase tracking-wider text-on-surface-variant group-hover:text-on-surface transition-colors">
+                  {item.label}
+                </span>
               </div>
               <span className="text-on-surface-variant font-mono">{item.count}</span>
             </div>
@@ -31,7 +34,7 @@ export function CampaignStatusDistribution({ items }: CampaignStatusDistribution
                 style={{ width: `${item.percentage}%` }}
               />
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

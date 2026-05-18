@@ -15,31 +15,58 @@ import {
   MessageSquare,
   PlusCircle
 } from 'lucide-react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   CampaignChannelIcon,
+  CampaignOwner,
+  CampaignPriorityBadge,
+  CampaignProgress,
   CampaignStatusBadge,
 } from '@/components/shared/campaign';
 import { useCampaigns } from '@/modules/campaigns';
+import { CAMPAIGN_STATUS_LABELS, CAMPAIGN_STATUSES } from '@/types/campaign';
 
 export default function CampaignDetails() {
   const { id } = useParams();
-  const { campaigns } = useCampaigns();
-  const campaign = campaigns.find((item) => item.id === id) ?? campaigns[0];
+  const { campaigns, isLoading } = useCampaigns();
+  const campaign = campaigns.find((item) => item.id === id);
+
+  if (isLoading) {
+    return <div className="text-sm text-on-surface-variant">Loading campaign context...</div>;
+  }
+
+  if (!campaign) {
+    return (
+      <div className="space-y-4">
+        <Link to="/campaigns" className="text-primary text-xs font-bold hover:underline">
+          Back to campaigns
+        </Link>
+        <div className="glass p-8 rounded-2xl">
+          <h1 className="text-2xl font-bold">Campaign not found</h1>
+          <p className="text-sm text-on-surface-variant mt-2">This campaign id is not available in the current workspace mock.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8 pb-32 max-w-[1200px] mx-auto">
       {/* Detail Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
+          <Link to="/campaigns" className="text-[10px] font-black tracking-widest text-on-surface-variant uppercase flex items-center gap-2 mb-4 hover:text-primary transition-colors">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Campaign inventory
+          </Link>
           <div className="flex items-center gap-3 mb-2">
             <span className="text-[10px] font-black tracking-widest text-primary uppercase flex items-center gap-2">
-              {campaign?.squad ?? 'Campaign'}
-              {campaign && <CampaignChannelIcon channel={campaign.channel} showLabel />}
+              {campaign.squad}
+              <CampaignChannelIcon channel={campaign.channel} showLabel />
             </span>
-            {campaign && <CampaignStatusBadge status={campaign.status} className="rounded-full" />}
+            <CampaignStatusBadge status={campaign.status} className="rounded-full" />
+            <CampaignPriorityBadge priority={campaign.priority} />
           </div>
-          <h1 className="text-4xl font-bold tracking-tight">{campaign?.name ?? 'Campaign Details'}</h1>
+          <h1 className="text-4xl font-bold tracking-tight">{campaign.name}</h1>
         </div>
         <div className="flex items-center gap-3">
           <button className="glass px-4 py-2 rounded-lg text-xs font-bold border border-outline-variant hover:bg-surface-container transition-all flex items-center gap-2">
@@ -72,14 +99,13 @@ export default function CampaignDetails() {
                   <div>
                     <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest block mb-1">KPI TARGET</label>
                     <div className="flex items-end gap-2">
-                      <span className="text-2xl font-black text-secondary">{campaign?.metricsTarget?.expectedKpi ?? 'TBD'}</span>
+                      <span className="text-2xl font-black text-secondary">{campaign.metricsTarget?.expectedKpi ?? 'TBD'}</span>
                     </div>
                   </div>
                   <div>
                     <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest block mb-1">AUDIENCE</label>
                     <div className="flex items-end gap-2">
-                      <span className="text-2xl font-black">45.2k</span>
-                      <span className="text-[10px] font-bold text-on-surface-variant mb-1">Users</span>
+                      <span className="text-base font-black">{campaign.segmentation ?? 'Audience pending'}</span>
                     </div>
                   </div>
                 </div>
@@ -95,18 +121,18 @@ export default function CampaignDetails() {
               <div className="space-y-4">
                 <div className="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30">
                   <label className="text-[9px] font-black text-outline uppercase tracking-widest block mb-1">SUBJECT LINE</label>
-                  <p className="text-sm italic font-medium">"{campaign?.content?.subject ?? 'Subject line pending approval'}"</p>
+                  <p className="text-sm italic font-medium">"{campaign.content?.subject ?? 'Subject line pending approval'}"</p>
                 </div>
                 <div className="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30">
                   <label className="text-[9px] font-black text-outline uppercase tracking-widest block mb-1">PRE-HEADER</label>
                   <p className="text-sm text-on-surface-variant font-medium">
-                    {campaign?.content?.preheader ?? 'Pre-header pending definition.'}
+                    {campaign.content?.preheader ?? 'Pre-header pending definition.'}
                   </p>
                 </div>
                 <div className="bg-secondary-container/10 border border-secondary/20 p-4 rounded-xl flex justify-between items-center group cursor-pointer hover:bg-secondary-container/20 transition-all">
                   <div>
                     <label className="text-[9px] font-black text-secondary uppercase tracking-widest block mb-0.5">CALL TO ACTION</label>
-                    <p className="text-lg font-black text-secondary">{campaign?.content?.cta ?? 'Define CTA'}</p>
+                    <p className="text-lg font-black text-secondary">{campaign.content?.cta ?? 'Define CTA'}</p>
                   </div>
                   <ExternalLink className="w-5 h-5 text-secondary group-hover:scale-110 transition-transform" />
                 </div>
@@ -155,8 +181,8 @@ export default function CampaignDetails() {
                   <Users className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold">Segmentation: Power Users</p>
-                  <p className="text-[11px] text-on-surface-variant font-medium mt-1">Filter: logins {`> `} 30/mo AND plan === {`'enterprise'`}</p>
+                  <p className="text-sm font-bold">Segmentation: {campaign.segmentation ?? 'Pending definition'}</p>
+                  <p className="text-[11px] text-on-surface-variant font-medium mt-1">Squad: {campaign.squad} - Channel: {campaign.channel}</p>
                 </div>
               </div>
               <div className="p-5 bg-surface-container-low rounded-2xl border border-outline-variant/30 flex items-center gap-4 hover:border-secondary/30 transition-all">
@@ -164,8 +190,8 @@ export default function CampaignDetails() {
                   <Zap className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold">A/B Strategy: 50/50 Control</p>
-                  <p className="text-[11px] text-on-surface-variant font-medium mt-1">Variant A: Tech Focus. Variant B: Value Props.</p>
+                  <p className="text-sm font-bold">Operational Target</p>
+                  <p className="text-[11px] text-on-surface-variant font-medium mt-1">{campaign.metricsTarget?.expectedKpi ?? 'Define KPI before launch.'}</p>
                 </div>
               </div>
             </div>
@@ -179,13 +205,14 @@ export default function CampaignDetails() {
               <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest block mb-4">Operational Status</label>
               <div className="relative group">
                 <select
-                  defaultValue="In Production"
+                  defaultValue={campaign.status}
                   className="w-full bg-surface-container-high border border-outline-variant rounded-xl p-3 text-sm font-bold appearance-none outline-none focus:ring-2 focus:ring-primary/50 transition-all cursor-pointer"
                 >
-                  <option>Drafting</option>
-                  <option>Under Review</option>
-                  <option>In Production</option>
-                  <option>Scheduled</option>
+                  {CAMPAIGN_STATUSES.map((status) => (
+                    <option key={status} value={status}>
+                      {CAMPAIGN_STATUS_LABELS[status]}
+                    </option>
+                  ))}
                 </select>
                 <ChevronDown className="absolute right-3 top-3.5 w-4 h-4 text-on-surface-variant group-hover:text-primary transition-colors pointer-events-none" />
               </div>
@@ -194,34 +221,24 @@ export default function CampaignDetails() {
             <div className="space-y-4">
               <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest block">Core Assignees</label>
               <div className="space-y-1">
-                {[
-                  { name: 'Elena Soros', role: 'Creative Lead', master: true },
-                  { name: 'Jordan Kox', role: 'CRM Strategist' }
-                ].map((owner, i) => (
-                  <div key={i} className="flex items-center gap-3 p-3 hover:bg-surface-container-high rounded-xl transition-all group cursor-pointer">
-                    <img src={`https://i.pravatar.cc/150?u=owner${i}`} className="w-10 h-10 rounded-full grayscale group-hover:grayscale-0 transition-all" alt="" />
-                    <div className="flex-1">
-                      <p className="text-sm font-bold">{owner.name}</p>
-                      <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-tight">{owner.role}</p>
-                    </div>
-                    {owner.master && <Star className="w-4 h-4 text-primary fill-primary/20" />}
-                  </div>
-                ))}
+                <div className="flex items-center gap-3 p-3 bg-surface-container-high rounded-xl transition-all group">
+                  <CampaignOwner owner={campaign.owner} className="flex-1" avatarClassName="w-10 h-10 grayscale group-hover:grayscale-0 transition-all" />
+                  <Star className="w-4 h-4 text-primary fill-primary/20" />
+                </div>
               </div>
             </div>
 
             <div className="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/30 flex flex-col gap-2">
               <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
                 <span className="text-on-surface-variant">SLA Countdown</span>
-                <span className="text-error">Critical</span>
+                <span className="text-error">{campaign.priority}</span>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-black font-mono tracking-tighter">04:12:35</span>
+                <span className="text-3xl font-black font-mono tracking-tighter">{campaign.sla}</span>
                 <span className="text-[11px] font-bold text-on-surface-variant italic">remaining</span>
               </div>
-              <div className="h-1.5 w-full bg-surface-container rounded-full overflow-hidden mt-2">
-                <div className="h-full bg-error w-4/5 animate-pulse" />
-              </div>
+              <CampaignProgress value={campaign.progress} showValue />
+              <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Due {campaign.dueDate}</p>
             </div>
 
             <div className="space-y-4 pt-4 border-t border-outline-variant/30">

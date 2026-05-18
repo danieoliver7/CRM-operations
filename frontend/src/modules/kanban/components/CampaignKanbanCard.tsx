@@ -1,4 +1,5 @@
 import { MessageCircle, Paperclip } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import {
   CampaignChannelIcon,
   CampaignOwner,
@@ -16,9 +17,10 @@ export function CampaignKanbanCard({ campaign }: CampaignKanbanCardProps) {
   const isUrgent = campaign.priority === 'urgent';
 
   return (
-    <div
+    <Link
+      to={`/campaign/${campaign.id}`}
       className={cn(
-        'bg-surface-container border border-outline rounded-md p-3 space-y-3 hover:border-gray-600 transition-all cursor-pointer group shadow-lg relative overflow-hidden',
+        'block bg-surface-container border border-outline rounded-md p-3 space-y-3 hover:border-gray-600 transition-all cursor-pointer group shadow-lg relative overflow-hidden',
         isUrgent && 'border-error/30',
       )}
     >
@@ -56,6 +58,6 @@ export function CampaignKanbanCard({ campaign }: CampaignKanbanCardProps) {
         </div>
         <span>{campaign.dueDate}</span>
       </div>
-    </div>
+    </Link>
   );
 }

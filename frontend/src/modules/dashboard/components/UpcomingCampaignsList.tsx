@@ -1,4 +1,5 @@
 import { ArrowRight, MoreHorizontal } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import {
   CampaignChannelIcon,
   CampaignOwner,
@@ -16,9 +17,9 @@ export function UpcomingCampaignsList({ campaigns }: UpcomingCampaignsListProps)
     <div className="bg-surface-container border border-outline rounded-md overflow-hidden shadow-sm">
       <div className="px-6 py-4 border-b border-outline flex items-center justify-between bg-surface-container-low/50">
         <h2 className="text-base font-semibold tracking-tight">Upcoming Operational Queue</h2>
-        <button className="text-primary text-xs font-bold flex items-center gap-1 hover:underline">
+        <Link to="/campaigns" className="text-primary text-xs font-bold flex items-center gap-1 hover:underline">
           View All <ArrowRight className="w-3 h-3" />
-        </button>
+        </Link>
       </div>
       <div className="overflow-x-auto no-scrollbar">
         <table className="w-full min-w-[760px] text-left">
@@ -36,15 +37,15 @@ export function UpcomingCampaignsList({ campaigns }: UpcomingCampaignsListProps)
             {campaigns.map((campaign) => (
               <tr key={campaign.id} className="hover:bg-surface-variant/20 transition-colors">
                 <td className="px-6 py-4">
-                  <div className="flex flex-col gap-1">
+                  <Link to={`/campaign/${campaign.id}`} className="flex flex-col gap-1 group">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold">{campaign.name}</span>
+                      <span className="text-sm font-bold group-hover:text-primary transition-colors">{campaign.name}</span>
                       {campaign.priority === 'urgent' && (
                         <CampaignPriorityBadge priority={campaign.priority} shortLabel />
                       )}
                     </div>
                     <span className="text-[11px] text-on-surface-variant">{campaign.segmentation}</span>
-                  </div>
+                  </Link>
                 </td>
                 <td className="px-6 py-4">
                   <CampaignChannelIcon channel={campaign.channel} showLabel />
@@ -57,9 +58,9 @@ export function UpcomingCampaignsList({ campaigns }: UpcomingCampaignsListProps)
                 </td>
                 <td className="px-6 py-4 text-xs font-mono">{campaign.dueDate}</td>
                 <td className="px-6 py-4 text-right">
-                  <button className="text-on-surface-variant hover:text-on-surface">
+                  <Link to={`/campaign/${campaign.id}`} className="inline-flex text-on-surface-variant hover:text-on-surface">
                     <MoreHorizontal className="w-5 h-5" />
-                  </button>
+                  </Link>
                 </td>
               </tr>
             ))}

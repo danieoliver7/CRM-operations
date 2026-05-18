@@ -1,4 +1,5 @@
 import { TrendingUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { CampaignChannelIcon } from '@/components/shared/campaign';
 import type { CampaignDistributionItem } from '@/modules/dashboard/utils';
 import type { CampaignChannel } from '@/types/campaign';
@@ -14,7 +15,7 @@ export function CampaignChannelDistribution({ items, total }: CampaignChannelDis
       <h2 className="text-base font-semibold tracking-tight">Channel Mix</h2>
       <div className="space-y-6">
         {items.map((item) => (
-          <div key={item.id} className="space-y-2">
+          <Link key={item.id} to={`/campaigns?channel=${item.id}`} className="block space-y-2 group">
             <div className="flex justify-between items-center text-xs">
               <CampaignChannelIcon channel={item.id} showLabel />
               <span className="text-on-surface-variant font-mono">
@@ -24,7 +25,7 @@ export function CampaignChannelDistribution({ items, total }: CampaignChannelDis
             <div className="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
               <div className="h-full bg-primary transition-all duration-500" style={{ width: `${item.percentage}%` }} />
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

@@ -4,6 +4,7 @@ import {
   Plus,
   Search,
 } from 'lucide-react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CampaignChannelIcon,
@@ -11,10 +12,21 @@ import {
   CampaignPriorityBadge,
   CampaignStatusBadge,
 } from '@/components/shared/campaign';
-import { useCampaigns } from '@/modules/campaigns';
+import {
+  CampaignFiltersBar,
+  filterCampaigns,
+  useCampaigns,
+  useCampaignUrlFilters,
+} from '@/modules/campaigns';
 
 export default function Campaigns() {
   const { campaigns } = useCampaigns();
+  const { filters, setFilter, resetFilters } = useCampaignUrlFilters();
+  const filteredCampaigns = useMemo(() => filterCampaigns(campaigns, filters), [campaigns, filters]);
+  const owners = useMemo(
+    () => Array.from(new Set(campaigns.map((campaign) => campaign.owner.name))).sort(),
+    [campaigns],
+  );
 
   return (
     <div className="space-y-6">
@@ -47,8 +59,19 @@ export default function Campaigns() {
             </button>
           </div>
           <div className="flex items-center gap-4 text-xs font-bold text-on-surface-variant opacity-60">
-            <span>SHOWING {campaigns.length} TOTAL CAMPAIGNS</span>
+            <span>SHOWING {filteredCampaigns.length} OF {campaigns.length} CAMPAIGNS</span>
           </div>
+        </div>
+
+        <div className="p-4 border-b border-outline-variant/20 bg-surface-container-lowest/40">
+          <CampaignFiltersBar
+            filters={filters}
+            owners={owners}
+            onFilterChange={setFilter}
+            onReset={resetFilters}
+            resultCount={filteredCampaigns.length}
+            totalCount={campaigns.length}
+          />
         </div>
 
         <table className="w-full text-left">
@@ -63,7 +86,7 @@ export default function Campaigns() {
             </tr>
           </thead>
           <tbody className="divide-y divide-outline-variant/10">
-            {campaigns.map((camp) => (
+            {filteredCampaigns.map((camp) => (
               <tr key={camp.id} className="group hover:bg-primary/5 transition-all">
                 <td className="px-6 py-5">
                   <Link to={`/campaign/${camp.id}`} className="flex flex-col">
@@ -96,6 +119,13 @@ export default function Campaigns() {
                 </td>
               </tr>
             ))}
+            {filteredCampaigns.length === 0 && (
+              <tr>
+                <td className="px-6 py-12 text-center text-sm text-on-surface-variant" colSpan={6}>
+                  No campaigns match the current operational filters.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
 

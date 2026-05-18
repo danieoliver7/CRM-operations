@@ -1,5 +1,10 @@
 import { useMemo } from 'react';
-import { useCampaigns } from '@/modules/campaigns';
+import {
+  CampaignFiltersBar,
+  filterCampaigns,
+  useCampaigns,
+  useCampaignUrlFilters,
+} from '@/modules/campaigns';
 import {
   CampaignKanbanColumn,
   groupCampaignsByStatus,
@@ -8,12 +13,34 @@ import {
 
 export default function KanbanBoard() {
   const { campaigns } = useCampaigns();
-  const campaignsByStatus = useMemo(() => groupCampaignsByStatus(campaigns), [campaigns]);
+  const { filters, setFilter, resetFilters } = useCampaignUrlFilters();
+  const filteredCampaigns = useMemo(() => filterCampaigns(campaigns, filters), [campaigns, filters]);
+  const campaignsByStatus = useMemo(() => groupCampaignsByStatus(filteredCampaigns), [filteredCampaigns]);
+  const owners = useMemo(
+    () => Array.from(new Set(campaigns.map((campaign) => campaign.owner.name))).sort(),
+    [campaigns],
+  );
+  const visibleColumns = useMemo(
+    () => KANBAN_COLUMNS.filter((column) => !filters.status || column.id === filters.status),
+    [filters.status],
+  );
 
   return (
-    <div className="h-[calc(100vh-100px)] overflow-x-auto no-scrollbar scroll-smooth">
+    <div className="space-y-4">
+      <div className="px-4 py-3 bg-surface-container border border-outline rounded-md">
+        <CampaignFiltersBar
+          filters={filters}
+          owners={owners}
+          onFilterChange={setFilter}
+          onReset={resetFilters}
+          resultCount={filteredCampaigns.length}
+          totalCount={campaigns.length}
+        />
+      </div>
+
+      <div className="h-[calc(100vh-156px)] overflow-x-auto no-scrollbar scroll-smooth">
       <div className="flex gap-6 h-full min-w-max pb-8 px-4">
-        {KANBAN_COLUMNS.map((column) => (
+        {visibleColumns.map((column) => (
           <CampaignKanbanColumn
             key={column.id}
             column={column}
@@ -44,6 +71,7 @@ export default function KanbanBoard() {
             <span className="text-[10px] font-black text-primary uppercase tracking-tighter">Live</span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

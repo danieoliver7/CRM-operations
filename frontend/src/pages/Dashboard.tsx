@@ -60,6 +60,7 @@ export default function Dashboard() {
           icon={Rocket}
           colorClassName="text-primary"
           trendClassName="text-green-500"
+          to="/campaigns"
         />
         <OperationalMetricCard
           label="QA Pressure"
@@ -68,6 +69,7 @@ export default function Dashboard() {
           icon={ShieldCheck}
           colorClassName="text-secondary"
           trendClassName="text-secondary"
+          to="/kanban?status=qa"
         />
         <OperationalMetricCard
           label="Risk Queue"
@@ -77,6 +79,7 @@ export default function Dashboard() {
           colorClassName="text-error"
           borderClassName={metrics.urgent + metrics.delayed > 0 ? 'border-error/20' : undefined}
           trendClassName={metrics.urgent + metrics.delayed > 0 ? 'text-error' : 'text-green-500'}
+          to="/campaigns?priority=urgent"
         />
         <OperationalMetricCard
           label="Upcoming Sends"
@@ -86,6 +89,7 @@ export default function Dashboard() {
           colorClassName="text-tertiary"
           borderClassName="border-tertiary/20"
           trendClassName="text-tertiary"
+          to="/campaigns?status=scheduled"
         />
       </div>
 
