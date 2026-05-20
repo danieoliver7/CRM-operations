@@ -1,15 +1,15 @@
 # Roadmap
 
 ## Current Focus
-Operational Coordination Refinement
+Domain Entities & Backend Readiness
 
 ## Current Sprint Goals
-- introduce coordination awareness
-- surface handoff visibility
-- expose workflow continuity perception
-- improve ownership awareness
-- show campaigns waiting action
-- make dashboard, kanban and workspace more coordination-oriented
+- organize frontend domain types
+- separate persisted domain data from derived operational intelligence
+- align Campaign type with future backend facts while preserving current UI
+- add lightweight future commercial entities
+- keep Zustand and derived utils unchanged
+- avoid backend implementation
 
 ## Still Deferred
 - backend
@@ -25,3 +25,6 @@ Operational Coordination Refinement
 - workflow orchestration
 - dependency engines
 - task management system
+- Prisma schema
+- API routes
+- authentication

@@ -44,3 +44,15 @@ Perception that a campaign has a clear next step, owner and handoff path.
 
 ## Waiting State
 Operational pause where a campaign is waiting for a person, squad or validation step.
+
+## Persisted Domain Data
+Operational facts that may become backend records later.
+
+## Derived Operational Intelligence
+Operational awareness recalculated from persisted facts, such as health, risk, pressure and continuity.
+
+## UI-Only State
+Temporary interface state such as modal visibility, filters, tabs and form drafts.
+
+## Backend Readiness
+Domain preparation for future backend work without implementing backend infrastructure now.

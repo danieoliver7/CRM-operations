@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Operational Coordination Refinement
+Domain Entities & Backend Readiness
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -26,6 +26,9 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - handoff visibility
 - workflow continuity perception
 - ownership awareness
+- organized frontend domain model
+- persisted vs derived state separation
+- backend readiness without backend implementation
 
 ## Current Architecture
 - React
@@ -36,11 +39,11 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- coordination awareness
-- handoff visibility
-- ownership awareness
-- workflow continuity perception
-- operational waiting states
+- domain entity clarity
+- backend readiness without infrastructure
+- persisted vs derived model separation
+- frontend type organization
+- preserving derived operational intelligence
 
 ## Operational Planning Capabilities
 - campaign creation captures planning context before execution
@@ -59,6 +62,12 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - kanban cards expose continuity, owner/action awareness and health
 - campaign workspace surfaces current owner, next responsible area and handoff context
 - coordination intelligence remains derived from campaign state and workflow context
+
+## Domain Readiness Capabilities
+- core entities are represented as frontend domain types
+- Campaign remains compatible with the current UI while aligning with future backend facts
+- derived intelligence types are separated from persisted entity types
+- commercial future entities exist as lightweight reference types only
 
 ## Avoid Right Now
 - backend
@@ -94,4 +103,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Campaign workflow coordination, operational planning, execution health and operational continuity awareness.
+Campaign entity clarity, backend readiness and derived operational intelligence separation.

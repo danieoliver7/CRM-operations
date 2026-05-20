@@ -1,4 +1,4 @@
-export type EntityId = string;
+export type { EntityId, Maybe, OptionalNullable, DomainEntity, TimestampedEntity } from './domain/base';
 
 export type Nullable<T> = T | null;
 
