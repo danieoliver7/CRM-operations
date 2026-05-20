@@ -9,7 +9,8 @@ import {
 } from '@/components/shared/campaign';
 import { ExecutionHealthBadge } from './ExecutionHealthBadge';
 import { SLAWarningBadge } from './SLAWarningBadge';
-import { getCampaignExecutionHealth } from '@/modules/campaigns/utils';
+import { CoordinationStatusBadge } from './CoordinationStatusBadge';
+import { getCampaignCoordinationContext, getCampaignExecutionHealth } from '@/modules/campaigns/utils';
 import type { Campaign } from '@/types/campaign';
 
 interface CampaignWorkspaceHeaderProps {
@@ -18,6 +19,7 @@ interface CampaignWorkspaceHeaderProps {
 
 export function CampaignWorkspaceHeader({ campaign }: CampaignWorkspaceHeaderProps) {
   const execution = getCampaignExecutionHealth(campaign);
+  const coordination = getCampaignCoordinationContext(campaign);
 
   return (
     <div className="glass p-6 rounded-2xl">
@@ -40,6 +42,7 @@ export function CampaignWorkspaceHeader({ campaign }: CampaignWorkspaceHeaderPro
             <CampaignPriorityBadge priority={campaign.priority} />
             <ExecutionHealthBadge health={execution.health} />
             <SLAWarningBadge slaState={execution.slaState} daysUntilDue={execution.daysUntilDue} />
+            <CoordinationStatusBadge state={coordination.state} />
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight">{campaign.name}</h1>

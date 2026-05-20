@@ -4,6 +4,7 @@ import { cn } from '@/utils/cn';
 import {
   ExecutionHealthBadge,
   getCapacityMetrics,
+  getCoordinationMetrics,
   getExecutionHealthMetrics,
   OperationalPressureBadge,
   SLAWarningBadge,
@@ -37,6 +38,7 @@ export default function Dashboard() {
   const upcomingCampaigns = useMemo(() => getUpcomingCampaigns(campaigns).slice(0, 5), [campaigns]);
   const capacity = useMemo(() => getCapacityMetrics(campaigns), [campaigns]);
   const execution = useMemo(() => getExecutionHealthMetrics(campaigns), [campaigns]);
+  const coordination = useMemo(() => getCoordinationMetrics(campaigns), [campaigns]);
   const qaCampaigns = useMemo(
     () => campaigns.filter((campaign) => campaign.status === 'qa' || campaign.status === 'approval'),
     [campaigns],
@@ -100,6 +102,62 @@ export default function Dashboard() {
           trendClassName="text-tertiary"
           to="/campaigns?status=scheduled"
         />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-8 min-w-0 bg-surface-container border border-outline p-6 rounded-md shadow-sm">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-base font-semibold tracking-tight">Coordination Queue</h2>
+              <p className="text-xs text-on-surface-variant mt-1">
+                Handoffs, waiting states and ownership gaps across active campaigns.
+              </p>
+            </div>
+            <OperationalPressureBadge
+              level={coordination.blockedOperationalContinuity.length > 0 ? 'overloaded' : coordination.warnings.length > 0 ? 'watch' : 'normal'}
+              label={`${coordination.warnings.length} signals`}
+            />
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-3">
+            {[
+              { label: 'Waiting action', value: coordination.waitingActionCampaigns.length, detail: 'campaigns need action' },
+              { label: 'Pending handoffs', value: coordination.pendingHandoffs.length, detail: 'stage transitions' },
+              { label: 'Stalled workflows', value: coordination.stalledWorkflows.length, detail: 'continuity at risk' },
+              { label: 'Missing owner', value: coordination.missingOwnership.length, detail: 'ownership gaps' },
+            ].map((item) => (
+              <div key={item.label} className="rounded-lg border border-outline-variant/30 bg-surface-container-low/40 p-4">
+                <span className="text-2xl font-black text-on-surface">{item.value}</span>
+                <p className="mt-3 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">{item.label}</p>
+                <p className="mt-1 truncate text-xs font-bold text-on-surface">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:col-span-4 min-w-0 bg-surface-container border border-outline p-6 rounded-md shadow-sm">
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-semibold tracking-tight">Coordination Warnings</h2>
+            <AlertTriangle className="h-4 w-4 text-tertiary" />
+          </div>
+          <div className="mt-4 space-y-3">
+            {coordination.warnings.slice(0, 3).map((warning) => (
+              <a
+                key={warning.id}
+                href={warning.to}
+                className="block rounded-lg border border-outline-variant/30 bg-surface-container-low/40 p-3 hover:border-primary/30 transition-colors"
+              >
+                <p className="text-xs font-bold leading-snug">{warning.title}</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-on-surface-variant">{warning.description}</p>
+              </a>
+            ))}
+            {coordination.warnings.length === 0 && (
+              <p className="rounded-lg border border-outline-variant/30 p-3 text-xs text-on-surface-variant">
+                No relevant coordination gaps in active campaigns.
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

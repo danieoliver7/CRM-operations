@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import {
   CampaignFiltersBar,
   filterCampaigns,
+  getCoordinationMetrics,
   useCampaigns,
   useCampaignUrlFilters,
 } from '@/modules/campaigns';
@@ -16,6 +17,7 @@ export default function KanbanBoard() {
   const { filters, setFilter, resetFilters } = useCampaignUrlFilters();
   const filteredCampaigns = useMemo(() => filterCampaigns(campaigns, filters), [campaigns, filters]);
   const campaignsByStatus = useMemo(() => groupCampaignsByStatus(filteredCampaigns), [filteredCampaigns]);
+  const coordination = useMemo(() => getCoordinationMetrics(filteredCampaigns), [filteredCampaigns]);
   const owners = useMemo(
     () => Array.from(new Set(campaigns.map((campaign) => campaign.owner.name))).sort(),
     [campaigns],
@@ -38,7 +40,21 @@ export default function KanbanBoard() {
         />
       </div>
 
-      <div className="h-[calc(100vh-156px)] overflow-x-auto no-scrollbar scroll-smooth">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 px-1">
+        {[
+          { label: 'Waiting action', value: coordination.waitingActionCampaigns.length },
+          { label: 'Pending handoffs', value: coordination.pendingHandoffs.length },
+          { label: 'Stalled workflows', value: coordination.stalledWorkflows.length },
+          { label: 'Missing owner', value: coordination.missingOwnership.length },
+        ].map((item) => (
+          <div key={item.label} className="rounded-md border border-outline-variant/30 bg-surface-container-low/40 px-4 py-3">
+            <p className="text-xl font-black text-on-surface">{item.value}</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">{item.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="h-[calc(100vh-240px)] overflow-x-auto no-scrollbar scroll-smooth">
       <div className="flex gap-6 h-full min-w-max pb-8 px-4">
         {visibleColumns.map((column) => (
           <CampaignKanbanColumn

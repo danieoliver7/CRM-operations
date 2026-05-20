@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Operational Execution Intelligence
+Operational Coordination Refinement
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -22,6 +22,10 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - operational blockers
 - SLA awareness
 - operational risk visibility
+- coordination awareness
+- handoff visibility
+- workflow continuity perception
+- ownership awareness
 
 ## Current Architecture
 - React
@@ -32,11 +36,11 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- execution health visibility
-- operational blocker awareness
-- SLA awareness
-- operational risk visibility
-- workflow execution refinement
+- coordination awareness
+- handoff visibility
+- ownership awareness
+- workflow continuity perception
+- operational waiting states
 
 ## Operational Planning Capabilities
 - campaign creation captures planning context before execution
@@ -49,6 +53,12 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - campaign workspace surfaces health, SLA and risk context
 - workflow next actions include blocker and risk signals
 - execution intelligence remains derived from campaign state
+
+## Operational Coordination Capabilities
+- dashboard communicates campaigns waiting action and pending handoffs
+- kanban cards expose continuity, owner/action awareness and health
+- campaign workspace surfaces current owner, next responsible area and handoff context
+- coordination intelligence remains derived from campaign state and workflow context
 
 ## Avoid Right Now
 - backend
@@ -84,4 +94,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Campaign workflow coordination, operational planning and execution health awareness.
+Campaign workflow coordination, operational planning, execution health and operational continuity awareness.

@@ -11,8 +11,10 @@ import {
   CampaignTimeline,
   CampaignWorkspaceHeader,
   CampaignWorkspaceToast,
+  getCampaignCoordinationContext,
   useCampaigns,
   useCampaignWorkspaceState,
+  WorkflowContinuityCard,
 } from '@/modules/campaigns';
 
 export default function CampaignDetails() {
@@ -54,6 +56,7 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
     updatePriority,
     workflowActions,
   } = useCampaignWorkspaceState(sourceCampaign);
+  const coordination = getCampaignCoordinationContext(campaign);
 
   return (
     <div className="space-y-6 pb-20 max-w-[1200px] mx-auto">
@@ -172,6 +175,7 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
             onAction={executeWorkflowAction}
             onPriorityChange={updatePriority}
           />
+          <WorkflowContinuityCard context={coordination} />
           <CampaignExecutionIntelligence campaign={campaign} />
           <CampaignNextActions campaign={campaign} />
           <CampaignChecklist items={checklistItems} onToggleItem={toggleChecklistItem} />

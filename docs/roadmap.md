@@ -1,15 +1,15 @@
 # Roadmap
 
 ## Current Focus
-Operational Execution Intelligence
+Operational Coordination Refinement
 
 ## Current Sprint Goals
-- unify campaign creation flows
-- introduce execution health indicators
-- surface operational blockers
-- introduce lightweight SLA awareness
-- expose execution risk signals
-- improve dashboard and workspace execution awareness
+- introduce coordination awareness
+- surface handoff visibility
+- expose workflow continuity perception
+- improve ownership awareness
+- show campaigns waiting action
+- make dashboard, kanban and workspace more coordination-oriented
 
 ## Still Deferred
 - backend
@@ -22,3 +22,6 @@ Operational Execution Intelligence
 - SLA engine
 - incident management
 - AI risk prediction
+- workflow orchestration
+- dependency engines
+- task management system
