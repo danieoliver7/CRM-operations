@@ -4,6 +4,7 @@ import type { Campaign, CampaignPriority, CampaignStatus } from '@/types/campaig
 
 interface CampaignsState {
   campaigns: Campaign[];
+  createCampaign: (campaign: Campaign) => void;
   getCampaignById: (id: string) => Campaign | undefined;
   updateCampaign: (id: string, updates: Partial<Campaign>) => void;
   updateCampaignStatus: (id: string, status: CampaignStatus) => void;
@@ -13,6 +14,10 @@ interface CampaignsState {
 
 export const useCampaignsStore = create<CampaignsState>((set, get) => ({
   campaigns: MOCK_CAMPAIGNS,
+  createCampaign: (campaign) =>
+    set((state) => ({
+      campaigns: [campaign, ...state.campaigns],
+    })),
   getCampaignById: (id) => get().campaigns.find((campaign) => campaign.id === id),
   updateCampaign: (id, updates) =>
     set((state) => ({

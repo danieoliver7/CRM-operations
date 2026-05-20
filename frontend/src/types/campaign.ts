@@ -21,10 +21,12 @@ export const CAMPAIGN_CHANNELS = [
 ] as const;
 
 export const CAMPAIGN_PRIORITIES = ['low', 'medium', 'high', 'urgent'] as const;
+export const CAMPAIGN_COMPLEXITIES = ['low', 'medium', 'high'] as const;
 
 export type CampaignStatus = (typeof CAMPAIGN_STATUSES)[number];
 export type CampaignChannel = (typeof CAMPAIGN_CHANNELS)[number];
 export type CampaignPriority = (typeof CAMPAIGN_PRIORITIES)[number];
+export type CampaignComplexity = (typeof CAMPAIGN_COMPLEXITIES)[number];
 
 export const CAMPAIGN_STATUS_LABELS: Record<CampaignStatus, string> = {
   briefing: 'Briefing',
@@ -81,6 +83,10 @@ export interface Campaign {
   squad: string;
   segmentation?: string;
   objective?: string;
+  audience?: string;
+  campaignType?: string;
+  tags?: string[];
+  estimatedComplexity?: CampaignComplexity;
   content?: CampaignContent;
   metricsTarget?: CampaignMetricsTarget;
 }

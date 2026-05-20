@@ -25,6 +25,7 @@ export function useCampaignUrlFilters() {
       channel: getValidParam<CampaignChannel>(searchParams.get('channel'), CAMPAIGN_CHANNELS),
       priority: getValidParam<CampaignPriority>(searchParams.get('priority'), CAMPAIGN_PRIORITIES),
       owner: searchParams.get('owner') || undefined,
+      squad: searchParams.get('squad') || undefined,
     }),
     [searchParams],
   );

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import { AlertTriangle, CalendarClock, Clock, Rocket, ShieldCheck } from 'lucide-react';
+import { AlertTriangle, CalendarClock, Rocket, ShieldCheck, Users } from 'lucide-react';
 import { cn } from '@/utils/cn';
-import { useCampaigns } from '@/modules/campaigns';
+import { getCapacityMetrics, OperationalPressureBadge, useCampaigns } from '@/modules/campaigns';
 import {
   CampaignChannelDistribution,
   CampaignHealthCard,
@@ -28,6 +28,7 @@ export default function Dashboard() {
   const urgentCampaigns = useMemo(() => getUrgentCampaigns(campaigns), [campaigns]);
   const delayedCampaigns = useMemo(() => getDelayedCampaigns(campaigns), [campaigns]);
   const upcomingCampaigns = useMemo(() => getUpcomingCampaigns(campaigns).slice(0, 5), [campaigns]);
+  const capacity = useMemo(() => getCapacityMetrics(campaigns), [campaigns]);
   const qaCampaigns = useMemo(
     () => campaigns.filter((campaign) => campaign.status === 'qa' || campaign.status === 'approval'),
     [campaigns],
@@ -91,6 +92,67 @@ export default function Dashboard() {
           trendClassName="text-tertiary"
           to="/campaigns?status=scheduled"
         />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-8 min-w-0 bg-surface-container border border-outline p-6 rounded-md shadow-sm">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-base font-semibold tracking-tight">Planning Pressure</h2>
+              <p className="text-xs text-on-surface-variant mt-1">
+                Future overload signals derived from planned campaign workload.
+              </p>
+            </div>
+            <OperationalPressureBadge
+              level={capacity.warnings.some((warning) => warning.level === 'overloaded') ? 'overloaded' : capacity.warnings.length > 0 ? 'watch' : 'normal'}
+              label={`${capacity.warnings.length} signals`}
+            />
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-3">
+            {[
+              { label: 'Overloaded days', value: capacity.overloadedDays.length, detail: capacity.overloadedDays[0]?.label ?? 'No day pressure', icon: CalendarClock },
+              { label: 'Owner pressure', value: capacity.overloadedOwners.length, detail: capacity.overloadedOwners[0]?.label ?? 'Balanced owners', icon: Users },
+              { label: 'Squad pressure', value: capacity.overloadedSquads.length, detail: capacity.overloadedSquads[0]?.label ?? 'Balanced squads', icon: ShieldCheck },
+            ].map((item) => (
+              <div key={item.label} className="rounded-lg border border-outline-variant/30 bg-surface-container-low/40 p-4">
+                <div className="flex items-center justify-between">
+                  <item.icon className="h-4 w-4 text-on-surface-variant" />
+                  <span className="text-2xl font-black text-on-surface">{item.value}</span>
+                </div>
+                <p className="mt-3 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">{item.label}</p>
+                <p className="mt-1 truncate text-xs font-bold text-on-surface">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:col-span-4 min-w-0 bg-surface-container border border-outline p-6 rounded-md shadow-sm">
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-semibold tracking-tight">Upcoming Warnings</h2>
+            <AlertTriangle className="h-4 w-4 text-tertiary" />
+          </div>
+          <div className="mt-4 space-y-3">
+            {capacity.warnings.slice(0, 3).map((warning) => (
+              <a
+                key={warning.id}
+                href={warning.to}
+                className="block rounded-lg border border-outline-variant/30 bg-surface-container-low/40 p-3 hover:border-primary/30 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <p className="text-xs font-bold leading-snug">{warning.title}</p>
+                  <OperationalPressureBadge level={warning.level} className="shrink-0" />
+                </div>
+                <p className="mt-1 text-[11px] leading-relaxed text-on-surface-variant">{warning.description}</p>
+              </a>
+            ))}
+            {capacity.warnings.length === 0 && (
+              <p className="rounded-lg border border-outline-variant/30 p-3 text-xs text-on-surface-variant">
+                No relevant overload warnings in the current plan.
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

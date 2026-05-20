@@ -1,0 +1,77 @@
+# Current State
+
+## Current Phase
+Operational Planning
+
+## Current Product State
+Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
+
+## Current Capabilities
+- operational dashboard
+- contextual workflows
+- campaign workspace
+- operational coordination
+- shared operational state
+- workflow contextual actions
+- operational planning
+- overload indicators
+- operational calendar
+- capacity perception
+- owner and squad planning visibility
+
+## Current Architecture
+- React
+- TypeScript
+- Zustand
+- Tailwind
+- frontend-only
+- mock/local operational state
+
+## Current Priorities
+- operational planning
+- capacity perception
+- squad visibility
+- operational calendar
+- workflow refinement
+
+## Operational Planning Capabilities
+- campaign creation captures planning context before execution
+- calendar communicates future campaign concentration
+- dashboard surfaces planning pressure and upcoming warnings
+- capacity indicators remain derived from campaign state
+
+## Avoid Right Now
+- backend
+- realtime
+- websocket
+- workflow engine
+- AI features
+- complex automation
+- persistence
+- auth
+
+## MVP Philosophy
+Prioritize:
+1. operational behavior
+2. workflow validation
+3. UX coordination
+4. domain clarity
+
+Before:
+- scalability
+- infrastructure
+- enterprise architecture
+
+## Current Risks
+- overengineering
+- workflow explosion
+- Zustand becoming backend
+- too much abstraction
+- premature infrastructure
+
+## Current UX Direction
+Operational-first experience.
+The system should feel like a CRM operations workspace, not a generic dashboard.
+
+## Current Domain Focus
+Campaign workflow coordination and operational planning.

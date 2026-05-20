@@ -12,6 +12,7 @@ import type { CampaignFilters } from '@/modules/campaigns/utils';
 interface CampaignFiltersBarProps {
   filters: CampaignFilters;
   owners?: string[];
+  squads?: string[];
   onFilterChange: <TKey extends keyof CampaignFilters>(key: TKey, value: CampaignFilters[TKey] | '') => void;
   onReset: () => void;
   resultCount: number;
@@ -21,6 +22,7 @@ interface CampaignFiltersBarProps {
 export function CampaignFiltersBar({
   filters,
   owners = [],
+  squads = [],
   onFilterChange,
   onReset,
   resultCount,
@@ -77,6 +79,21 @@ export function CampaignFiltersBar({
           {owners.map((owner) => (
             <option key={owner} value={owner}>
               {owner}
+            </option>
+          ))}
+        </select>
+      )}
+
+      {squads.length > 0 && (
+        <select
+          value={filters.squad ?? ''}
+          onChange={(event) => onFilterChange('squad', event.target.value)}
+          className="bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-3 py-2 text-xs font-bold outline-none focus:border-primary/50 transition-all"
+        >
+          <option value="">All squads</option>
+          {squads.map((squad) => (
+            <option key={squad} value={squad}>
+              {squad}
             </option>
           ))}
         </select>
