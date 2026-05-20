@@ -68,7 +68,6 @@ export function CampaignCreationModal({ open, onClose, onCreate }: CampaignCreat
     setName('');
     setObjective('');
     setAudience('');
-    onClose();
   }
 
   return (

@@ -4,6 +4,7 @@ import {
   CampaignActivityFeed,
   CampaignAttachments,
   CampaignChecklist,
+  CampaignExecutionIntelligence,
   CampaignNextActions,
   CampaignQuickActions,
   CampaignSquadPanel,
@@ -171,6 +172,7 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
             onAction={executeWorkflowAction}
             onPriorityChange={updatePriority}
           />
+          <CampaignExecutionIntelligence campaign={campaign} />
           <CampaignNextActions campaign={campaign} />
           <CampaignChecklist items={checklistItems} onToggleItem={toggleChecklistItem} />
           <CampaignSquadPanel campaign={campaign} />

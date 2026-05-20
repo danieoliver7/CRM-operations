@@ -7,6 +7,9 @@ import {
   CampaignProgress,
   CampaignStatusBadge,
 } from '@/components/shared/campaign';
+import { ExecutionHealthBadge } from './ExecutionHealthBadge';
+import { SLAWarningBadge } from './SLAWarningBadge';
+import { getCampaignExecutionHealth } from '@/modules/campaigns/utils';
 import type { Campaign } from '@/types/campaign';
 
 interface CampaignWorkspaceHeaderProps {
@@ -14,6 +17,8 @@ interface CampaignWorkspaceHeaderProps {
 }
 
 export function CampaignWorkspaceHeader({ campaign }: CampaignWorkspaceHeaderProps) {
+  const execution = getCampaignExecutionHealth(campaign);
+
   return (
     <div className="glass p-6 rounded-2xl">
       <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
@@ -33,6 +38,8 @@ export function CampaignWorkspaceHeader({ campaign }: CampaignWorkspaceHeaderPro
             <CampaignChannelIcon channel={campaign.channel} showLabel variant="badge" />
             <CampaignStatusBadge status={campaign.status} className="rounded-full" />
             <CampaignPriorityBadge priority={campaign.priority} />
+            <ExecutionHealthBadge health={execution.health} />
+            <SLAWarningBadge slaState={execution.slaState} daysUntilDue={execution.daysUntilDue} />
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight">{campaign.name}</h1>

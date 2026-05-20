@@ -4,7 +4,7 @@ import {
   Plus,
   Search,
 } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CampaignChannelIcon,
@@ -16,14 +16,20 @@ import {
   CampaignCreationModal,
   CampaignFiltersBar,
   filterCampaigns,
+  useCampaignCreation,
   useCampaigns,
   useCampaignUrlFilters,
 } from '@/modules/campaigns';
 
 export default function Campaigns() {
-  const { campaigns, createCampaign } = useCampaigns();
+  const { campaigns } = useCampaigns();
   const { filters, setFilter, resetFilters } = useCampaignUrlFilters();
-  const [isCreationOpen, setIsCreationOpen] = useState(false);
+  const {
+    closeCampaignCreation,
+    handleCreateCampaign,
+    isCreationOpen,
+    openCampaignCreation,
+  } = useCampaignCreation();
   const filteredCampaigns = useMemo(() => filterCampaigns(campaigns, filters), [campaigns, filters]);
   const owners = useMemo(
     () => Array.from(new Set(campaigns.map((campaign) => campaign.owner.name))).sort(),
@@ -44,7 +50,7 @@ export default function Campaigns() {
           </p>
         </div>
         <button
-          onClick={() => setIsCreationOpen(true)}
+          onClick={openCampaignCreation}
           className="bg-primary text-on-primary px-6 py-2.5 rounded-lg text-sm font-black flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20"
         >
           <Plus className="w-5 h-5" />
@@ -150,8 +156,8 @@ export default function Campaigns() {
 
       <CampaignCreationModal
         open={isCreationOpen}
-        onClose={() => setIsCreationOpen(false)}
-        onCreate={createCampaign}
+        onClose={closeCampaignCreation}
+        onCreate={handleCreateCampaign}
       />
     </div>
   );

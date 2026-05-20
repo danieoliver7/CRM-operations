@@ -1,7 +1,14 @@
 import { useMemo } from 'react';
 import { AlertTriangle, CalendarClock, Rocket, ShieldCheck, Users } from 'lucide-react';
 import { cn } from '@/utils/cn';
-import { getCapacityMetrics, OperationalPressureBadge, useCampaigns } from '@/modules/campaigns';
+import {
+  ExecutionHealthBadge,
+  getCapacityMetrics,
+  getExecutionHealthMetrics,
+  OperationalPressureBadge,
+  SLAWarningBadge,
+  useCampaigns,
+} from '@/modules/campaigns';
 import {
   CampaignChannelDistribution,
   CampaignHealthCard,
@@ -29,6 +36,7 @@ export default function Dashboard() {
   const delayedCampaigns = useMemo(() => getDelayedCampaigns(campaigns), [campaigns]);
   const upcomingCampaigns = useMemo(() => getUpcomingCampaigns(campaigns).slice(0, 5), [campaigns]);
   const capacity = useMemo(() => getCapacityMetrics(campaigns), [campaigns]);
+  const execution = useMemo(() => getExecutionHealthMetrics(campaigns), [campaigns]);
   const qaCampaigns = useMemo(
     () => campaigns.filter((campaign) => campaign.status === 'qa' || campaign.status === 'approval'),
     [campaigns],
@@ -92,6 +100,74 @@ export default function Dashboard() {
           trendClassName="text-tertiary"
           to="/campaigns?status=scheduled"
         />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-8 min-w-0 bg-surface-container border border-outline p-6 rounded-md shadow-sm">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-base font-semibold tracking-tight">Execution Intelligence</h2>
+              <p className="text-xs text-on-surface-variant mt-1">
+                Operational health derived from SLA, blockers and workflow risk.
+              </p>
+            </div>
+            <ExecutionHealthBadge
+              health={execution.blockedCampaigns.length > 0 ? 'blocked' : execution.overdueCampaigns.length > 0 ? 'overdue' : execution.campaignsAtRisk.length > 0 ? 'at-risk' : 'healthy'}
+            />
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-3">
+            {[
+              { label: 'At risk', value: execution.campaignsAtRisk.length, detail: 'campaigns need review' },
+              { label: 'Blocked', value: execution.blockedCampaigns.length, detail: 'operational blockers' },
+              { label: 'Overdue', value: execution.overdueCampaigns.length, detail: 'past due date' },
+              { label: 'Delayed stages', value: execution.delayedWorkflowStages.length, detail: execution.delayedWorkflowStages[0]?.label ?? 'no stage delay' },
+            ].map((item) => (
+              <div key={item.label} className="rounded-lg border border-outline-variant/30 bg-surface-container-low/40 p-4">
+                <span className="text-2xl font-black text-on-surface">{item.value}</span>
+                <p className="mt-3 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">{item.label}</p>
+                <p className="mt-1 truncate text-xs font-bold text-on-surface">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:col-span-4 min-w-0 bg-surface-container border border-outline p-6 rounded-md shadow-sm">
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-semibold tracking-tight">Execution Warnings</h2>
+            <AlertTriangle className="h-4 w-4 text-error" />
+          </div>
+          <div className="mt-4 space-y-3">
+            {execution.warnings.slice(0, 3).map((warning) => {
+              const campaignHealth = execution.campaignHealth.find((item) => item.campaign.id === warning.id.replace('execution-', ''));
+
+              return (
+                <a
+                  key={warning.id}
+                  href={warning.to}
+                  className="block rounded-lg border border-outline-variant/30 bg-surface-container-low/40 p-3 hover:border-primary/30 transition-colors"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="text-xs font-bold leading-snug">{warning.title}</p>
+                    {campaignHealth && (
+                      <SLAWarningBadge
+                        slaState={campaignHealth.slaState}
+                        daysUntilDue={campaignHealth.daysUntilDue}
+                        className="shrink-0"
+                      />
+                    )}
+                  </div>
+                  <p className="mt-1 text-[11px] leading-relaxed text-on-surface-variant">{warning.description}</p>
+                </a>
+              );
+            })}
+            {execution.warnings.length === 0 && (
+              <p className="rounded-lg border border-outline-variant/30 p-3 text-xs text-on-surface-variant">
+                No relevant execution warnings in active campaigns.
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

@@ -1,14 +1,15 @@
 # Roadmap
 
 ## Current Focus
-Operational Planning
+Operational Execution Intelligence
 
 ## Current Sprint Goals
-- make campaign creation feel like operational planning
-- productize Calendar as an operational planning view
-- introduce capacity perception with simple derived indicators
-- surface owner, squad and day pressure
-- add useful overload warnings without dashboard pollution
+- unify campaign creation flows
+- introduce execution health indicators
+- surface operational blockers
+- introduce lightweight SLA awareness
+- expose execution risk signals
+- improve dashboard and workspace execution awareness
 
 ## Still Deferred
 - backend
@@ -18,3 +19,6 @@ Operational Planning
 - scheduling engine
 - workload optimizer
 - drag and drop calendar
+- SLA engine
+- incident management
+- AI risk prediction

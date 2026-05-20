@@ -9,7 +9,7 @@ import {
   isSameMonth, 
   isSameDay
 } from 'date-fns';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CampaignChannelIcon,
@@ -22,6 +22,7 @@ import {
   CampaignCreationModal,
   filterCampaigns,
   getCapacityMetrics,
+  useCampaignCreation,
   useCampaigns,
   useCampaignUrlFilters,
 } from '@/modules/campaigns';
@@ -34,9 +35,14 @@ import {
 
 export default function Calendar() {
   const { currentDate, days, nextMonth, previousMonth } = useCalendarMonth();
-  const { campaigns: allCampaigns, createCampaign } = useCampaigns();
+  const { campaigns: allCampaigns } = useCampaigns();
   const { filters, setFilter, resetFilters } = useCampaignUrlFilters();
-  const [isCreationOpen, setIsCreationOpen] = useState(false);
+  const {
+    closeCampaignCreation,
+    handleCreateCampaign,
+    isCreationOpen,
+    openCampaignCreation,
+  } = useCampaignCreation();
   const campaigns = useMemo(() => filterCampaigns(allCampaigns, filters), [allCampaigns, filters]);
   const capacity = useMemo(() => getCapacityMetrics(campaigns), [campaigns]);
   const owners = useMemo(
@@ -83,7 +89,7 @@ export default function Calendar() {
             {capacity.warnings.length} planning signals
           </div>
           <button
-            onClick={() => setIsCreationOpen(true)}
+            onClick={openCampaignCreation}
             className="flex items-center gap-2 px-3 py-1.5 bg-primary text-on-primary rounded-lg hover:opacity-90 text-xs font-bold transition-all"
           >
             <Plus className="w-4 h-4" />
@@ -186,8 +192,8 @@ export default function Calendar() {
     </div>
     <CampaignCreationModal
       open={isCreationOpen}
-      onClose={() => setIsCreationOpen(false)}
-      onCreate={createCampaign}
+      onClose={closeCampaignCreation}
+      onCreate={handleCreateCampaign}
     />
     </>
   );

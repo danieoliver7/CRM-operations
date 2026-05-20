@@ -1,6 +1,6 @@
 import { AlertTriangle, ArrowRight, Clock, ShieldCheck } from 'lucide-react';
 import { CampaignStatusBadge } from '@/components/shared/campaign';
-import { getCampaignNextActionContext } from '@/modules/campaigns/utils';
+import { getCampaignExecutionHealth, getCampaignNextActionContext } from '@/modules/campaigns/utils';
 import type { Campaign } from '@/types/campaign';
 
 interface CampaignNextActionsProps {
@@ -9,6 +9,9 @@ interface CampaignNextActionsProps {
 
 export function CampaignNextActions({ campaign }: CampaignNextActionsProps) {
   const context = getCampaignNextActionContext(campaign);
+  const execution = getCampaignExecutionHealth(campaign);
+  const primaryBlocker = execution.blockers[0];
+  const primaryRisk = execution.risks[0];
 
   return (
     <section className="glass p-6 rounded-2xl flex flex-col gap-5">
@@ -29,7 +32,9 @@ export function CampaignNextActions({ campaign }: CampaignNextActionsProps) {
           <Clock className="w-4 h-4 text-tertiary shrink-0 mt-0.5" />
           <div>
             <p className="text-xs font-bold">Waiting for</p>
-            <p className="text-[11px] text-on-surface-variant mt-1">{context.waitingFor}</p>
+            <p className="text-[11px] text-on-surface-variant mt-1">
+              {primaryBlocker ? primaryBlocker.label : context.waitingFor}
+            </p>
           </div>
         </div>
         <div className="flex gap-3">
@@ -41,7 +46,9 @@ export function CampaignNextActions({ campaign }: CampaignNextActionsProps) {
           <div>
             <p className="text-xs font-bold">Operational risk</p>
             <p className="text-[11px] text-on-surface-variant mt-1">
-              {campaign.priority === 'urgent'
+              {primaryRisk
+                ? primaryRisk.description
+                : campaign.priority === 'urgent'
                 ? `Priority is urgent. ${context.risk}`
                 : context.risk}
             </p>
