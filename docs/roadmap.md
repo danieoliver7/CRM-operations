@@ -1,15 +1,15 @@
 # Roadmap
 
 ## Current Focus
-Domain Entities & Backend Readiness
+Operational Timeline & Activity Model
 
 ## Current Sprint Goals
-- organize frontend domain types
-- separate persisted domain data from derived operational intelligence
-- align Campaign type with future backend facts while preserving current UI
-- add lightweight future commercial entities
-- keep Zustand and derived utils unchanged
-- avoid backend implementation
+- evolve campaign activity into operational timeline behavior
+- categorize timeline events by workflow, coordination, execution, planning and collaboration
+- derive timeline context from campaign state, blockers, risks, SLA and handoffs
+- show campaign execution history inside Campaign Workspace
+- keep timeline local/mock and frontend-only
+- avoid backend, event sourcing, audit logs and persistence
 
 ## Still Deferred
 - backend
@@ -28,3 +28,6 @@ Domain Entities & Backend Readiness
 - Prisma schema
 - API routes
 - authentication
+- event sourcing
+- audit log architecture
+- realtime collaboration

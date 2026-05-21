@@ -1,6 +1,10 @@
 import { cn } from '@/utils/cn';
 
-export function TopBar() {
+interface TopBarProps {
+  onNewCampaign?: () => void;
+}
+
+export function TopBar({ onNewCampaign }: TopBarProps) {
   return (
     <header className="h-14 bg-surface border-b border-outline top-0 z-50 fixed flex justify-between items-center px-6 w-full">
       <div className="flex items-center space-x-4 text-sm font-medium">
@@ -30,7 +34,10 @@ export function TopBar() {
               />
             ))}
           </div>
-          <button className="bg-primary hover:bg-primary/90 text-white text-xs px-3 py-1.5 rounded font-medium transition-all active:scale-95 shadow-lg shadow-primary/20">
+          <button
+            onClick={onNewCampaign}
+            className="bg-primary hover:bg-primary/90 text-white text-xs px-3 py-1.5 rounded font-medium transition-all active:scale-95 shadow-lg shadow-primary/20"
+          >
             + New Campaign
           </button>
         </div>

@@ -9,6 +9,7 @@ export * from './handoff';
 export * from './metric';
 export * from './note';
 export * from './squad';
+export * from './timeline';
 export * from './ui-state';
 export * from './user';
 export * from './workflow';

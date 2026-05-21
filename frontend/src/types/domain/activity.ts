@@ -10,12 +10,24 @@ export type CampaignActivityType =
   | 'handoff_started'
   | 'handoff_completed'
   | 'note_added'
-  | 'due_date_changed';
+  | 'due_date_changed'
+  | 'execution_risk_detected'
+  | 'sla_due_soon'
+  | 'campaign_overdue'
+  | 'workflow_stalled';
+
+export type CampaignActivityCategory =
+  | 'workflow'
+  | 'coordination'
+  | 'execution'
+  | 'planning'
+  | 'collaboration';
 
 export interface CampaignActivity extends TimestampedEntity {
   campaignId: EntityId;
   actorUserId?: EntityId;
   type: CampaignActivityType;
+  category?: CampaignActivityCategory;
   message: string;
   metadata?: Record<string, unknown>;
 }

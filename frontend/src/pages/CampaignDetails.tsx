@@ -6,9 +6,9 @@ import {
   CampaignChecklist,
   CampaignExecutionIntelligence,
   CampaignNextActions,
+  CampaignOperationalTimeline,
   CampaignQuickActions,
   CampaignSquadPanel,
-  CampaignTimeline,
   CampaignWorkspaceHeader,
   CampaignWorkspaceToast,
   getCampaignCoordinationContext,
@@ -165,7 +165,7 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
             </div>
           </section>
 
-          <CampaignTimeline campaign={campaign} />
+          <CampaignOperationalTimeline campaign={campaign} />
         </div>
 
         <aside className="lg:col-span-4 flex flex-col gap-6 min-w-0">

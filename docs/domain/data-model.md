@@ -283,6 +283,30 @@ Examples:
 - handoff_completed
 - note_added
 - due_date_changed
+- execution_risk_detected
+- sla_due_soon
+- campaign_overdue
+- workflow_stalled
+
+## Timeline Presentation Fields
+
+The operational timeline may present activity and derived context as:
+
+- id
+- campaignId
+- type
+- category
+- importance
+- source
+- title
+- message
+- actorName
+- timestamp
+- metadata
+
+Timeline events are presentation-oriented and may be derived during the MVP.
+
+Do not treat derived timeline events as persisted backend facts too early.
 
 ---
 
@@ -370,6 +394,7 @@ frontend/src/types/domain/
 - Squad
 - WorkflowStage
 - CampaignActivity
+- TimelineEvent
 - Blocker
 - Handoff
 - CampaignNote

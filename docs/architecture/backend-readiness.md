@@ -224,6 +224,7 @@ PATCH /campaigns/:id/blockers/:blockerId
 
 POST /campaigns/:id/handoffs
 PATCH /campaigns/:id/handoffs/:handoffId
+```
 
 # Multi-Tenancy Future
 
@@ -314,16 +315,15 @@ Future backend entities should consider these boundaries:
 
 ```txt
 Organization
-  └── Workspace
-        └── Campaign
-              ├── Activities
-              ├── Blockers
-              ├── Handoffs
-              ├── Notes
-              └── Attachments
+  Workspace
+    Campaign
+      Activities
+      Blockers
+      Handoffs
+      Notes
+      Attachments
+```
 
-              
-Por enquanto é **só documentação**. Não mexa no frontend, store, types ou componentes por causa disso agora.
 ---
 
 # Current Readiness Implementation

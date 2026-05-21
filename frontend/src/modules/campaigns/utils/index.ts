@@ -4,3 +4,4 @@ export * from './capacityMetrics';
 export * from './coordinationMetrics';
 export * from './executionHealthMetrics';
 export * from './filterCampaigns';
+export * from './operationalTimeline';

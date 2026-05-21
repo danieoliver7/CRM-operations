@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Domain Entities & Backend Readiness
+Operational Timeline & Activity Model
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -29,6 +29,9 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - organized frontend domain model
 - persisted vs derived state separation
 - backend readiness without backend implementation
+- operational timeline
+- campaign execution history
+- activity model for workflow, coordination, execution, planning and collaboration events
 
 ## Current Architecture
 - React
@@ -39,11 +42,11 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- domain entity clarity
-- backend readiness without infrastructure
-- persisted vs derived model separation
-- frontend type organization
-- preserving derived operational intelligence
+- operational timeline clarity
+- activity model consistency
+- campaign execution history
+- preserving lightweight derived intelligence
+- avoiding event sourcing, audit log and backend implementation
 
 ## Operational Planning Capabilities
 - campaign creation captures planning context before execution
@@ -68,6 +71,13 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign remains compatible with the current UI while aligning with future backend facts
 - derived intelligence types are separated from persisted entity types
 - commercial future entities exist as lightweight reference types only
+
+## Operational Timeline Capabilities
+- campaign workspace explains recent operational history
+- timeline events are categorized by workflow, coordination, execution, planning and collaboration
+- timeline importance is visual but lightweight
+- events can be derived from campaign status, due date, owner, blockers, risks, SLA and coordination signals
+- activity history remains local/mock and does not introduce persistence or event sourcing
 
 ## Avoid Right Now
 - backend
@@ -103,4 +113,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Campaign entity clarity, backend readiness and derived operational intelligence separation.
+Operational timeline, activity model clarity and campaign execution history without backend implementation.

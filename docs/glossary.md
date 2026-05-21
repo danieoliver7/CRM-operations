@@ -56,3 +56,18 @@ Temporary interface state such as modal visibility, filters, tabs and form draft
 
 ## Backend Readiness
 Domain preparation for future backend work without implementing backend infrastructure now.
+
+## Activity
+Meaningful operational event related to campaign execution, coordination, planning or collaboration.
+
+## Activity Model
+Domain structure used to describe operational events without introducing event sourcing or audit log infrastructure.
+
+## Operational Timeline
+Workspace view that explains the campaign execution history through meaningful operational events.
+
+## Timeline Event
+Presentation model for a timeline item, including category, importance, message, actor and timestamp.
+
+## Event Sourcing
+Deferred architecture pattern that should not be implemented during the MVP.
