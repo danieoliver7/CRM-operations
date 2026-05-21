@@ -88,6 +88,10 @@ Lightweight human context.
 Examples:
 
 - note_added
+- decision_recorded
+- risk_note_added
+- resolution_note_added
+- handoff_note_added
 
 ---
 
@@ -104,6 +108,10 @@ The current MVP supports activity types that can power both a lightweight activi
 - handoff_started
 - handoff_completed
 - note_added
+- decision_recorded
+- risk_note_added
+- resolution_note_added
+- handoff_note_added
 - due_date_changed
 - execution_risk_detected
 - sla_due_soon

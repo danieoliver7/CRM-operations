@@ -4,6 +4,7 @@ export * from './base';
 export * from './blocker';
 export * from './campaign';
 export * from './commercial';
+export * from './decision-context';
 export * from './derived';
 export * from './handoff';
 export * from './metric';

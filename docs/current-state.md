@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Operational Timeline & Activity Model
+Operational Collaboration & Decision Context
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -32,6 +32,9 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - operational timeline
 - campaign execution history
 - activity model for workflow, coordination, execution, planning and collaboration events
+- lightweight collaboration context
+- decision context
+- operational memory
 
 ## Current Architecture
 - React
@@ -42,11 +45,11 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- operational timeline clarity
-- activity model consistency
-- campaign execution history
-- preserving lightweight derived intelligence
-- avoiding event sourcing, audit log and backend implementation
+- decision context clarity
+- operational memory inside Campaign Workspace
+- timeline integration for meaningful decisions only
+- preserving lightweight collaboration without realtime
+- avoiding comments, chat, threads and backend implementation
 
 ## Operational Planning Capabilities
 - campaign creation captures planning context before execution
@@ -78,6 +81,13 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - timeline importance is visual but lightweight
 - events can be derived from campaign status, due date, owner, blockers, risks, SLA and coordination signals
 - activity history remains local/mock and does not introduce persistence or event sourcing
+
+## Operational Collaboration Capabilities
+- campaign workspace explains why operational changes happened
+- decision context captures rationale, clarification, risk notes, resolution notes and handoff notes
+- meaningful decision context can appear in the operational timeline
+- collaboration remains local/mock and campaign-scoped
+- no chat, comment threads, realtime or notification system exists
 
 ## Avoid Right Now
 - backend
@@ -113,4 +123,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Operational timeline, activity model clarity and campaign execution history without backend implementation.
+Operational memory, decision context and lightweight collaboration without backend implementation.

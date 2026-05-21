@@ -167,10 +167,22 @@ The timeline utility derives operational events from:
 - SLA state
 - coordination state
 - handoff context
+- meaningful decision context
 
 This implementation is intentionally local and transparent.
 
 It is not an event store, backend adapter or audit log.
+
+Decision context may appear in timeline when it explains execution.
+
+Examples:
+
+- decision recorded
+- risk note added
+- resolution note added
+- handoff note added
+
+Generic notes should not automatically appear in timeline.
 
 ---
 

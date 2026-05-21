@@ -1,15 +1,15 @@
 # Roadmap
 
 ## Current Focus
-Operational Timeline & Activity Model
+Operational Collaboration & Decision Context
 
 ## Current Sprint Goals
-- evolve campaign activity into operational timeline behavior
-- categorize timeline events by workflow, coordination, execution, planning and collaboration
-- derive timeline context from campaign state, blockers, risks, SLA and handoffs
-- show campaign execution history inside Campaign Workspace
-- keep timeline local/mock and frontend-only
-- avoid backend, event sourcing, audit logs and persistence
+- introduce Decision Context as operational reasoning
+- evolve Campaign Note types for lightweight collaboration
+- add decision context panel to Campaign Workspace
+- integrate meaningful decision, risk, resolution and handoff notes into timeline
+- keep collaboration local/mock and campaign-scoped
+- avoid comments, chat, threads, realtime and backend persistence
 
 ## Still Deferred
 - backend
@@ -31,3 +31,7 @@ Operational Timeline & Activity Model
 - event sourcing
 - audit log architecture
 - realtime collaboration
+- comment threads
+- chat
+- mentions
+- notification systems

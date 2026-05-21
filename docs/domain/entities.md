@@ -379,6 +379,56 @@ They should NOT be persisted as primary truth during the MVP.
 
 ---
 
+
+# Entity: Decision Context
+
+Represents the operational reasoning behind a campaign decision.
+
+Decision Context explains why something happened.
+
+Examples:
+
+- why priority changed
+- why due date changed
+- why QA was delayed
+- why a blocker was resolved
+- why a handoff happened
+
+## Decision Context Should Contain
+
+- id
+- campaignId
+- authorUserId
+- type
+- title
+- content
+- relatedWorkflowStage
+- relatedBlockerId
+- relatedHandoffId
+- relatedActivityId
+- createdAt
+- updatedAt
+
+## Decision Context Should NOT Become
+
+- chat
+- comment thread
+- approval workflow
+- document editor
+- knowledge base
+- realtime collaboration system
+
+## Decision Context Types
+
+- decision
+- rationale
+- clarification
+- risk-note
+- resolution-note
+- handoff-note
+
+---
+
 # Entity Priority For Future Backend
 
 ## Priority 1
@@ -431,6 +481,7 @@ Current modules:
 - blocker
 - handoff
 - note
+- decision-context
 - attachment
 - metric
 - commercial

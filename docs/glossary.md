@@ -71,3 +71,15 @@ Presentation model for a timeline item, including category, importance, message,
 
 ## Event Sourcing
 Deferred architecture pattern that should not be implemented during the MVP.
+
+## Decision Context
+Operational reasoning that explains why something changed in campaign execution.
+
+## Operational Memory
+Lightweight campaign context that preserves decisions, rationale, risk notes, resolution notes and handoff notes.
+
+## Resolution Note
+Operational note explaining how a blocker, QA issue or execution friction was resolved.
+
+## Handoff Note
+Operational note explaining the context behind transition between workflow stages or responsible areas.

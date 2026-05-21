@@ -1,5 +1,7 @@
 import { CAMPAIGN_STATUS_LABELS, type Campaign } from '@/types/campaign';
 import type { TimelineEvent, TimelineEventImportance } from '@/types/domain';
+import type { DecisionContext } from '@/types/domain';
+import { getCampaignDecisionContext } from './collaborationContext';
 import { getCampaignCoordinationContext } from './coordinationMetrics';
 import { getCampaignExecutionHealth } from './executionHealthMetrics';
 
@@ -20,9 +22,24 @@ function sortTimelineEvents(events: TimelineEvent[]) {
   return [...events].sort((a, b) => b.timestamp.localeCompare(a.timestamp));
 }
 
+function getDecisionTimelineType(context: DecisionContext): TimelineEvent['type'] {
+  if (context.type === 'decision') return 'decision_recorded';
+  if (context.type === 'risk-note') return 'risk_note_added';
+  if (context.type === 'resolution-note') return 'resolution_note_added';
+  if (context.type === 'handoff-note') return 'handoff_note_added';
+  return 'note_added';
+}
+
+function getDecisionTimelineImportance(context: DecisionContext): TimelineEventImportance {
+  if (context.importance === 'high') return 'high';
+  if (context.importance === 'low') return 'low';
+  return 'normal';
+}
+
 export function getOperationalTimeline(campaign: Campaign): TimelineEvent[] {
   const execution = getCampaignExecutionHealth(campaign);
   const coordination = getCampaignCoordinationContext(campaign);
+  const decisionContext = getCampaignDecisionContext(campaign);
   const events: TimelineEvent[] = [
     {
       id: `${campaign.id}-created`,
@@ -162,6 +179,29 @@ export function getOperationalTimeline(campaign: Campaign): TimelineEvent[] {
     actorName: campaign.owner.name,
     timestamp: getRelativeTimelineDate(campaign, -4),
   });
+
+  decisionContext
+    .filter((context) => context.importance === 'high' || context.type !== 'clarification')
+    .forEach((context) => {
+      events.push({
+        id: `${context.id}-timeline`,
+        campaignId: campaign.id,
+        type: getDecisionTimelineType(context),
+        category: 'collaboration',
+        importance: getDecisionTimelineImportance(context),
+        source: 'mock',
+        title: context.title,
+        message: context.content,
+        actorName: context.authorName,
+        timestamp: context.createdAt ?? getRelativeTimelineDate(campaign, 0),
+        metadata: {
+          decisionContextType: context.type,
+          relatedWorkflowStage: context.relatedWorkflowStage,
+          relatedBlockerId: context.relatedBlockerId,
+          relatedHandoffId: context.relatedHandoffId,
+        },
+      });
+    });
 
   return sortTimelineEvents(events);
 }

@@ -4,6 +4,7 @@ import {
   CampaignActivityFeed,
   CampaignAttachments,
   CampaignChecklist,
+  CampaignDecisionContext,
   CampaignExecutionIntelligence,
   CampaignNextActions,
   CampaignOperationalTimeline,
@@ -166,6 +167,7 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
           </section>
 
           <CampaignOperationalTimeline campaign={campaign} />
+          <CampaignDecisionContext campaign={campaign} />
         </div>
 
         <aside className="lg:col-span-4 flex flex-col gap-6 min-w-0">

@@ -282,6 +282,10 @@ Examples:
 - handoff_started
 - handoff_completed
 - note_added
+- decision_recorded
+- risk_note_added
+- resolution_note_added
+- handoff_note_added
 - due_date_changed
 - execution_risk_detected
 - sla_due_soon
@@ -357,6 +361,51 @@ Do NOT introduce:
 
 ---
 
+
+
+# Decision Context Data Model
+
+## Persisted Decision Context Fields
+
+Future persisted fields may include:
+
+- id
+- campaignId
+- authorUserId
+- type
+- title
+- content
+- relatedWorkflowStage
+- relatedBlockerId
+- relatedHandoffId
+- relatedActivityId
+- importance
+- createdAt
+- updatedAt
+
+## Decision Context Types
+
+- decision
+- rationale
+- clarification
+- risk-note
+- resolution-note
+- handoff-note
+
+## MVP Rule
+
+During the MVP, decision context may remain mock/local.
+
+Do not implement backend persistence yet.
+
+## Timeline Rule
+
+Only meaningful decision context entries should appear in the Operational Timeline.
+
+Generic notes should not automatically become timeline events.
+
+---
+
 # Future Backend Readiness Rule
 
 When backend starts, do not simply copy the frontend mock shape into the database.
@@ -398,6 +447,7 @@ frontend/src/types/domain/
 - Blocker
 - Handoff
 - CampaignNote
+- DecisionContext
 - Attachment
 - CampaignMetric
 
