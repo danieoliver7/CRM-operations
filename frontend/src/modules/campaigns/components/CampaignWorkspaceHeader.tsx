@@ -47,6 +47,9 @@ export function CampaignWorkspaceHeader({ campaign }: CampaignWorkspaceHeaderPro
 
           <h1 className="text-4xl font-bold tracking-tight">{campaign.name}</h1>
           <p className="text-sm text-on-surface-variant mt-2 max-w-2xl">{campaign.objective}</p>
+          <p className="mt-3 max-w-2xl text-xs font-medium leading-relaxed text-on-surface-variant">
+            {execution.summary} Next responsible area: {coordination.nextResponsibleArea}.
+          </p>
         </div>
 
         <div className="flex flex-col gap-4 lg:min-w-[280px]">

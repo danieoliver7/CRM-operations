@@ -7,6 +7,7 @@ export * from './CampaignExecutionIntelligence';
 export * from './CampaignFiltersBar';
 export * from './CampaignNextActions';
 export * from './CampaignOperationalTimeline';
+export * from './CampaignOperationalCommandCenter';
 export * from './CampaignQuickActions';
 export * from './CampaignSquadPanel';
 export * from './CampaignTimeline';

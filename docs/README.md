@@ -7,6 +7,8 @@
 - `/docs/roadmap.md`
 - `/docs/mvp-boundaries.md`
 - `/docs/glossary.md`
+- `/docs/product-principles.md`
+- `/docs/product-evolution-map.md`
 
 ## Architecture
 
@@ -28,6 +30,8 @@
 - `/docs/frontend/interaction-philosophy.md`
 - `/docs/frontend/navigation-philosophy.md`
 - `/docs/frontend/api-patterns.md`
+- `/docs/frontend/campaign-workspace.md`
+- `/docs/frontend/frontend-architecture-rules.md`
 
 ## Domain
 

@@ -1,15 +1,18 @@
 # Roadmap
 
 ## Current Focus
-Operational Collaboration & Decision Context
+Operational Workspace Consolidation
 
 ## Current Sprint Goals
-- introduce Decision Context as operational reasoning
-- evolve Campaign Note types for lightweight collaboration
-- add decision context panel to Campaign Workspace
-- integrate meaningful decision, risk, resolution and handoff notes into timeline
-- keep collaboration local/mock and campaign-scoped
-- avoid comments, chat, threads, realtime and backend persistence
+- consolidate Campaign Workspace as the single operational hub
+- improve Workspace information hierarchy
+- connect workflow, execution, coordination, timeline and decision context into one coherent experience
+- reduce duplicated or fragmented workspace sections
+- strengthen navigation from Dashboard, Kanban, Calendar and Campaigns into Workspace
+- group current execution, blockers, risks, SLA, coordination and next action into one operational narrative
+- preserve frontend-only behavior
+- avoid new domain concepts
+- avoid backend implementation
 
 ## Still Deferred
 - backend
@@ -35,3 +38,5 @@ Operational Collaboration & Decision Context
 - chat
 - mentions
 - notification systems
+- Docker
+- CI/CD complexity

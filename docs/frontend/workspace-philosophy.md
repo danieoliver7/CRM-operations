@@ -235,3 +235,26 @@ Operational continuity answers:
 - is the next handoff obvious?
 
 Continuity indicators should guide attention, not control the workflow.
+
+---
+
+# Workspace Consolidation Behavior
+
+During Operational Workspace Consolidation, related signals should be grouped when they describe the same operational story.
+
+Execution health, blockers, risks, SLA, coordination state and next action should feel connected.
+
+They should not feel like unrelated widgets.
+
+The Workspace should read as:
+
+```txt
+Current state
+Current pressure
+Current owner/action
+Recent history
+Decision context
+Supporting metadata
+```
+
+Avoid repeating the same signal in multiple cards unless each placement has a distinct purpose.

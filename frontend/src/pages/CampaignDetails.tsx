@@ -5,17 +5,14 @@ import {
   CampaignAttachments,
   CampaignChecklist,
   CampaignDecisionContext,
-  CampaignExecutionIntelligence,
-  CampaignNextActions,
+  CampaignOperationalCommandCenter,
   CampaignOperationalTimeline,
   CampaignQuickActions,
   CampaignSquadPanel,
   CampaignWorkspaceHeader,
   CampaignWorkspaceToast,
-  getCampaignCoordinationContext,
   useCampaigns,
   useCampaignWorkspaceState,
-  WorkflowContinuityCard,
 } from '@/modules/campaigns';
 
 export default function CampaignDetails() {
@@ -57,7 +54,6 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
     updatePriority,
     workflowActions,
   } = useCampaignWorkspaceState(sourceCampaign);
-  const coordination = getCampaignCoordinationContext(campaign);
 
   return (
     <div className="space-y-6 pb-20 max-w-[1200px] mx-auto">
@@ -66,6 +62,8 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-8 flex flex-col gap-6 min-w-0">
+          <CampaignOperationalCommandCenter campaign={campaign} />
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section className="glass p-6 rounded-2xl flex flex-col gap-6">
               <div className="flex items-center gap-3 text-primary">
@@ -177,9 +175,6 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
             onAction={executeWorkflowAction}
             onPriorityChange={updatePriority}
           />
-          <WorkflowContinuityCard context={coordination} />
-          <CampaignExecutionIntelligence campaign={campaign} />
-          <CampaignNextActions campaign={campaign} />
           <CampaignChecklist items={checklistItems} onToggleItem={toggleChecklistItem} />
           <CampaignSquadPanel campaign={campaign} />
           <CampaignActivityFeed activities={activities} />

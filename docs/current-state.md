@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Operational Collaboration & Decision Context
+Operational Workspace Consolidation
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,11 +45,19 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- decision context clarity
-- operational memory inside Campaign Workspace
-- timeline integration for meaningful decisions only
-- preserving lightweight collaboration without realtime
-- avoiding comments, chat, threads and backend implementation
+- consolidate Campaign Workspace as the single operational hub
+- improve hierarchy between execution, coordination, timeline and decision context
+- reduce duplicated or scattered workspace context
+- make Workspace feel like one cohesive operational surface
+- ensure Dashboard, Kanban, Calendar and Campaigns lead users into Workspace context
+- preserve frontend-only, derived and mock/local behavior
+
+## Workspace Consolidation Capabilities
+- workspace header communicates status, priority, health, SLA and coordination state
+- operational command center combines execution health, blockers, risks, coordination and next action
+- timeline and decision context continue the execution story instead of competing with current-state cards
+- sidebar focuses on actions, checklist, squad context and lightweight activity
+- no new domain concept, backend, realtime or collaboration system was introduced
 
 ## Operational Planning Capabilities
 - campaign creation captures planning context before execution
@@ -123,4 +131,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Operational memory, decision context and lightweight collaboration without backend implementation.
+Campaign Workspace cohesion and operational narrative without adding new domain concepts.
