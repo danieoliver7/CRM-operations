@@ -1,23 +1,22 @@
 # Roadmap
 
 ## Current Focus
-Operational Workspace Consolidation
+Backend Foundation Planning
 
 ## Current Sprint Goals
-- consolidate Campaign Workspace as the single operational hub
-- improve Workspace information hierarchy
-- connect workflow, execution, coordination, timeline and decision context into one coherent experience
-- reduce duplicated or fragmented workspace sections
-- strengthen navigation from Dashboard, Kanban, Calendar and Campaigns into Workspace
-- group current execution, blockers, risks, SLA, coordination and next action into one operational narrative
-- preserve frontend-only behavior
-- avoid new domain concepts
-- avoid backend implementation
+- strengthen backend planning docs
+- define persisted facts vs derived intelligence vs UI-only state
+- map future backend entity relationships
+- define future API boundaries without implementation
+- identify first backend scope and deferred backend scope
+- document backend risks and anti-patterns
+- preserve frontend-only behavior during planning
+- avoid backend implementation, database schema and framework decisions
 
 ## Still Deferred
-- backend
-- realtime
+- backend implementation
 - persistence
+- realtime
 - AI planning
 - scheduling engine
 - workload optimizer
@@ -40,3 +39,7 @@ Operational Workspace Consolidation
 - notification systems
 - Docker
 - CI/CD complexity
+- backend framework selection
+- database migrations
+- repository pattern
+- domain events

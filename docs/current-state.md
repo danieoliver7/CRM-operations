@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Operational Workspace Consolidation
+Backend Foundation Planning
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,12 +45,12 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- consolidate Campaign Workspace as the single operational hub
-- improve hierarchy between execution, coordination, timeline and decision context
-- reduce duplicated or scattered workspace context
-- make Workspace feel like one cohesive operational surface
-- ensure Dashboard, Kanban, Calendar and Campaigns lead users into Workspace context
-- preserve frontend-only, derived and mock/local behavior
+- strengthen backend planning documentation
+- define persistence boundaries before implementation
+- map future backend entity relationships
+- define future API boundaries at planning level
+- protect derived intelligence from premature persistence
+- avoid backend code, database schema, API routes and framework decisions
 
 ## Workspace Consolidation Capabilities
 - workspace header communicates status, priority, health, SLA and coordination state
@@ -58,6 +58,14 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - timeline and decision context continue the execution story instead of competing with current-state cards
 - sidebar focuses on actions, checklist, squad context and lightweight activity
 - no new domain concept, backend, realtime or collaboration system was introduced
+
+## Backend Foundation Planning Capabilities
+- backend principles are documented before implementation
+- persistence boundaries separate persisted facts, derived intelligence and UI-only state
+- entity relationships are mapped around Campaign as the operational aggregate
+- future API boundaries are described without creating API code
+- first backend scope and deferred backend scope are identified
+- backend risks are documented before infrastructure choices
 
 ## Operational Planning Capabilities
 - campaign creation captures planning context before execution
@@ -98,7 +106,11 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - no chat, comment threads, realtime or notification system exists
 
 ## Avoid Right Now
-- backend
+- backend implementation
+- API routes
+- database schema
+- migrations
+- backend framework selection
 - realtime
 - websocket
 - workflow engine
@@ -131,4 +143,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Campaign Workspace cohesion and operational narrative without adding new domain concepts.
+Backend foundation planning without backend implementation.

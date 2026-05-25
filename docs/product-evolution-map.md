@@ -90,7 +90,7 @@ Focus:
 
 ## 6. Operational Workspace Consolidation
 
-Status: current next phase
+Status: validated
 
 Focus:
 
@@ -104,7 +104,25 @@ This phase should NOT introduce major new domain concepts.
 
 ---
 
-## 7. Backend Foundation
+## 7. Backend Foundation Planning
+
+Status: current phase
+
+Focus:
+
+- persistence boundaries
+- entity relationships
+- API boundaries
+- first backend scope
+- deferred backend scope
+- backend risks
+- planning before implementation
+
+Do not implement backend code during this phase.
+
+---
+
+## 8. Backend Foundation Implementation
 
 Status: future
 
@@ -118,11 +136,11 @@ Focus:
 - activities storage
 - notes storage
 
-Do not start before Workspace consolidation.
+Do not start before Backend Foundation Planning is complete.
 
 ---
 
-## 8. Commercial SaaS Foundation
+## 9. Commercial SaaS Foundation
 
 Status: future
 
@@ -137,7 +155,7 @@ Focus:
 
 ---
 
-## 9. Realtime Collaboration
+## 10. Realtime Collaboration
 
 Status: future
 
@@ -151,7 +169,7 @@ Only after backend and persistence exist.
 
 ---
 
-## 10. Integrations
+## 11. Integrations
 
 Status: future
 
@@ -171,11 +189,11 @@ Only after the core operational product is validated.
 
 The next phase is:
 
-Operational Workspace Consolidation
+Backend Foundation Planning
 
-The goal is not to add more features.
+The goal is not to build backend infrastructure.
 
-The goal is to consolidate what already exists into a stronger operational experience.
+The goal is to document what future backend should store, expose and avoid.
 
 ---
 
@@ -183,7 +201,7 @@ The goal is to consolidate what already exists into a stronger operational exper
 
 Do not implement now:
 
-- backend
+- backend implementation
 - auth
 - database
 - realtime

@@ -63,3 +63,12 @@
 - `/docs/decisions/ADR-006-domain-model-before-backend.md`
 - `/docs/decisions/ADR-007-operational-timeline-before-collaboration.md`
 - `/docs/decisions/ADR-008-lightweight-collaboration-before-realtime.md`
+- `/docs/decisions/ADR-009-backend-foundation-planning.md`
+
+## Backend
+
+- `/docs/backend/backend-principles.md`
+- `/docs/backend/backend-foundation.md`
+- `/docs/backend/persistence-boundaries.md`
+- `/docs/backend/entity-relationships.md`
+- `/docs/backend/api-boundaries.md`
