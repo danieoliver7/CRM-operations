@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Backend Foundation Design
+Backend Foundation Architecture Review
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,11 +45,11 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- transform backend planning into a technical blueprint
-- define backend architecture direction without implementation
-- document schema design guidelines without creating schema files
-- define backend implementation sequence
-- identify stack candidates without locking implementation too early
+- challenge backend architecture assumptions before implementation
+- validate Campaign as the operational aggregate
+- review Organization -> Workspace -> Campaign SaaS hierarchy
+- stress-test persistence, entity and API boundaries
+- identify backend architecture risks and implementation blockers
 - preserve persisted facts vs derived intelligence boundaries
 - avoid backend code, API routes, migrations and framework setup
 
@@ -67,6 +67,14 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - backend implementation sequence is defined
 - stack candidates are documented without premature framework lock-in
 - backend implementation remains deferred until design is approved
+
+## Backend Foundation Architecture Review Capabilities
+- backend assumptions are challenged before implementation
+- Campaign aggregate direction is validated
+- Organization, Workspace and Campaign hierarchy is reviewed for SaaS readiness
+- persistence boundaries are reviewed against activity, timeline, notes, metrics and attachments
+- API boundaries are reviewed for ownership and boundary leaks
+- architecture risks are documented before backend code exists
 
 ## Operational Planning Capabilities
 - campaign creation captures planning context before execution
@@ -144,4 +152,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Backend foundation design without backend implementation.
+Backend foundation architecture review without backend implementation.

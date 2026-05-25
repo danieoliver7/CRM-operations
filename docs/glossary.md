@@ -63,6 +63,12 @@ Documentation phase that defines persistence boundaries, entity relationships, A
 ## Backend Foundation Design
 Documentation phase that turns backend planning into architecture direction, module boundaries, schema guidelines, implementation sequence and stack candidates without creating backend code.
 
+## Backend Foundation Architecture Review
+Documentation phase that challenges backend assumptions, validates boundaries and records implementation risks before backend code begins.
+
+## Architecture Risk
+Known weakness or uncertainty that could force redesign if ignored during future backend implementation.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 

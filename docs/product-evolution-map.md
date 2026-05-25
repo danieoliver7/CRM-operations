@@ -124,7 +124,7 @@ Do not implement backend code during this phase.
 
 ## 8. Backend Foundation Design
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -144,7 +144,27 @@ Do not lock final framework, ORM, hosting, auth provider or cloud provider decis
 
 ---
 
-## 9. Backend Foundation Implementation
+## 9. Backend Foundation Architecture Review
+
+Status: current phase
+
+Focus:
+
+- challenge backend assumptions before implementation
+- validate Campaign aggregate direction
+- review Organization -> Workspace -> Campaign hierarchy
+- review persistence and derived intelligence boundaries
+- review entity relationships and API ownership
+- review implementation sequence
+- document risks and open questions
+
+Do not implement backend code during this phase.
+
+The goal is more confidence, fewer assumptions and lower implementation risk.
+
+---
+
+## 10. Backend Foundation Implementation
 
 Status: future
 
@@ -158,11 +178,11 @@ Focus:
 - activities storage
 - notes storage
 
-Do not start before Backend Foundation Design is complete.
+Do not start before Backend Foundation Architecture Review is complete.
 
 ---
 
-## 10. Commercial SaaS Foundation
+## 11. Commercial SaaS Foundation
 
 Status: future
 
@@ -177,7 +197,7 @@ Focus:
 
 ---
 
-## 11. Realtime Collaboration
+## 12. Realtime Collaboration
 
 Status: future
 
@@ -191,7 +211,7 @@ Only after backend and persistence exist.
 
 ---
 
-## 12. Integrations
+## 13. Integrations
 
 Status: future
 
@@ -211,11 +231,11 @@ Only after the core operational product is validated.
 
 The next phase is:
 
-Backend Foundation Design
+Backend Foundation Architecture Review
 
 The goal is not to build backend infrastructure.
 
-The goal is to make backend architecture implementation-ready without creating infrastructure.
+The goal is to validate backend architecture assumptions before implementation.
 
 ---
 

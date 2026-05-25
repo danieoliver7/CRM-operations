@@ -1,15 +1,15 @@
 # Roadmap
 
 ## Current Focus
-Backend Foundation Design
+Backend Foundation Architecture Review
 
 ## Current Sprint Goals
-- transform backend planning into technical backend design
-- define recommended backend architecture direction
-- document schema design guidelines without creating schema files
-- define backend implementation sequence
-- document stack candidates and tradeoffs
-- preserve Campaign as operational aggregate
+- challenge backend design assumptions before implementation
+- validate aggregate, entity, persistence and API boundaries
+- review SaaS hierarchy and future commercial risks
+- review implementation sequence before backend code begins
+- document architectural, commercial, operational and implementation risks
+- identify missing concepts and unnecessary concepts
 - protect derived intelligence from premature persistence
 - avoid backend implementation, API routes, database schema and migrations
 

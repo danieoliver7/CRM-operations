@@ -277,6 +277,33 @@ Watch for:
 
 ---
 
+# Architecture Review Status
+
+The Backend Foundation Architecture Review validates this direction with constraints.
+
+Validated:
+
+- Campaign remains the operational aggregate.
+- Organization and Workspace are SaaS/scoping boundaries, not operational centers.
+- Activity should be persisted as meaningful operational facts, not as event sourcing.
+- Timeline presentation should remain derived.
+- REST-first and modular monolith remain appropriate directions.
+
+Open before implementation:
+
+- exact first-backend scope
+- single-workspace vs workspace-scoped first release
+- auth timing based on deployment target
+- framework and ORM selection criteria
+- integration ownership boundaries later
+
+See:
+
+- `/docs/backend/architecture-review.md`
+- `/docs/backend/architecture-risks.md`
+
+---
+
 # Design Output Expected
 
 This phase should produce:

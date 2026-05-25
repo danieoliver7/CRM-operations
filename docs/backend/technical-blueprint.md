@@ -255,3 +255,18 @@ These should be decided during implementation planning, not during documentation
 This blueprint should make future implementation obvious.
 
 It should not create backend files, schemas, migrations or runtime infrastructure during this sprint.
+
+---
+
+# Architecture Review Notes
+
+The architecture review did not identify a need to replace the modular monolith direction.
+
+It did identify constraints for implementation:
+
+- keep module boundaries shallow and campaign-centered
+- do not create backend-derived intelligence endpoints in the first backend
+- do not treat Activity as event sourcing
+- do not persist TimelineEvent as presentation state
+- keep Workspace scoping simple before advanced tenancy
+- decide auth timing based on deployment target

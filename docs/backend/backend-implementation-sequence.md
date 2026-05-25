@@ -183,3 +183,21 @@ Do not implement:
 # Final Principle
 
 Implement backend in the order that makes the product durable, not in the order that makes architecture impressive.
+
+---
+
+# Architecture Review Notes
+
+The architecture review keeps the sequence direction but adds two cautions:
+
+## Auth Timing
+
+Auth can stay after workspace and organization boundaries only for local or internal backend validation.
+
+If the first backend is deployed to a shared hosted environment, basic auth may need to move earlier.
+
+## Workspace Timing
+
+Workspace persistence should remain simple.
+
+It should scope campaigns and squads without pulling in advanced tenant runtime, billing or enterprise permissions.

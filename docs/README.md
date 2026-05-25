@@ -78,3 +78,5 @@
 - `/docs/backend/technical-blueprint.md`
 - `/docs/backend/schema-design-guidelines.md`
 - `/docs/backend/backend-implementation-sequence.md`
+- `/docs/backend/architecture-review.md`
+- `/docs/backend/architecture-risks.md`

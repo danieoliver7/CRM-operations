@@ -240,3 +240,16 @@ The schema should support the product, not impress the architecture.
 Schema design should preserve operational clarity.
 
 It should not turn CRM Operations Platform into a generic project management database.
+
+---
+
+# Architecture Review Notes
+
+The architecture review validates the schema direction with these cautions:
+
+- Activity records may be persisted, but they must not become an event store.
+- Timeline presentation state should remain derived.
+- Workspace scoping should be present early enough to avoid painful tenant migration later.
+- Organization and Membership should not become advanced RBAC in the first backend.
+- JSON metadata should not hide queryable operational relationships.
+- Integration ownership remains intentionally open until integrations are planned.
