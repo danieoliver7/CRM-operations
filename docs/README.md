@@ -17,6 +17,7 @@
 - `/docs/anti-patterns.md`
 - `/docs/decisions/`
 - `/docs/decisions/ADR-010-backend-foundation-design-before-implementation.md`
+- `/docs/decisions/ADR-011-backend-mvp-definition-before-implementation.md`
 
 ## Frontend
 
@@ -66,6 +67,7 @@
 - `/docs/decisions/ADR-008-lightweight-collaboration-before-realtime.md`
 - `/docs/decisions/ADR-009-backend-foundation-planning.md`
 - `/docs/decisions/ADR-010-backend-foundation-design-before-implementation.md`
+- `/docs/decisions/ADR-011-backend-mvp-definition-before-implementation.md`
 
 ## Backend
 
@@ -80,3 +82,7 @@
 - `/docs/backend/backend-implementation-sequence.md`
 - `/docs/backend/architecture-review.md`
 - `/docs/backend/architecture-risks.md`
+- `/docs/backend/backend-mvp-definition.md`
+- `/docs/backend/backend-mvp-scope.md`
+- `/docs/backend/backend-mvp-decision-matrix.md`
+- `/docs/backend/first-schema-review-checklist.md`

@@ -1,27 +1,28 @@
 # Roadmap
 
 ## Current Focus
-Backend Foundation Architecture Review
+Backend MVP Definition
 
 ## Current Sprint Goals
-- challenge backend design assumptions before implementation
-- validate aggregate, entity, persistence and API boundaries
-- review SaaS hierarchy and future commercial risks
-- review implementation sequence before backend code begins
-- document architectural, commercial, operational and implementation risks
-- identify missing concepts and unnecessary concepts
+- define exact Backend MVP scope
+- identify required, optional and deferred backend capabilities
+- define single default workspace vs workspace-scoped assumptions
+- clarify auth timing based on deployment target
+- define first schema review checklist
+- preserve Campaign as operational aggregate
 - protect derived intelligence from premature persistence
-- avoid backend implementation, API routes, database schema and migrations
+- avoid backend implementation, framework setup, database schema and migrations
 
 ## Still Deferred
 - backend implementation
 - backend server
 - API routes
-- persistence
+- persistence implementation
 - database schema
 - Prisma schema
 - migrations
-- authentication
+- framework selection
+- authentication implementation
 - authorization
 - RBAC
 - realtime

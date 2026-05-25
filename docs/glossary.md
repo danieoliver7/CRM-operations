@@ -69,6 +69,15 @@ Documentation phase that challenges backend assumptions, validates boundaries an
 ## Architecture Risk
 Known weakness or uncertainty that could force redesign if ignored during future backend implementation.
 
+## Backend MVP Definition
+Documentation phase that defines the smallest useful backend scope before any backend implementation begins.
+
+## Backend MVP
+Minimal persistence layer for Campaign Workspace durability, scoped to operational facts rather than full SaaS infrastructure.
+
+## Single Default Workspace
+Backend MVP assumption where the system remains workspace-compatible while running with one default workspace and no full tenant runtime.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 

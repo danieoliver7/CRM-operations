@@ -257,3 +257,18 @@ It fails if it becomes:
 Backend foundation should make the validated MVP durable.
 
 It should not make the product heavier than the domain requires.
+
+---
+
+# Backend MVP Definition Link
+
+Before backend implementation begins, the first backend scope must follow:
+
+- `/docs/backend/backend-mvp-definition.md`
+- `/docs/backend/backend-mvp-scope.md`
+- `/docs/backend/backend-mvp-decision-matrix.md`
+- `/docs/backend/first-schema-review-checklist.md`
+
+The Backend MVP is limited to the smallest persistence layer required for Campaign Workspace durability.
+
+It should not expand into full SaaS, auth-first architecture, realtime, integrations or workflow automation.

@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Backend Foundation Architecture Review
+Backend MVP Definition
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,13 +45,13 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- challenge backend architecture assumptions before implementation
-- validate Campaign as the operational aggregate
-- review Organization -> Workspace -> Campaign SaaS hierarchy
-- stress-test persistence, entity and API boundaries
-- identify backend architecture risks and implementation blockers
+- define the exact Backend MVP scope before implementation
+- identify required vs optional vs deferred backend entities
+- define single default workspace vs workspace-scoped MVP assumptions
+- clarify auth timing based on deployment target
+- define first schema review checklist
 - preserve persisted facts vs derived intelligence boundaries
-- avoid backend code, API routes, migrations and framework setup
+- avoid backend code, schema creation, migrations and framework setup
 
 ## Workspace Consolidation Capabilities
 - workspace header communicates status, priority, health, SLA and coordination state
@@ -76,11 +76,26 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - API boundaries are reviewed for ownership and boundary leaks
 - architecture risks are documented before backend code exists
 
-## Operational Planning Capabilities
-- campaign creation captures planning context before execution
-- calendar communicates future campaign concentration
-- dashboard surfaces planning pressure and upcoming warnings
-- capacity indicators remain derived from campaign state
+## Backend MVP Definition
+
+Status: current phase
+
+Focus:
+
+- define the smallest useful backend scope
+- identify required vs optional backend capabilities
+- decide workspace scoping assumption
+- clarify auth timing
+- prepare first schema review checklist
+- avoid backend implementation before scope is approved
+
+## Backend MVP Definition Capabilities
+- Backend MVP is defined as the smallest backend needed to make Campaign Workspace durable
+- Backend MVP scope separates required, optional and deferred backend capabilities
+- Auth timing is documented as conditional based on deployment target
+- first schema review checklist exists before schema creation
+- Backend MVP protects derived intelligence from premature persistence
+- implementation remains deferred until MVP scope is approved
 
 ## Operational Execution Intelligence Capabilities
 - dashboard communicates execution health, overdue campaigns and blockers
@@ -152,4 +167,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Backend foundation architecture review without backend implementation.
+Backend MVP definition without backend implementation.

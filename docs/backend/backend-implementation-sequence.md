@@ -14,6 +14,15 @@ Goal:
 
 Make core campaign data durable.
 
+This phase should follow the Backend MVP definition before implementation begins.
+
+See:
+
+- `/docs/backend/backend-mvp-definition.md`
+- `/docs/backend/backend-mvp-scope.md`
+- `/docs/backend/backend-mvp-decision-matrix.md`
+- `/docs/backend/first-schema-review-checklist.md`
+
 Possible scope:
 
 - backend project setup
@@ -177,6 +186,20 @@ Do not implement:
 - analytics warehouse
 - AI prediction
 - advanced RBAC
+
+---
+
+# Backend MVP Gate
+
+Do not start backend implementation until the Backend MVP scope is approved.
+
+Before any schema is created, the first schema proposal must pass:
+
+```txt
+/docs/backend/first-schema-review-checklist.md
+```
+
+The first implementation should optimize for Campaign Workspace durability, not complete SaaS infrastructure.
 
 ---
 

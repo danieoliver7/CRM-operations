@@ -146,7 +146,7 @@ Do not lock final framework, ORM, hosting, auth provider or cloud provider decis
 
 ## 9. Backend Foundation Architecture Review
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -164,7 +164,26 @@ The goal is more confidence, fewer assumptions and lower implementation risk.
 
 ---
 
-## 10. Backend Foundation Implementation
+## 10. Backend MVP Definition
+
+Status: current phase
+
+Focus:
+
+- define smallest useful backend scope
+- separate required, optional and deferred backend capabilities
+- clarify single default workspace assumption
+- clarify conditional auth timing
+- define first schema review checklist
+- approve scope before technical execution
+
+Do not implement backend code during this phase.
+
+The goal is scope clarity before implementation.
+
+---
+
+## 11. Backend Foundation Implementation
 
 Status: future
 
@@ -178,11 +197,11 @@ Focus:
 - activities storage
 - notes storage
 
-Do not start before Backend Foundation Architecture Review is complete.
+Do not start before Backend MVP Definition is complete.
 
 ---
 
-## 11. Commercial SaaS Foundation
+## 12. Commercial SaaS Foundation
 
 Status: future
 
@@ -197,7 +216,7 @@ Focus:
 
 ---
 
-## 12. Realtime Collaboration
+## 13. Realtime Collaboration
 
 Status: future
 
@@ -211,7 +230,7 @@ Only after backend and persistence exist.
 
 ---
 
-## 13. Integrations
+## 14. Integrations
 
 Status: future
 
@@ -231,11 +250,11 @@ Only after the core operational product is validated.
 
 The next phase is:
 
-Backend Foundation Architecture Review
+Backend MVP Definition
 
 The goal is not to build backend infrastructure.
 
-The goal is to validate backend architecture assumptions before implementation.
+The goal is to approve the smallest useful backend scope before implementation.
 
 ---
 
