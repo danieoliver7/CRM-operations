@@ -57,6 +57,18 @@ Temporary interface state such as modal visibility, filters, tabs and form draft
 ## Backend Readiness
 Domain preparation for future backend work without implementing backend infrastructure now.
 
+## Backend Foundation Planning
+Documentation phase that defines persistence boundaries, entity relationships, API boundaries and backend risks before technical design.
+
+## Backend Foundation Design
+Documentation phase that turns backend planning into architecture direction, module boundaries, schema guidelines, implementation sequence and stack candidates without creating backend code.
+
+## Modular Monolith
+Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
+
+## REST-First
+Likely first API direction where resource-oriented endpoints expose persisted operational facts before orchestration or graph APIs are considered.
+
 ## Activity
 Meaningful operational event related to campaign execution, coordination, planning or collaboration.
 

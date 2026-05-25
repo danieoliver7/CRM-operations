@@ -15,10 +15,10 @@ No backend implementation should be created in this phase.
 The current phase is:
 
 ```txt
-Backend Foundation Planning
+Backend Foundation Design
 ```
 
-The goal is to prepare future backend implementation by clarifying:
+The planning phase clarified:
 
 - what should be persisted
 - what should remain derived
@@ -26,6 +26,8 @@ The goal is to prepare future backend implementation by clarifying:
 - how entities relate
 - what API boundaries may exist later
 - what should remain deferred
+
+The design phase now turns those boundaries into an implementation-ready blueprint without creating backend code.
 
 ---
 

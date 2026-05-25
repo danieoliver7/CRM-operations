@@ -106,7 +106,7 @@ This phase should NOT introduce major new domain concepts.
 
 ## 7. Backend Foundation Planning
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -122,7 +122,29 @@ Do not implement backend code during this phase.
 
 ---
 
-## 8. Backend Foundation Implementation
+## 8. Backend Foundation Design
+
+Status: current phase
+
+Focus:
+
+- modular monolith direction
+- campaign-centered backend architecture
+- REST-first API direction
+- PostgreSQL-compatible persistence direction
+- backend layering and module boundaries
+- schema design guidelines
+- implementation sequence
+- stack candidates and tradeoffs
+- backend risks before implementation
+
+Do not create backend code during this phase.
+
+Do not lock final framework, ORM, hosting, auth provider or cloud provider decisions yet.
+
+---
+
+## 9. Backend Foundation Implementation
 
 Status: future
 
@@ -136,11 +158,11 @@ Focus:
 - activities storage
 - notes storage
 
-Do not start before Backend Foundation Planning is complete.
+Do not start before Backend Foundation Design is complete.
 
 ---
 
-## 9. Commercial SaaS Foundation
+## 10. Commercial SaaS Foundation
 
 Status: future
 
@@ -155,7 +177,7 @@ Focus:
 
 ---
 
-## 10. Realtime Collaboration
+## 11. Realtime Collaboration
 
 Status: future
 
@@ -169,7 +191,7 @@ Only after backend and persistence exist.
 
 ---
 
-## 11. Integrations
+## 12. Integrations
 
 Status: future
 
@@ -189,11 +211,11 @@ Only after the core operational product is validated.
 
 The next phase is:
 
-Backend Foundation Planning
+Backend Foundation Design
 
 The goal is not to build backend infrastructure.
 
-The goal is to document what future backend should store, expose and avoid.
+The goal is to make backend architecture implementation-ready without creating infrastructure.
 
 ---
 

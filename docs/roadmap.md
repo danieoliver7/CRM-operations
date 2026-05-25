@@ -1,45 +1,40 @@
 # Roadmap
 
 ## Current Focus
-Backend Foundation Planning
+Backend Foundation Design
 
 ## Current Sprint Goals
-- strengthen backend planning docs
-- define persisted facts vs derived intelligence vs UI-only state
-- map future backend entity relationships
-- define future API boundaries without implementation
-- identify first backend scope and deferred backend scope
-- document backend risks and anti-patterns
-- preserve frontend-only behavior during planning
-- avoid backend implementation, database schema and framework decisions
+- transform backend planning into technical backend design
+- define recommended backend architecture direction
+- document schema design guidelines without creating schema files
+- define backend implementation sequence
+- document stack candidates and tradeoffs
+- preserve Campaign as operational aggregate
+- protect derived intelligence from premature persistence
+- avoid backend implementation, API routes, database schema and migrations
 
 ## Still Deferred
 - backend implementation
-- persistence
-- realtime
-- AI planning
-- scheduling engine
-- workload optimizer
-- drag and drop calendar
-- SLA engine
-- incident management
-- AI risk prediction
-- workflow orchestration
-- dependency engines
-- task management system
-- Prisma schema
+- backend server
 - API routes
+- persistence
+- database schema
+- Prisma schema
+- migrations
 - authentication
+- authorization
+- RBAC
+- realtime
+- websocket
 - event sourcing
-- audit log architecture
-- realtime collaboration
-- comment threads
-- chat
-- mentions
-- notification systems
+- CQRS
+- microservices
 - Docker
 - CI/CD complexity
-- backend framework selection
-- database migrations
 - repository pattern
+- unit of work
 - domain events
+- workflow orchestration
+- AI prediction
+- integrations
+- billing

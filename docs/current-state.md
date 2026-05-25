@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Backend Foundation Planning
+Backend Foundation Design
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,12 +45,13 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- strengthen backend planning documentation
-- define persistence boundaries before implementation
-- map future backend entity relationships
-- define future API boundaries at planning level
-- protect derived intelligence from premature persistence
-- avoid backend code, database schema, API routes and framework decisions
+- transform backend planning into a technical blueprint
+- define backend architecture direction without implementation
+- document schema design guidelines without creating schema files
+- define backend implementation sequence
+- identify stack candidates without locking implementation too early
+- preserve persisted facts vs derived intelligence boundaries
+- avoid backend code, API routes, migrations and framework setup
 
 ## Workspace Consolidation Capabilities
 - workspace header communicates status, priority, health, SLA and coordination state
@@ -59,13 +60,13 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - sidebar focuses on actions, checklist, squad context and lightweight activity
 - no new domain concept, backend, realtime or collaboration system was introduced
 
-## Backend Foundation Planning Capabilities
-- backend principles are documented before implementation
-- persistence boundaries separate persisted facts, derived intelligence and UI-only state
-- entity relationships are mapped around Campaign as the operational aggregate
-- future API boundaries are described without creating API code
-- first backend scope and deferred backend scope are identified
-- backend risks are documented before infrastructure choices
+## Backend Foundation Design Capabilities
+- backend design direction is documented before implementation
+- modular monolith is evaluated as the likely initial backend shape
+- schema design guidelines exist without creating database schema
+- backend implementation sequence is defined
+- stack candidates are documented without premature framework lock-in
+- backend implementation remains deferred until design is approved
 
 ## Operational Planning Capabilities
 - campaign creation captures planning context before execution
@@ -143,4 +144,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Backend foundation planning without backend implementation.
+Backend foundation design without backend implementation.

@@ -16,6 +16,7 @@
 - `/docs/architecture/backend-readiness.md`
 - `/docs/anti-patterns.md`
 - `/docs/decisions/`
+- `/docs/decisions/ADR-010-backend-foundation-design-before-implementation.md`
 
 ## Frontend
 
@@ -64,6 +65,7 @@
 - `/docs/decisions/ADR-007-operational-timeline-before-collaboration.md`
 - `/docs/decisions/ADR-008-lightweight-collaboration-before-realtime.md`
 - `/docs/decisions/ADR-009-backend-foundation-planning.md`
+- `/docs/decisions/ADR-010-backend-foundation-design-before-implementation.md`
 
 ## Backend
 
@@ -72,3 +74,7 @@
 - `/docs/backend/persistence-boundaries.md`
 - `/docs/backend/entity-relationships.md`
 - `/docs/backend/api-boundaries.md`
+- `/docs/backend/backend-design.md`
+- `/docs/backend/technical-blueprint.md`
+- `/docs/backend/schema-design-guidelines.md`
+- `/docs/backend/backend-implementation-sequence.md`
