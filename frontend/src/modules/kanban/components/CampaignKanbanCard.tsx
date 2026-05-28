@@ -29,11 +29,11 @@ export function CampaignKanbanCard({ campaign }: CampaignKanbanCardProps) {
     <Link
       to={`/campaign/${campaign.id}`}
       className={cn(
-        'block bg-surface-container border border-outline rounded-md p-3 space-y-3 hover:border-gray-600 transition-all cursor-pointer group shadow-lg relative overflow-hidden',
+        'block w-full min-w-0 bg-surface-container border border-outline rounded-md p-3 space-y-3 hover:border-gray-600 transition-all cursor-pointer group shadow-lg relative overflow-hidden',
         isUrgent && 'border-error/30',
       )}
     >
-      <div className="flex justify-between items-start">
+      <div className="flex min-w-0 items-start justify-between gap-2">
         <CampaignChannelIcon channel={campaign.channel} showLabel variant="badge" />
         {isUrgent && (
           <CampaignPriorityBadge
@@ -49,20 +49,20 @@ export function CampaignKanbanCard({ campaign }: CampaignKanbanCardProps) {
         <CoordinationStatusBadge state={coordination.state} />
       </div>
 
-      <h4 className="text-xs font-semibold text-on-surface">{campaign.name}</h4>
+      <h4 className="truncate text-xs font-semibold text-on-surface">{campaign.name}</h4>
       <p className="text-[10px] text-on-surface-variant line-clamp-2 leading-relaxed">
         {campaign.objective || 'Segment: High intent users. Focus on conversion optimization.'}
       </p>
 
-      <div className="flex items-center justify-between pt-1">
+      <div className="flex min-w-0 items-center justify-between pt-1">
         <CampaignProgress value={campaign.progress} showValue className="mr-4" />
         <div className="flex items-center -space-x-1">
           <CampaignOwner owner={campaign.owner} compact avatarClassName="border-surface shadow-sm" />
         </div>
       </div>
 
-      <div className="flex items-center justify-between text-[10px] text-on-surface-variant">
-        <div className="flex items-center gap-2">
+      <div className="flex min-w-0 items-center justify-between gap-2 text-[10px] text-on-surface-variant">
+        <div className="flex shrink-0 items-center gap-2">
           <span className="flex items-center gap-1">
             <MessageCircle className="w-3 h-3" /> {signalCount}
           </span>
@@ -70,7 +70,7 @@ export function CampaignKanbanCard({ campaign }: CampaignKanbanCardProps) {
             <Paperclip className="w-3 h-3" /> 1
           </span>
         </div>
-        <span>{campaign.dueDate}</span>
+        <span className="truncate">{campaign.dueDate}</span>
       </div>
       <p className="truncate border-t border-outline-variant/20 pt-2 text-[10px] font-medium text-on-surface-variant">
         {coordination.nextResponsibleArea}: {coordination.bottleneck}

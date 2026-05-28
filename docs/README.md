@@ -35,6 +35,8 @@
 - `/docs/frontend/api-patterns.md`
 - `/docs/frontend/campaign-workspace.md`
 - `/docs/frontend/frontend-architecture-rules.md`
+- `/docs/frontend/responsive-layout-rules.md`
+- `/docs/frontend/kanban-layout-rules.md`
 
 ## Domain
 
@@ -70,6 +72,7 @@
 - `/docs/decisions/ADR-010-backend-foundation-design-before-implementation.md`
 - `/docs/decisions/ADR-011-backend-mvp-definition-before-implementation.md`
 - `/docs/decisions/ADR-012-backend-stack-decision.md`
+- `/docs/decisions/ADR-013-frontend-layout-stabilization-before-backend.md`
 
 ## Backend
 

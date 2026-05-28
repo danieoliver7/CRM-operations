@@ -33,8 +33,13 @@
 }
 
 @layer base {
+  html,
+  #root {
+    @apply min-h-full overflow-x-hidden;
+  }
+
   body {
-    @apply bg-surface text-on-surface font-sans antialiased selection:bg-primary/30;
+    @apply min-h-screen overflow-x-hidden bg-surface text-on-surface font-sans antialiased selection:bg-primary/30;
   }
 }
 

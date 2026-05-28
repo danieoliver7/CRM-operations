@@ -15,16 +15,16 @@ export function CampaignKanbanColumn({ column, campaigns }: CampaignKanbanColumn
   const hasUrgentCampaign = campaigns.some((campaign) => campaign.priority === 'urgent');
 
   return (
-    <div className="w-[240px] flex flex-col h-full space-y-4">
+    <div className="flex h-full w-[min(280px,calc(100vw-2rem))] shrink-0 flex-col space-y-4 sm:w-[280px]">
       <div
         className={cn(
           'flex items-center justify-between px-1 py-1 rounded-md',
           hasUrgentCampaign && 'bg-error/5',
         )}
       >
-        <div className="flex items-center space-x-2">
+        <div className="flex min-w-0 items-center space-x-2">
           <span className={cn('w-2.5 h-2.5 rounded-full', statusStyle.dotClassName)} />
-          <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+          <span className="truncate text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
             {column.title}
           </span>
           <span
@@ -42,7 +42,7 @@ export function CampaignKanbanColumn({ column, campaigns }: CampaignKanbanColumn
         <span className="text-on-surface-variant text-lg cursor-pointer hover:text-on-surface transition-colors">+</span>
       </div>
 
-      <div className="flex-1 flex flex-col gap-3 overflow-y-auto no-scrollbar pr-1">
+      <div className="no-scrollbar flex min-w-0 flex-1 flex-col gap-3 overflow-y-auto pr-1">
         {campaigns.length === 0 && (
           <div className="h-32 rounded-xl border border-dashed border-outline-variant bg-surface-container-lowest/20 flex flex-col items-center justify-center gap-2 text-on-surface-variant group hover:border-primary/50 transition-all cursor-pointer">
             <Plus className="w-5 h-5 opacity-20 group-hover:opacity-100 transition-all" />

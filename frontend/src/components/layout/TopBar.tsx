@@ -6,14 +6,14 @@ interface TopBarProps {
 
 export function TopBar({ onNewCampaign }: TopBarProps) {
   return (
-    <header className="h-14 bg-surface border-b border-outline top-0 z-50 fixed flex justify-between items-center px-6 w-full">
-      <div className="flex items-center space-x-4 text-sm font-medium">
-        <span className="text-on-surface-variant">MARKET.OS</span>
-        <span className="text-outline">/</span>
-        <span className="text-on-surface">Operations Dashboard</span>
+    <header className="fixed top-0 z-50 flex h-14 w-full min-w-0 items-center justify-between gap-3 border-b border-outline bg-surface px-4 sm:px-6">
+      <div className="flex min-w-0 items-center gap-2 text-sm font-medium sm:gap-4">
+        <span className="shrink-0 text-on-surface-variant">MARKET.OS</span>
+        <span className="hidden text-outline sm:inline">/</span>
+        <span className="hidden min-w-0 truncate text-on-surface sm:inline">Operations Dashboard</span>
       </div>
 
-      <div className="flex items-center space-x-6">
+      <div className="flex min-w-0 shrink-0 items-center gap-3 sm:gap-6">
         <div className="hidden md:flex items-center space-x-4 text-sm font-medium text-on-surface-variant">
           <div className="flex items-center space-x-2">
             <span className="opacity-50">⌘</span>
@@ -22,8 +22,8 @@ export function TopBar({ onNewCampaign }: TopBarProps) {
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <div className="flex -space-x-2">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="hidden -space-x-2 sm:flex">
             {[1, 2, 3].map((item) => (
               <div
                 key={item}
@@ -36,9 +36,10 @@ export function TopBar({ onNewCampaign }: TopBarProps) {
           </div>
           <button
             onClick={onNewCampaign}
-            className="bg-primary hover:bg-primary/90 text-white text-xs px-3 py-1.5 rounded font-medium transition-all active:scale-95 shadow-lg shadow-primary/20"
+            className="shrink-0 rounded bg-primary px-3 py-1.5 text-xs font-medium text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 active:scale-95"
           >
-            + New Campaign
+            <span className="sm:hidden">New</span>
+            <span className="hidden sm:inline">+ New Campaign</span>
           </button>
         </div>
       </div>

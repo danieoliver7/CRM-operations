@@ -41,9 +41,9 @@ export default function Campaigns() {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-end">
-        <div>
+    <div className="min-w-0 space-y-6 overflow-x-hidden">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0">
           <h1 className="text-4xl font-bold tracking-tight">Campaign Inventory</h1>
           <p className="text-on-surface-variant text-base mt-2">
             Active cross-channel marketing operations repository.
@@ -51,7 +51,7 @@ export default function Campaigns() {
         </div>
         <button
           onClick={openCampaignCreation}
-          className="bg-primary text-on-primary px-6 py-2.5 rounded-lg text-sm font-black flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20"
+          className="flex shrink-0 items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-black text-on-primary shadow-lg shadow-primary/20 transition-all hover:opacity-90 active:scale-95"
         >
           <Plus className="w-5 h-5" />
           Create Campaign
@@ -59,9 +59,9 @@ export default function Campaigns() {
       </div>
 
       <div className="glass rounded-2xl overflow-hidden border border-outline-variant/30">
-        <div className="p-4 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container-low/50">
-          <div className="flex items-center gap-4 flex-1">
-            <div className="relative w-96 group">
+        <div className="flex flex-col gap-3 border-b border-outline-variant/30 bg-surface-container-low/50 p-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <div className="group relative w-full sm:max-w-96">
               <Search className="absolute left-3 top-2.5 w-4 h-4 text-on-surface-variant group-focus-within:text-primary transition-colors" />
               <input
                 className="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl py-2 pl-10 pr-4 text-sm outline-none focus:border-primary/50 transition-all font-medium placeholder:text-on-surface-variant/40"
@@ -73,7 +73,7 @@ export default function Campaigns() {
               Filters
             </button>
           </div>
-          <div className="flex items-center gap-4 text-xs font-bold text-on-surface-variant opacity-60">
+          <div className="flex shrink-0 items-center gap-4 text-xs font-bold text-on-surface-variant opacity-60">
             <span>SHOWING {filteredCampaigns.length} OF {campaigns.length} CAMPAIGNS</span>
           </div>
         </div>
@@ -90,7 +90,8 @@ export default function Campaigns() {
           />
         </div>
 
-        <table className="w-full text-left">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[840px] text-left">
           <thead>
             <tr className="bg-surface-container-lowest border-b border-outline-variant/20">
               <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Campaign Asset</th>
@@ -144,6 +145,7 @@ export default function Campaigns() {
             )}
           </tbody>
         </table>
+        </div>
 
         <div className="px-6 py-4 flex justify-between items-center bg-surface-container-lowest border-t border-outline-variant/10">
           <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Page 1 of 1</span>

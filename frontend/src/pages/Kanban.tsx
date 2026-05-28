@@ -28,7 +28,7 @@ export default function KanbanBoard() {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="min-w-0 space-y-4 overflow-x-hidden">
       <div className="px-4 py-3 bg-surface-container border border-outline rounded-md">
         <CampaignFiltersBar
           filters={filters}
@@ -40,7 +40,7 @@ export default function KanbanBoard() {
         />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 px-1">
+      <div className="grid grid-cols-1 gap-3 px-1 sm:grid-cols-2 xl:grid-cols-4">
         {[
           { label: 'Waiting action', value: coordination.waitingActionCampaigns.length },
           { label: 'Pending handoffs', value: coordination.pendingHandoffs.length },
@@ -54,19 +54,22 @@ export default function KanbanBoard() {
         ))}
       </div>
 
-      <div className="h-[calc(100vh-240px)] overflow-x-auto no-scrollbar scroll-smooth">
-      <div className="flex gap-6 h-full min-w-max pb-8 px-4">
-        {visibleColumns.map((column) => (
-          <CampaignKanbanColumn
-            key={column.id}
-            column={column}
-            campaigns={campaignsByStatus[column.id]}
-          />
-        ))}
+      <div className="max-w-full overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest/20">
+        <div className="h-[calc(100vh-300px)] min-h-[520px] max-w-full overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth px-3 py-4">
+          <div className="flex h-full min-w-max flex-nowrap gap-4 pb-6 sm:gap-6">
+            {visibleColumns.map((column) => (
+              <CampaignKanbanColumn
+                key={column.id}
+                column={column}
+                campaigns={campaignsByStatus[column.id]}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Floating Collab Bar */}
-      <div className="fixed bottom-6 left-[264px] bg-surface-container-high/90 backdrop-blur-md px-6 py-2.5 rounded-full border border-outline-variant flex items-center gap-6 z-50 shadow-2xl">
+      <div className="fixed bottom-24 left-4 right-4 z-40 flex max-w-max items-center gap-4 rounded-full border border-outline-variant bg-surface-container-high/90 px-4 py-2.5 shadow-2xl backdrop-blur-md md:bottom-6 md:left-[264px] md:right-6 md:gap-6 md:px-6">
         <div className="flex -space-x-2">
           {[1, 2, 3].map((item) => (
             <img
@@ -78,8 +81,8 @@ export default function KanbanBoard() {
           ))}
         </div>
         <div className="h-4 w-px bg-outline-variant" />
-        <div className="flex items-center gap-3">
-          <span className="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="truncate text-[11px] font-bold uppercase tracking-widest text-on-surface-variant">
             3 Collaborators Live
           </span>
           <div className="flex items-center gap-1.5">
@@ -87,7 +90,6 @@ export default function KanbanBoard() {
             <span className="text-[10px] font-black text-primary uppercase tracking-tighter">Live</span>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );

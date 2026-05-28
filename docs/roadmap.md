@@ -1,17 +1,17 @@
 # Roadmap
 
 ## Current Focus
-Backend Stack Decision
+Frontend Responsiveness & Layout Stabilization
 
 ## Current Sprint Goals
-- formalize Backend V1 stack direction
-- document stack selection criteria
-- decide recommended stack without starting backend implementation
-- define guardrails for NestJS, Prisma and PostgreSQL
-- preserve modular monolith and REST-first direction
-- preserve Campaign as operational aggregate
-- protect derived intelligence from premature persistence
-- avoid backend implementation, database schema, migrations and API routes
+- fix unintended global horizontal overflow
+- stabilize AppShell responsive behavior
+- ensure sidebar and main content layout do not break common viewport widths
+- make Kanban horizontal scroll contained and usable
+- prevent Kanban columns and cards from being clipped
+- preserve current visual identity
+- avoid new product features
+- avoid backend implementation, API routes, database schema and migrations
 
 ## Still Deferred
 - backend implementation
@@ -31,9 +31,6 @@ Backend Stack Decision
 - microservices
 - Docker
 - CI/CD complexity
-- repository pattern
-- unit of work
-- domain events
 - workflow orchestration
 - AI prediction
 - integrations

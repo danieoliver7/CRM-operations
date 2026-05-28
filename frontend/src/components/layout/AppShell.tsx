@@ -13,11 +13,13 @@ export function AppShell({ children, showCommandMenu = true }: AppShellProps) {
   } = useCampaignCreation();
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col">
+    <div className="flex min-h-screen flex-col overflow-x-hidden bg-surface">
       <TopBar onNewCampaign={openCampaignCreation} />
       <Sidebar />
-      <main className="md:ml-[240px] pt-16 px-6 pb-20 w-full max-w-[1440px] mx-auto min-h-screen">
-        <div className="pt-8">{children}</div>
+      <main className="min-h-screen w-full min-w-0 overflow-x-hidden pt-14 pb-20 md:pl-[240px]">
+        <div className="mx-auto w-full max-w-[1440px] min-w-0 px-4 pt-6 sm:px-6 lg:px-8 lg:pt-8">
+          {children}
+        </div>
       </main>
       {showCommandMenu && <CommandMenuMock />}
       <CampaignCreationModal

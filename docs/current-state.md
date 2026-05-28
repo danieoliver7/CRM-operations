@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Backend Stack Decision
+Frontend Responsiveness & Layout Stabilization
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,13 +45,14 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- formalize Backend V1 stack direction
-- decide recommended stack without starting implementation
-- document why NestJS, Prisma and PostgreSQL fit Backend V1
-- define stack selection criteria
-- define guardrails to prevent enterprise complexity
-- preserve Backend MVP scope and derived intelligence boundaries
-- avoid backend code, schema creation, migrations and framework setup
+- stabilize frontend responsiveness before backend implementation planning
+- fix unintended global horizontal overflow
+- make AppShell responsive across common viewport sizes
+- ensure sidebar does not break main content width
+- make Kanban horizontal scroll intentional and contained
+- prevent Kanban cards and columns from being clipped
+- preserve current visual identity and product behavior
+- avoid backend, schema, API and product feature changes
 
 ## Workspace Consolidation Capabilities
 - workspace header communicates status, priority, health, SLA and coordination state
@@ -137,12 +138,19 @@ Focus:
 - framework choice remains subordinate to product domain and Backend MVP scope
 - implementation remains deferred until stack decision is approved
 
+## Frontend Layout Stabilization Capabilities
+- responsive layout rules are documented before implementation
+- Kanban horizontal scroll behavior is documented
+- AppShell, sidebar and main content width behavior are treated as product quality concerns
+- stabilization is explicitly scoped to layout fixes, not redesign
+- backend implementation remains deferred until layout stability improves
+
 ## Avoid Right Now
 - backend implementation
 - API routes
 - database schema
 - migrations
-- backend implementation
+- backend framework setup
 - realtime
 - websocket
 - workflow engine
@@ -175,4 +183,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Backend stack decision without backend implementation.
+Frontend layout stabilization without redesign or backend implementation.
