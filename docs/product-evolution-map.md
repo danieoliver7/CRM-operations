@@ -166,7 +166,7 @@ The goal is more confidence, fewer assumptions and lower implementation risk.
 
 ## 10. Backend MVP Definition
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -183,7 +183,25 @@ The goal is scope clarity before implementation.
 
 ---
 
-## 11. Backend Foundation Implementation
+## 11. Backend Stack Decision
+
+Status: current phase
+
+Focus:
+
+- select recommended Backend V1 stack direction
+- document stack selection criteria
+- define NestJS, Prisma and PostgreSQL guardrails
+- keep stack decision subordinate to Backend MVP scope
+- avoid implementation before stack decision is approved
+
+Do not implement backend code during this phase.
+
+The approved direction is NestJS + Prisma + PostgreSQL + REST-first API + Modular Monolith.
+
+---
+
+## 12. Backend Foundation Implementation
 
 Status: future
 
@@ -197,11 +215,11 @@ Focus:
 - activities storage
 - notes storage
 
-Do not start before Backend MVP Definition is complete.
+Do not start before Backend Stack Decision is complete.
 
 ---
 
-## 12. Commercial SaaS Foundation
+## 13. Commercial SaaS Foundation
 
 Status: future
 
@@ -216,7 +234,7 @@ Focus:
 
 ---
 
-## 13. Realtime Collaboration
+## 14. Realtime Collaboration
 
 Status: future
 
@@ -230,7 +248,7 @@ Only after backend and persistence exist.
 
 ---
 
-## 14. Integrations
+## 15. Integrations
 
 Status: future
 
@@ -250,11 +268,11 @@ Only after the core operational product is validated.
 
 The next phase is:
 
-Backend MVP Definition
+Backend Stack Decision
 
 The goal is not to build backend infrastructure.
 
-The goal is to approve the smallest useful backend scope before implementation.
+The goal is to approve stack direction before implementation planning.
 
 ---
 

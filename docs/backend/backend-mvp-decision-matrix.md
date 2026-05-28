@@ -78,18 +78,18 @@ Should not be introduced without a future ADR.
 # Architecture Decisions
 
 | Decision | Status | Rationale |
-|---|---|---|
-| Modular monolith | Candidate | Strong likely direction |
-| REST-first API | Candidate | Simple and resource-oriented |
-| PostgreSQL-compatible DB | Candidate | Fits relational domain |
-| NestJS | Candidate | Structure, but may add ceremony |
-| Express/Fastify | Candidate | Lightweight, but needs discipline |
-| Prisma | Candidate | Fast schema/type workflow |
-| Drizzle | Candidate | Explicit SQL-friendly approach |
+|---|---:|---|
+| Modular monolith | Required Now | Approved backend architecture direction |
+| REST-first API | Required Now | Simple and resource-oriented |
+| PostgreSQL | Required Now | Fits relational campaign-centered domain |
+| NestJS | Required Now | Approved Backend V1 framework direction |
+| Prisma | Required Now | Approved Backend V1 ORM direction |
+| Express/Fastify | Deferred | Valid alternatives only if NestJS creates a blocker |
+| Drizzle | Deferred | Valid alternative only if Prisma creates a blocker |
 | Microservices | Explicitly Avoid | Premature complexity |
 | Event sourcing | Explicitly Avoid | Activities are not source of truth |
-| CQRS | Explicitly Avoid | Not needed for MVP |
-| Docker | Deferred | Not needed for scope definition |
+| CQRS | Explicitly Avoid | Not needed for Backend MVP |
+| Docker | Deferred | Not needed before implementation environment requires it |
 | CI/CD complexity | Deferred | Not needed before backend implementation exists |
 
 ---
@@ -116,7 +116,9 @@ Always defer:
 - billing roles
 - tenant admin permissions
 
-Do not lock auth provider during Backend MVP Definition.
+Do not lock auth provider during Backend MVP Definition or Backend Stack Decision.
+
+The Backend V1 stack is now approved as NestJS + Prisma + PostgreSQL + REST-first API + Modular Monolith, but auth remains conditional.
 
 ---
 

@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Backend MVP Definition
+Backend Stack Decision
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,12 +45,12 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- define the exact Backend MVP scope before implementation
-- identify required vs optional vs deferred backend entities
-- define single default workspace vs workspace-scoped MVP assumptions
-- clarify auth timing based on deployment target
-- define first schema review checklist
-- preserve persisted facts vs derived intelligence boundaries
+- formalize Backend V1 stack direction
+- decide recommended stack without starting implementation
+- document why NestJS, Prisma and PostgreSQL fit Backend V1
+- define stack selection criteria
+- define guardrails to prevent enterprise complexity
+- preserve Backend MVP scope and derived intelligence boundaries
 - avoid backend code, schema creation, migrations and framework setup
 
 ## Workspace Consolidation Capabilities
@@ -62,10 +62,10 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 
 ## Backend Foundation Design Capabilities
 - backend design direction is documented before implementation
-- modular monolith is evaluated as the likely initial backend shape
+- modular monolith is validated as the initial backend architecture direction
 - schema design guidelines exist without creating database schema
 - backend implementation sequence is defined
-- stack candidates are documented without premature framework lock-in
+- stack candidates were evaluated before Backend V1 stack approval
 - backend implementation remains deferred until design is approved
 
 ## Backend Foundation Architecture Review Capabilities
@@ -78,7 +78,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 
 ## Backend MVP Definition
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -129,12 +129,20 @@ Focus:
 - collaboration remains local/mock and campaign-scoped
 - no chat, comment threads, realtime or notification system exists
 
+## Backend Stack Decision Capabilities
+- Backend V1 stack direction is documented as NestJS + Prisma + PostgreSQL
+- REST-first modular monolith remains the approved architecture direction
+- stack selection criteria are documented
+- stack guardrails prevent NestJS, Prisma and PostgreSQL from expanding product scope
+- framework choice remains subordinate to product domain and Backend MVP scope
+- implementation remains deferred until stack decision is approved
+
 ## Avoid Right Now
 - backend implementation
 - API routes
 - database schema
 - migrations
-- backend framework selection
+- backend implementation
 - realtime
 - websocket
 - workflow engine
@@ -167,4 +175,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Backend MVP definition without backend implementation.
+Backend stack decision without backend implementation.

@@ -18,6 +18,7 @@
 - `/docs/decisions/`
 - `/docs/decisions/ADR-010-backend-foundation-design-before-implementation.md`
 - `/docs/decisions/ADR-011-backend-mvp-definition-before-implementation.md`
+- `/docs/decisions/ADR-012-backend-stack-decision.md`
 
 ## Frontend
 
@@ -68,6 +69,7 @@
 - `/docs/decisions/ADR-009-backend-foundation-planning.md`
 - `/docs/decisions/ADR-010-backend-foundation-design-before-implementation.md`
 - `/docs/decisions/ADR-011-backend-mvp-definition-before-implementation.md`
+- `/docs/decisions/ADR-012-backend-stack-decision.md`
 
 ## Backend
 
@@ -86,3 +88,6 @@
 - `/docs/backend/backend-mvp-scope.md`
 - `/docs/backend/backend-mvp-decision-matrix.md`
 - `/docs/backend/first-schema-review-checklist.md`
+- `/docs/backend/backend-stack-decision.md`
+- `/docs/backend/stack-selection-criteria.md`
+- `/docs/backend/backend-v1-stack-guardrails.md`

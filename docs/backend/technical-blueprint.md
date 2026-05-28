@@ -10,31 +10,42 @@ It should guide implementation later without creating backend code now.
 
 # Recommended Backend Shape
 
-The first backend should likely be:
+The first backend should be planned as:
 
 - modular monolith
 - resource-oriented
 - campaign-centered
-- API-first
+- REST-first
 - simple persistence layer
-- PostgreSQL-compatible
-- ORM-supported
+- PostgreSQL-backed
+- Prisma-supported
 
-This is a recommendation direction, not final implementation.
+This is a stack direction.
+
+It is still not backend implementation.
 
 ---
 
-# Candidate Stack
+# Selected Backend V1 Stack
 
-The likely future stack may be:
+The selected Backend V1 stack direction is:
 
-- Node.js
-- NestJS or Express/Fastify
-- PostgreSQL
-- Prisma or Drizzle
-- REST API first
+```txt
+NestJS
+Prisma
+PostgreSQL
+REST-first API
+Modular Monolith
+```
 
-No final stack decision should be locked until implementation sprint.
+This decision is documented in:
+
+```txt
+/docs/backend/backend-stack-decision.md
+/docs/backend/stack-selection-criteria.md
+/docs/backend/backend-v1-stack-guardrails.md
+/docs/decisions/ADR-012-backend-stack-decision.md
+```
 
 ---
 
@@ -178,37 +189,31 @@ Derived intelligence should stay outside persistence as primary truth:
 
 ---
 
-# Candidate Stack Tradeoffs
-
-## Node.js
-
-Strong fit because the frontend is TypeScript and the team can share domain vocabulary.
-
 ## NestJS
 
-Good candidate if the project wants explicit modules, dependency injection and stronger backend structure.
+Selected because it provides explicit modules, dependency injection and predictable REST structure.
 
 Risk: can encourage enterprise ceremony before the product needs it.
 
 ## Express Or Fastify
 
-Good candidates if the project wants a smaller backend surface and faster iteration.
+Valid alternatives, but deferred for Backend V1.
 
 Risk: module boundaries must be kept intentionally by convention.
 
 ## PostgreSQL
 
-Strong candidate for relational campaign data, workspace scoping and future SaaS growth.
+Selected for relational campaign data, workspace scoping and future SaaS growth.
 
 ## Prisma
 
-Good candidate for developer speed and schema readability.
+Selected for developer speed, schema readability and TypeScript integration.
 
 Risk: schema design should still follow the domain, not only ORM convenience.
 
 ## Drizzle
 
-Good candidate for explicit SQL-oriented modeling and lighter abstraction.
+Valid alternative, but deferred for Backend V1.
 
 Risk: may require more discipline around migrations and query composition.
 
@@ -237,16 +242,17 @@ Do not expose orchestration endpoints as the first backend shape.
 
 # Design Decisions Still Open
 
-Do not lock yet:
+The stack direction is selected, but these decisions remain open until implementation planning:
 
-- NestJS vs Express vs Fastify
-- Prisma vs Drizzle
+- auth timing based on deployment target
+- auth provider if auth is required
 - database hosting provider
-- auth provider
 - deployment provider
 - file storage provider
+- exact API route shape
+- first schema proposal
 
-These should be decided during implementation planning, not during documentation design.
+Do not reopen NestJS vs Express/Fastify or Prisma vs Drizzle unless a concrete implementation blocker is found.
 
 ---
 

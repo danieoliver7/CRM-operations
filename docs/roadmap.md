@@ -1,17 +1,17 @@
 # Roadmap
 
 ## Current Focus
-Backend MVP Definition
+Backend Stack Decision
 
 ## Current Sprint Goals
-- define exact Backend MVP scope
-- identify required, optional and deferred backend capabilities
-- define single default workspace vs workspace-scoped assumptions
-- clarify auth timing based on deployment target
-- define first schema review checklist
+- formalize Backend V1 stack direction
+- document stack selection criteria
+- decide recommended stack without starting backend implementation
+- define guardrails for NestJS, Prisma and PostgreSQL
+- preserve modular monolith and REST-first direction
 - preserve Campaign as operational aggregate
 - protect derived intelligence from premature persistence
-- avoid backend implementation, framework setup, database schema and migrations
+- avoid backend implementation, database schema, migrations and API routes
 
 ## Still Deferred
 - backend implementation
@@ -21,7 +21,6 @@ Backend MVP Definition
 - database schema
 - Prisma schema
 - migrations
-- framework selection
 - authentication implementation
 - authorization
 - RBAC

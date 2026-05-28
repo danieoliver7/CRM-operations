@@ -74,7 +74,17 @@ A modular monolith is enough because the product still needs:
 - one deployable unit
 - room to enforce module boundaries without distributed system cost
 
-This is a direction, not a final framework decision.
+This architecture direction is now paired with the Backend V1 stack decision:
+
+```txt
+NestJS
+Prisma
+PostgreSQL
+REST-first API
+Modular Monolith
+```
+
+This is still not backend implementation.
 
 ## Why Not Microservices
 
@@ -128,7 +138,7 @@ GraphQL can be revisited later if workspace composition becomes painful.
 
 ## Why PostgreSQL-Compatible
 
-PostgreSQL is a strong future candidate because the domain needs:
+PostgreSQL is the selected Backend V1 database direction because the domain needs:
 
 - relational ownership
 - campaign child records
@@ -136,9 +146,9 @@ PostgreSQL is a strong future candidate because the domain needs:
 - timestamps and audit-friendly facts
 - optional JSON metadata for bounded operational context
 
-This does not lock the implementation to PostgreSQL yet.
+PostgreSQL is now the selected Backend V1 database direction.
 
-It only says the design should remain compatible with a relational database.
+This does not create a database, schema or connection.
 
 ---
 
@@ -304,6 +314,36 @@ See:
 
 ---
 
+# Stack Decision Status
+
+The Backend Stack Decision approves:
+
+- NestJS as Backend V1 framework direction
+- Prisma as Backend V1 ORM direction
+- PostgreSQL as Backend V1 database direction
+- REST-first APIs
+- modular monolith architecture
+
+It does not approve:
+
+- backend implementation
+- NestJS project files
+- Prisma schema
+- migrations
+- API routes
+- auth
+- Docker
+- deployment infrastructure
+
+See:
+
+- `/docs/backend/backend-stack-decision.md`
+- `/docs/backend/stack-selection-criteria.md`
+- `/docs/backend/backend-v1-stack-guardrails.md`
+- `/docs/decisions/ADR-012-backend-stack-decision.md`
+
+---
+
 # Design Output Expected
 
 This phase should produce:
@@ -314,7 +354,7 @@ This phase should produce:
 - schema design guidelines
 - implementation sequence
 - risks and tradeoffs
-- technology recommendation candidates
+- selected Backend V1 stack direction
 
 This phase should NOT produce:
 

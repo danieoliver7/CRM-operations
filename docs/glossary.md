@@ -78,6 +78,12 @@ Minimal persistence layer for Campaign Workspace durability, scoped to operation
 ## Single Default Workspace
 Backend MVP assumption where the system remains workspace-compatible while running with one default workspace and no full tenant runtime.
 
+## Backend Stack Decision
+Documentation phase that approves Backend V1 stack direction without creating backend implementation.
+
+## Backend V1 Stack
+Approved stack direction for the first backend: NestJS, Prisma, PostgreSQL, REST-first API and modular monolith.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 
