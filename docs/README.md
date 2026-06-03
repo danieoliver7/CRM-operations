@@ -74,6 +74,7 @@
 - `/docs/decisions/ADR-012-backend-stack-decision.md`
 - `/docs/decisions/ADR-013-frontend-layout-stabilization-before-backend.md`
 - `/docs/decisions/ADR-014-frontend-backend-contract-before-implementation.md`
+- `/docs/decisions/ADR-015-backend-implementation-planning-before-backend-code.md`
 
 ## Backend
 
@@ -95,6 +96,11 @@
 - `/docs/backend/backend-stack-decision.md`
 - `/docs/backend/stack-selection-criteria.md`
 - `/docs/backend/backend-v1-stack-guardrails.md`
+- `/docs/backend/backend-implementation-plan.md`
+- `/docs/backend/backend-v1-module-plan.md`
+- `/docs/backend/first-prisma-schema-plan.md`
+- `/docs/backend/backend-v1-api-implementation-plan.md`
+- `/docs/backend/backend-v1-validation-plan.md`
 
 
 ## Contracts

@@ -102,6 +102,15 @@ Contract for the operational facts required to make Campaign Workspace durable i
 ## UI Compatibility Field
 Temporary frontend field that keeps the current mock UI working but should not automatically become backend schema.
 
+## Backend Implementation Planning
+Documentation phase that defines Backend V1 implementation cuts, module boundaries, schema direction, API order, workspace endpoint strategy and validation gates before backend code begins.
+
+## Implementation Cut
+Small planned slice of backend work used to keep implementation ordered and low risk.
+
+## Composed Workspace Endpoint
+Recommended Backend V1 read endpoint that returns the operational facts needed by Campaign Workspace in one response without returning derived intelligence as backend truth.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 

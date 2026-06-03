@@ -203,7 +203,7 @@ The approved direction is NestJS + Prisma + PostgreSQL + REST-first API + Modula
 
 ## 12. Frontend Backend Contract Preparation
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -220,7 +220,28 @@ The goal is contract clarity before technical execution.
 
 ---
 
-## 13. Backend Foundation Implementation
+## 13. Backend Implementation Planning
+
+Status: current phase
+
+Focus:
+
+- define first Backend V1 implementation cuts
+- define module plan for NestJS modular monolith
+- define first Prisma schema plan
+- define Backend V1 API implementation plan
+- recommend Campaign Workspace endpoint strategy
+- define validation plan before backend code
+- preserve contracts and derived intelligence boundaries
+- avoid backend implementation before planning is approved
+
+Do not implement backend, API clients, Prisma schema, routes or migrations during this phase.
+
+The goal is to make the first real backend sprint safe, small and obvious.
+
+---
+
+## 14. Backend Foundation Implementation
 
 Status: future
 
@@ -234,11 +255,11 @@ Focus:
 - activities storage
 - notes storage
 
-Do not start before Frontend Backend Contract Preparation is approved.
+Do not start before Backend Implementation Planning is approved.
 
 ---
 
-## 14. Commercial SaaS Foundation
+## 15. Commercial SaaS Foundation
 
 Status: future
 
@@ -253,7 +274,7 @@ Focus:
 
 ---
 
-## 15. Realtime Collaboration
+## 16. Realtime Collaboration
 
 Status: future
 
@@ -267,7 +288,7 @@ Only after backend and persistence exist.
 
 ---
 
-## 16. Integrations
+## 17. Integrations
 
 Status: future
 
@@ -281,17 +302,15 @@ Focus:
 
 Only after the core operational product is validated.
 
----
-
 # Current Rule
 
 The current phase is:
 
-Frontend Backend Contract Preparation
+Backend Implementation Planning
 
-The goal is not to build backend infrastructure or frontend API clients.
+The goal is not to build backend infrastructure, Prisma schema, API routes or frontend API clients.
 
-The goal is to approve the frontend-backend contract before backend implementation planning.
+The goal is to approve the implementation plan before backend code starts.
 
 ---
 

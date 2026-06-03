@@ -1,23 +1,24 @@
 # Roadmap
 
 ## Current Focus
-Frontend Backend Contract Preparation
+Backend Implementation Planning
 
 ## Current Sprint Goals
-- define frontend-backend contract before backend implementation planning
-- document API response shapes for Backend V1 resources
-- document DTO to View Model mapping rules
-- define Campaign Workspace response contract
-- clarify Campaign Workspace as the first contract priority
-- align backend API boundaries with contract documents
-- document empty state expectations for future API responses
+- define Backend V1 implementation plan before backend code
+- document first backend implementation cuts
+- document Backend V1 module plan
+- document first Prisma schema plan without creating schema.prisma
+- document Backend V1 API implementation plan without creating routes
+- document Backend V1 validation plan
+- recommend Campaign Workspace endpoint strategy before API implementation
+- preserve frontend-backend contracts
 - protect derived intelligence from becoming backend primary truth
-- prevent mock/UI compatibility fields from becoming database schema by accident
-- avoid backend implementation, Prisma schema, migrations and API routes
+- avoid backend implementation, Prisma schema, migrations, API routes and auth
 
 ## Still Deferred
 - backend implementation
 - backend server
+- NestJS app creation
 - API routes
 - persistence implementation
 - database schema

@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Frontend Backend Contract Preparation
+Backend Implementation Planning
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,13 +45,15 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- prepare frontend-backend contracts before backend implementation planning
-- define API response shapes for Backend V1 resources
-- define DTO to View Model mapping rules
-- define Campaign Workspace contract
-- clarify which current frontend fields are compatibility/view fields
-- protect derived intelligence from becoming backend primary truth
-- avoid backend implementation, Prisma schema, API routes and frontend API client code
+- prepare Backend V1 implementation plan before backend code
+- define first backend implementation cuts
+- define Backend V1 module plan
+- define first Prisma schema plan without creating schema.prisma
+- define Backend V1 API implementation plan without creating routes
+- recommend composed Campaign Workspace endpoint strategy
+- define Backend V1 validation plan
+- preserve frontend-backend contracts and derived intelligence boundaries
+- avoid creating backend code, Prisma schema, migrations, API routes and auth
 
 ## Workspace Consolidation Capabilities
 - workspace header communicates status, priority, health, SLA and coordination state
@@ -152,6 +154,15 @@ Focus:
 - current mock/UI compatibility fields are prevented from becoming backend schema by accident
 - derived intelligence remains frontend-derived from persisted facts
 
+## Backend Implementation Planning Capabilities
+- Backend V1 implementation plan is documented before code
+- module plan defines planned NestJS modular monolith boundaries
+- first Prisma schema plan defines schema direction without schema creation
+- API implementation plan defines first REST resource direction without routes
+- Campaign Workspace endpoint strategy is recommended as a composed read endpoint plus resource writes
+- validation plan protects contracts, persistence boundaries and derived intelligence rules
+- backend implementation remains deferred until planning is approved
+
 ## Avoid Right Now
 - backend implementation
 - API routes
@@ -190,4 +201,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Frontend-backend contract preparation without backend implementation.
+Backend implementation planning without backend code.

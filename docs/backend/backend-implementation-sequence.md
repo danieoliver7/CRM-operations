@@ -1,5 +1,21 @@
 # Backend Implementation Sequence
 
+## Current Planning Relationship
+
+Backend Implementation Sequence defines the long-term order of backend implementation.
+
+Backend Implementation Planning defines the immediate Backend V1 implementation plan.
+
+Use this document together with:
+
+- `/docs/backend/backend-implementation-plan.md`
+- `/docs/backend/backend-v1-module-plan.md`
+- `/docs/backend/first-prisma-schema-plan.md`
+- `/docs/backend/backend-v1-api-implementation-plan.md`
+- `/docs/backend/backend-v1-validation-plan.md`
+
+Do not start backend implementation until Backend Implementation Planning is approved.
+
 ## Purpose
 
 This document defines a recommended future backend implementation sequence.
