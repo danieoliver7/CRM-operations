@@ -84,6 +84,24 @@ Documentation phase that approves Backend V1 stack direction without creating ba
 ## Backend V1 Stack
 Approved stack direction for the first backend: NestJS, Prisma, PostgreSQL, REST-first API and modular monolith.
 
+## Frontend Backend Contract Preparation
+Documentation phase that defines how future backend DTOs, frontend mappers, View Models and derived intelligence should relate before backend implementation begins.
+
+## DTO
+API transport shape returned by the backend. DTOs should expose persisted or reference facts, not UI presentation state.
+
+## View Model
+Frontend-facing shape prepared for components after DTO mapping and local derivation.
+
+## API Response Shape
+Contract planning shape that describes what future backend responses may contain without creating routes, OpenAPI specs or database schema.
+
+## Campaign Workspace Contract
+Contract for the operational facts required to make Campaign Workspace durable in Backend V1.
+
+## UI Compatibility Field
+Temporary frontend field that keeps the current mock UI working but should not automatically become backend schema.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 

@@ -302,6 +302,53 @@ If backend-derived intelligence becomes necessary later, it should be introduced
 
 ---
 
+# Contract Preparation Relationship
+
+API boundaries define resource ownership.
+
+Contracts define request and response shapes.
+
+This document should not be treated as a full API specification.
+
+For frontend-backend contract planning, use:
+
+- `/docs/contracts/frontend-backend-contract.md`
+- `/docs/contracts/api-response-shapes.md`
+- `/docs/contracts/dto-to-view-model-mapping.md`
+- `/docs/contracts/campaign-workspace-contract.md`
+
+Backend implementation should not start until contract preparation is approved.
+
+## Boundary vs Contract
+
+This document answers:
+
+- which resources the future API may expose
+- which domain area owns each resource
+- which resource boundaries should be avoided early
+
+Contract documents answer:
+
+- what DTOs may look like
+- what a composed Campaign Workspace response may include
+- what the frontend should map before rendering
+- what should remain derived intelligence
+
+API boundaries should not be treated as final route implementation instructions.
+
+Contract shapes should not be treated as database schema.
+
+## Campaign Workspace Relationship
+
+The Campaign Workspace contract may use either:
+
+- a composed workspace response, or
+- separate campaign-scoped resource responses.
+
+Both options still follow the same resource ownership boundaries.
+
+The implementation planning sprint should choose the simplest approach that makes Campaign Workspace durable without adding orchestration APIs.
+
 # Final Principle
 
 API boundaries should make operational facts accessible.

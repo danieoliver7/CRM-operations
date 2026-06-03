@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Frontend Responsiveness & Layout Stabilization
+Frontend Backend Contract Preparation
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -45,14 +45,13 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - mock/local operational state
 
 ## Current Priorities
-- stabilize frontend responsiveness before backend implementation planning
-- fix unintended global horizontal overflow
-- make AppShell responsive across common viewport sizes
-- ensure sidebar does not break main content width
-- make Kanban horizontal scroll intentional and contained
-- prevent Kanban cards and columns from being clipped
-- preserve current visual identity and product behavior
-- avoid backend, schema, API and product feature changes
+- prepare frontend-backend contracts before backend implementation planning
+- define API response shapes for Backend V1 resources
+- define DTO to View Model mapping rules
+- define Campaign Workspace contract
+- clarify which current frontend fields are compatibility/view fields
+- protect derived intelligence from becoming backend primary truth
+- avoid backend implementation, Prisma schema, API routes and frontend API client code
 
 ## Workspace Consolidation Capabilities
 - workspace header communicates status, priority, health, SLA and coordination state
@@ -145,6 +144,14 @@ Focus:
 - stabilization is explicitly scoped to layout fixes, not redesign
 - backend implementation remains deferred until layout stability improves
 
+## Frontend Backend Contract Capabilities
+- frontend-backend contract rules are documented before implementation
+- API response shapes are planned without creating routes
+- DTO to View Model mapping rules are documented
+- Campaign Workspace data contract is defined as the first priority
+- current mock/UI compatibility fields are prevented from becoming backend schema by accident
+- derived intelligence remains frontend-derived from persisted facts
+
 ## Avoid Right Now
 - backend implementation
 - API routes
@@ -183,4 +190,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Frontend layout stabilization without redesign or backend implementation.
+Frontend-backend contract preparation without backend implementation.

@@ -185,7 +185,7 @@ The goal is scope clarity before implementation.
 
 ## 11. Backend Stack Decision
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -201,7 +201,26 @@ The approved direction is NestJS + Prisma + PostgreSQL + REST-first API + Modula
 
 ---
 
-## 12. Backend Foundation Implementation
+## 12. Frontend Backend Contract Preparation
+
+Status: current phase
+
+Focus:
+
+- define API DTO direction before backend implementation
+- clarify DTO to View Model mapping
+- define Campaign Workspace contract as the first backend-facing surface
+- protect derived intelligence from premature persistence
+- prevent current mock/UI compatibility fields from becoming schema by accident
+- align frontend API patterns with backend API boundaries
+
+Do not implement backend, API clients, Prisma schema, routes or migrations during this phase.
+
+The goal is contract clarity before technical execution.
+
+---
+
+## 13. Backend Foundation Implementation
 
 Status: future
 
@@ -215,11 +234,11 @@ Focus:
 - activities storage
 - notes storage
 
-Do not start before Backend Stack Decision is complete.
+Do not start before Frontend Backend Contract Preparation is approved.
 
 ---
 
-## 13. Commercial SaaS Foundation
+## 14. Commercial SaaS Foundation
 
 Status: future
 
@@ -234,7 +253,7 @@ Focus:
 
 ---
 
-## 14. Realtime Collaboration
+## 15. Realtime Collaboration
 
 Status: future
 
@@ -248,7 +267,7 @@ Only after backend and persistence exist.
 
 ---
 
-## 15. Integrations
+## 16. Integrations
 
 Status: future
 
@@ -266,13 +285,13 @@ Only after the core operational product is validated.
 
 # Current Rule
 
-The next phase is:
+The current phase is:
 
-Backend Stack Decision
+Frontend Backend Contract Preparation
 
-The goal is not to build backend infrastructure.
+The goal is not to build backend infrastructure or frontend API clients.
 
-The goal is to approve stack direction before implementation planning.
+The goal is to approve the frontend-backend contract before backend implementation planning.
 
 ---
 

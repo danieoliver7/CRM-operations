@@ -73,6 +73,7 @@
 - `/docs/decisions/ADR-011-backend-mvp-definition-before-implementation.md`
 - `/docs/decisions/ADR-012-backend-stack-decision.md`
 - `/docs/decisions/ADR-013-frontend-layout-stabilization-before-backend.md`
+- `/docs/decisions/ADR-014-frontend-backend-contract-before-implementation.md`
 
 ## Backend
 
@@ -94,3 +95,12 @@
 - `/docs/backend/backend-stack-decision.md`
 - `/docs/backend/stack-selection-criteria.md`
 - `/docs/backend/backend-v1-stack-guardrails.md`
+
+
+## Contracts
+- `/docs/contracts/frontend-backend-contract.md`
+- `/docs/contracts/api-response-shapes.md`
+- `/docs/contracts/dto-to-view-model-mapping.md`
+- `/docs/contracts/campaign-workspace-contract.md`
+
+Contract docs define frontend-backend response and mapping direction. They are not API implementation specs, database schema or frontend API client code.

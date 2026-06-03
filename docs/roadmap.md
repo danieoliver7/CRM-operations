@@ -1,17 +1,19 @@
 # Roadmap
 
 ## Current Focus
-Frontend Responsiveness & Layout Stabilization
+Frontend Backend Contract Preparation
 
 ## Current Sprint Goals
-- fix unintended global horizontal overflow
-- stabilize AppShell responsive behavior
-- ensure sidebar and main content layout do not break common viewport widths
-- make Kanban horizontal scroll contained and usable
-- prevent Kanban columns and cards from being clipped
-- preserve current visual identity
-- avoid new product features
-- avoid backend implementation, API routes, database schema and migrations
+- define frontend-backend contract before backend implementation planning
+- document API response shapes for Backend V1 resources
+- document DTO to View Model mapping rules
+- define Campaign Workspace response contract
+- clarify Campaign Workspace as the first contract priority
+- align backend API boundaries with contract documents
+- document empty state expectations for future API responses
+- protect derived intelligence from becoming backend primary truth
+- prevent mock/UI compatibility fields from becoming database schema by accident
+- avoid backend implementation, Prisma schema, migrations and API routes
 
 ## Still Deferred
 - backend implementation
@@ -21,6 +23,7 @@ Frontend Responsiveness & Layout Stabilization
 - database schema
 - Prisma schema
 - migrations
+- frontend API client implementation
 - authentication implementation
 - authorization
 - RBAC
