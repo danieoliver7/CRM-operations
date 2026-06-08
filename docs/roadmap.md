@@ -1,29 +1,34 @@
 # Roadmap
 
 ## Current Focus
-Backend Implementation Planning
+Backend Skeleton Implementation
 
 ## Current Sprint Goals
-- define Backend V1 implementation plan before backend code
-- document first backend implementation cuts
-- document Backend V1 module plan
-- document first Prisma schema plan without creating schema.prisma
-- document Backend V1 API implementation plan without creating routes
-- document Backend V1 validation plan
-- recommend Campaign Workspace endpoint strategy before API implementation
-- preserve frontend-backend contracts
-- protect derived intelligence from becoming backend primary truth
-- avoid backend implementation, Prisma schema, migrations, API routes and auth
+- minimal backend folder created
+- minimal NestJS backend skeleton created
+- TypeScript backend setup configured
+- backend package scripts configured
+- simple health endpoint created for skeleton validation
+- backend build/start behavior validated
+- preserve frontend lint/build behavior
+- avoid Prisma, PostgreSQL, schema, migrations, product APIs and auth
 
 ## Still Deferred
-- backend implementation
-- backend server
-- NestJS app creation
-- API routes
-- persistence implementation
+- Prisma setup
+- PostgreSQL connection
 - database schema
 - Prisma schema
 - migrations
+- seed files
+- Campaign persistence
+- User persistence
+- Squad persistence
+- Workspace persistence
+- Campaign Activity persistence
+- Blocker persistence
+- Handoff persistence
+- Notes persistence
+- Decision Context persistence
 - frontend API client implementation
 - authentication implementation
 - authorization

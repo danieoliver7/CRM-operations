@@ -222,7 +222,7 @@ The goal is contract clarity before technical execution.
 
 ## 13. Backend Implementation Planning
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -302,15 +302,32 @@ Focus:
 
 Only after the core operational product is validated.
 
+## 18. Backend Skeleton Implementation
+
+Status: current phase
+
+Focus:
+
+- maintain the first backend runtime foundation
+- keep the minimal NestJS backend skeleton small
+- validate backend start/build behavior before future cuts
+- preserve existing frontend behavior
+- avoid Prisma, database, product APIs and auth
+- prepare for Prisma and database foundation in the next backend cut
+
+This phase has created backend runtime code, but it has not created product backend behavior.
+
+---
+
 # Current Rule
 
 The current phase is:
 
-Backend Implementation Planning
+Backend Skeleton Implementation
 
-The goal is not to build backend infrastructure, Prisma schema, API routes or frontend API clients.
+The goal is not to build product backend infrastructure, Prisma schema, API routes or frontend API clients.
 
-The goal is to approve the implementation plan before backend code starts.
+The goal is to keep the backend skeleton validatable before the Prisma and database foundation cut.
 
 ---
 
@@ -319,6 +336,7 @@ The goal is to approve the implementation plan before backend code starts.
 Do not implement now:
 
 - backend implementation
+- product APIs
 - auth
 - database
 - realtime

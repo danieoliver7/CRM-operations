@@ -198,6 +198,42 @@ If runtime code is touched accidentally, run frontend lint/build and explain why
 
 ---
 
+# Backend Skeleton Implementation Validation
+
+During the Backend Skeleton Implementation sprint, backend runtime code may be created.
+
+This replaces the planning-only validation rule that no backend folder should exist.
+
+Allowed:
+
+- backend folder
+- minimal NestJS app
+- TypeScript backend config
+- backend package scripts
+- minimal health/root endpoint
+
+Still disallowed:
+
+- Prisma
+- schema.prisma
+- migrations
+- database connection
+- product modules
+- product APIs
+- auth
+- Docker
+- frontend API client
+
+Use:
+
+- `/docs/backend/backend-skeleton-implementation.md`
+- `/docs/backend/backend-skeleton-project-structure.md`
+- `/docs/backend/backend-skeleton-validation.md`
+
+to validate the skeleton sprint.
+
+---
+
 # Final Principle
 
 Backend V1 validation should protect the product from accidental architecture drift.

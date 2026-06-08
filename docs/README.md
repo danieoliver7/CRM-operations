@@ -75,6 +75,7 @@
 - `/docs/decisions/ADR-013-frontend-layout-stabilization-before-backend.md`
 - `/docs/decisions/ADR-014-frontend-backend-contract-before-implementation.md`
 - `/docs/decisions/ADR-015-backend-implementation-planning-before-backend-code.md`
+- `/docs/decisions/ADR-016-backend-skeleton-implementation.md`
 
 ## Backend
 
@@ -101,7 +102,9 @@
 - `/docs/backend/first-prisma-schema-plan.md`
 - `/docs/backend/backend-v1-api-implementation-plan.md`
 - `/docs/backend/backend-v1-validation-plan.md`
-
+- `/docs/backend/backend-skeleton-implementation.md`
+- `/docs/backend/backend-skeleton-project-structure.md`
+- `/docs/backend/backend-skeleton-validation.md`
 
 ## Contracts
 - `/docs/contracts/frontend-backend-contract.md`

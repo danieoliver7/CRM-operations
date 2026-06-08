@@ -111,6 +111,12 @@ Small planned slice of backend work used to keep implementation ordered and low 
 ## Composed Workspace Endpoint
 Recommended Backend V1 read endpoint that returns the operational facts needed by Campaign Workspace in one response without returning derived intelligence as backend truth.
 
+## Backend Skeleton Implementation
+First backend runtime implementation phase. It creates a minimal NestJS backend foundation without Prisma, database, product APIs, auth or frontend integration.
+
+## Health Endpoint
+Minimal backend endpoint used only to validate that the backend skeleton can start and respond.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 
