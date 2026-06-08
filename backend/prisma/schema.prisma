@@ -1,0 +1,307 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CampaignStatus {
+  briefing
+  copy
+  approval
+  development
+  qa
+  scheduled
+  sent
+  completed
+}
+
+enum CampaignChannel {
+  email
+  push
+  sms
+  whatsapp
+  web_push
+  in_app
+}
+
+enum CampaignPriority {
+  low
+  medium
+  high
+  urgent
+}
+
+enum CampaignComplexity {
+  low
+  medium
+  high
+}
+
+enum CampaignActivityType {
+  campaign_created
+  status_changed
+  priority_changed
+  owner_changed
+  blocker_created
+  blocker_resolved
+  handoff_started
+  handoff_completed
+  note_added
+  decision_recorded
+  risk_note_added
+  resolution_note_added
+  handoff_note_added
+  due_date_changed
+  execution_risk_detected
+  sla_due_soon
+  campaign_overdue
+  workflow_stalled
+}
+
+enum CampaignActivityCategory {
+  workflow
+  coordination
+  execution
+  planning
+  collaboration
+}
+
+enum BlockerSeverity {
+  low
+  medium
+  high
+}
+
+enum BlockerStatus {
+  open
+  resolved
+}
+
+enum HandoffStatus {
+  pending
+  completed
+  cancelled
+}
+
+enum CampaignNoteType {
+  note
+  decision
+  rationale
+  clarification
+  risk_note
+  resolution_note
+  handoff_note
+}
+
+enum CampaignNoteImportance {
+  low
+  normal
+  high
+}
+
+model Organization {
+  id         String      @id @default(cuid())
+  name       String
+  slug       String      @unique
+  workspaces Workspace[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Workspace {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  name           String
+  slug           String       @unique
+  campaigns      Campaign[]
+  squads         Squad[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([organizationId])
+}
+
+model User {
+  id                String             @id @default(cuid())
+  name              String
+  email             String?            @unique
+  avatarUrl         String?
+  roleLabel         String?
+  ownedCampaigns    Campaign[]         @relation("CampaignOwner")
+  activities        CampaignActivity[]
+  createdBlockers   Blocker[]          @relation("BlockerCreatedBy")
+  resolvedBlockers  Blocker[]          @relation("BlockerResolvedBy")
+  authoredNotes     CampaignNote[]
+  authoredDecisions DecisionContext[]
+  handoffsFromOwner Handoff[]          @relation("HandoffFromOwner")
+  handoffsToOwner   Handoff[]          @relation("HandoffToOwner")
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}
+
+model Squad {
+  id                String     @id @default(cuid())
+  workspaceId       String
+  workspace         Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  name              String
+  description       String?
+  campaigns         Campaign[]
+  handoffsFromSquad Handoff[]  @relation("HandoffFromSquad")
+  handoffsToSquad   Handoff[]  @relation("HandoffToSquad")
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@unique([workspaceId, name])
+  @@index([workspaceId])
+}
+
+model Campaign {
+  id                  String              @id @default(cuid())
+  workspaceId         String
+  workspace           Workspace           @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  ownerId             String?
+  owner               User?               @relation("CampaignOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  squadId             String?
+  squad               Squad?              @relation(fields: [squadId], references: [id], onDelete: SetNull)
+  name                String
+  description         String?
+  objective           String?
+  status              CampaignStatus
+  channel             CampaignChannel
+  priority            CampaignPriority
+  dueDate             DateTime
+  plannedDate         DateTime?
+  campaignType        String?
+  audience            String?
+  segmentation        String?
+  tags                String[]            @default([])
+  content             Json?
+  metricsTarget       Json?
+  estimatedComplexity CampaignComplexity?
+  activities          CampaignActivity[]
+  blockers            Blocker[]
+  handoffs            Handoff[]
+  notes               CampaignNote[]
+  decisionContext     DecisionContext[]
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  @@index([workspaceId])
+  @@index([ownerId])
+  @@index([squadId])
+  @@index([status])
+  @@index([priority])
+  @@index([dueDate])
+}
+
+model CampaignActivity {
+  id          String                    @id @default(cuid())
+  campaignId  String
+  campaign    Campaign                  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  actorUserId String?
+  actor       User?                     @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+  type        CampaignActivityType
+  category    CampaignActivityCategory?
+  message     String
+  metadata    Json?
+  createdAt   DateTime                  @default(now())
+  updatedAt   DateTime                  @updatedAt
+
+  @@index([campaignId])
+  @@index([actorUserId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model Blocker {
+  id               String          @id @default(cuid())
+  campaignId       String
+  campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  title            String
+  description      String?
+  severity         BlockerSeverity
+  status           BlockerStatus   @default(open)
+  createdByUserId  String?
+  createdBy        User?           @relation("BlockerCreatedBy", fields: [createdByUserId], references: [id], onDelete: SetNull)
+  resolvedByUserId String?
+  resolvedBy       User?           @relation("BlockerResolvedBy", fields: [resolvedByUserId], references: [id], onDelete: SetNull)
+  resolvedAt       DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  @@index([campaignId])
+  @@index([status])
+  @@index([severity])
+}
+
+model Handoff {
+  id          String          @id @default(cuid())
+  campaignId  String
+  campaign    Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  fromStage   CampaignStatus?
+  toStage     CampaignStatus?
+  fromOwnerId String?
+  fromOwner   User?           @relation("HandoffFromOwner", fields: [fromOwnerId], references: [id], onDelete: SetNull)
+  toOwnerId   String?
+  toOwner     User?           @relation("HandoffToOwner", fields: [toOwnerId], references: [id], onDelete: SetNull)
+  fromSquadId String?
+  fromSquad   Squad?          @relation("HandoffFromSquad", fields: [fromSquadId], references: [id], onDelete: SetNull)
+  toSquadId   String?
+  toSquad     Squad?          @relation("HandoffToSquad", fields: [toSquadId], references: [id], onDelete: SetNull)
+  status      HandoffStatus
+  reason      String?
+  completedAt DateTime?
+  cancelledAt DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([campaignId])
+  @@index([status])
+}
+
+model CampaignNote {
+  id                   String                 @id @default(cuid())
+  campaignId           String
+  campaign             Campaign               @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  authorUserId         String?
+  author               User?                  @relation(fields: [authorUserId], references: [id], onDelete: SetNull)
+  type                 CampaignNoteType       @default(note)
+  title                String?
+  content              String
+  relatedWorkflowStage CampaignStatus?
+  relatedBlockerId     String?
+  relatedHandoffId     String?
+  relatedActivityId    String?
+  importance           CampaignNoteImportance @default(normal)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+
+  @@index([campaignId])
+  @@index([authorUserId])
+  @@index([type])
+}
+
+model DecisionContext {
+  id                   String                 @id @default(cuid())
+  campaignId           String
+  campaign             Campaign               @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  authorUserId         String?
+  author               User?                  @relation(fields: [authorUserId], references: [id], onDelete: SetNull)
+  type                 CampaignNoteType
+  title                String
+  content              String
+  relatedWorkflowStage CampaignStatus?
+  relatedBlockerId     String?
+  relatedHandoffId     String?
+  relatedActivityId    String?
+  importance           CampaignNoteImportance @default(normal)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+
+  @@index([campaignId])
+  @@index([authorUserId])
+  @@index([type])
+}

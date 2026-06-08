@@ -304,7 +304,7 @@ Only after the core operational product is validated.
 
 ## 18. Backend Skeleton Implementation
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -317,17 +317,34 @@ Focus:
 
 This phase has created backend runtime code, but it has not created product backend behavior.
 
+## 19. Prisma And Database Foundation
+
+Status: current phase
+
+Focus:
+
+- maintain Prisma setup
+- keep the first Prisma schema aligned with persistence boundaries
+- configure PostgreSQL datasource through local environment and Prisma config
+- keep Prisma Client generation working
+- keep first migration SQL ready
+- keep safe reference seed ready
+- preserve health endpoint and frontend behavior
+- avoid product APIs, auth and frontend integration
+
+This phase introduces persistence foundation, but it does not implement product backend behavior.
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Backend Skeleton Implementation
+Prisma And Database Foundation
 
-The goal is not to build product backend infrastructure, Prisma schema, API routes or frontend API clients.
+The goal is not to build product API routes, auth, Docker or frontend API clients.
 
-The goal is to keep the backend skeleton validatable before the Prisma and database foundation cut.
+The goal is to prepare the database foundation before Reference Data Implementation.
 
 ---
 
@@ -335,10 +352,8 @@ The goal is to keep the backend skeleton validatable before the Prisma and datab
 
 Do not implement now:
 
-- backend implementation
 - product APIs
 - auth
-- database
 - realtime
 - permissions
 - Docker

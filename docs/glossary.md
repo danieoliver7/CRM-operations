@@ -117,6 +117,12 @@ First backend runtime implementation phase. It creates a minimal NestJS backend 
 ## Health Endpoint
 Minimal backend endpoint used only to validate that the backend skeleton can start and respond.
 
+## Prisma And Database Foundation
+Backend infrastructure phase that installs Prisma, defines the first schema, generates Prisma Client, creates migration SQL and prepares safe seed data without implementing product APIs.
+
+## PrismaService
+Minimal NestJS infrastructure provider for Prisma Client lifecycle. It must not contain product queries or repository behavior.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 

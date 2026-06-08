@@ -234,6 +234,68 @@ to validate the skeleton sprint.
 
 ---
 
+# Prisma And Database Foundation Validation
+
+During the Prisma And Database Foundation sprint, persistence foundation may be created.
+
+Allowed:
+
+- Prisma setup
+- `schema.prisma`
+- PostgreSQL datasource configuration through local environment and Prisma config
+- Prisma Client generation
+- first migration SQL if schema passes review
+- safe seed script if justified
+- `.env.example`
+
+Still disallowed:
+
+- product API routes
+- product controllers
+- product services
+- frontend API client
+- auth
+- Docker
+- workflow engine
+- derived intelligence persistence
+
+Use:
+
+- `/docs/backend/prisma-database-foundation.md`
+- `/docs/backend/prisma-schema-implementation-rules.md`
+- `/docs/backend/database-environment-rules.md`
+- `/docs/backend/database-seed-strategy.md`
+- `/docs/backend/prisma-database-validation.md`
+
+to validate the sprint.
+
+The schema must not persist:
+
+- executionHealth
+- slaState
+- operationalRisk
+- coordinationState
+- workflowContinuity
+- commandCenterSummary
+- timeline presentation events
+- progress as primary truth
+- SLA label as primary truth
+- UI state
+
+Migration and seed application require valid local database credentials.
+
+If local credentials fail authentication, the sprint can still be considered structurally valid when:
+
+- Prisma format passes
+- Prisma validate passes
+- Prisma Client generation passes
+- migration SQL is generated from the approved schema
+- backend lint/test/build pass
+- health endpoint still works
+- frontend lint/build pass
+
+---
+
 # Final Principle
 
 Backend V1 validation should protect the product from accidental architecture drift.

@@ -76,6 +76,7 @@
 - `/docs/decisions/ADR-014-frontend-backend-contract-before-implementation.md`
 - `/docs/decisions/ADR-015-backend-implementation-planning-before-backend-code.md`
 - `/docs/decisions/ADR-016-backend-skeleton-implementation.md`
+- `/docs/decisions/ADR-017-prisma-database-foundation.md`
 
 ## Backend
 
@@ -105,6 +106,11 @@
 - `/docs/backend/backend-skeleton-implementation.md`
 - `/docs/backend/backend-skeleton-project-structure.md`
 - `/docs/backend/backend-skeleton-validation.md`
+- `/docs/backend/prisma-database-foundation.md`
+- `/docs/backend/prisma-schema-implementation-rules.md`
+- `/docs/backend/database-environment-rules.md`
+- `/docs/backend/database-seed-strategy.md`
+- `/docs/backend/prisma-database-validation.md`
 
 ## Contracts
 - `/docs/contracts/frontend-backend-contract.md`

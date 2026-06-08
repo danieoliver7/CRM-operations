@@ -1,35 +1,35 @@
 # Roadmap
 
 ## Current Focus
-Backend Skeleton Implementation
+
+Prisma And Database Foundation
 
 ## Current Sprint Goals
-- minimal backend folder created
-- minimal NestJS backend skeleton created
-- TypeScript backend setup configured
-- backend package scripts configured
-- simple health endpoint created for skeleton validation
-- backend build/start behavior validated
-- preserve frontend lint/build behavior
-- avoid Prisma, PostgreSQL, schema, migrations, product APIs and auth
+
+- Prisma setup introduced in the backend package
+- first `schema.prisma` created
+- PostgreSQL datasource configured through local environment and `prisma.config.ts`
+- `.env.example` created without secrets
+- Prisma Client generated
+- first migration SQL created
+- safe reference seed script created
+- backend health endpoint preserved
+- frontend lint/build behavior preserved
+- product API routes, auth, frontend integration, Docker and workflow engine behavior avoided
 
 ## Still Deferred
-- Prisma setup
-- PostgreSQL connection
-- database schema
-- Prisma schema
-- migrations
-- seed files
-- Campaign persistence
-- User persistence
-- Squad persistence
-- Workspace persistence
-- Campaign Activity persistence
-- Blocker persistence
-- Handoff persistence
-- Notes persistence
-- Decision Context persistence
+
+- applying migration locally until valid database credentials are available
+- running seed locally until valid database credentials are available
+- product API routes
+- Campaign API
+- User API
+- Squad API
+- Workspace API
+- Campaign Workspace API
+- Campaign persistence services/controllers
 - frontend API client implementation
+- frontend mappers implementation
 - authentication implementation
 - authorization
 - RBAC
