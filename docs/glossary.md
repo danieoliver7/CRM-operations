@@ -123,6 +123,12 @@ Backend infrastructure phase that installs Prisma, defines the first schema, gen
 ## PrismaService
 Minimal NestJS infrastructure provider for Prisma Client lifecycle. It must not contain product queries or repository behavior.
 
+## Reference Data Implementation
+Backend phase that exposes read-only workspace, user and squad reference facts through Prisma-backed REST APIs before Campaign backend behavior begins.
+
+## Reference Data API
+Read-only backend endpoint group for workspaces, users and squads. It supports future Campaign ownerId, squadId and workspaceId relationships without creating Campaign APIs yet.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 

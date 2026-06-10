@@ -2,7 +2,7 @@
 
 Minimal NestJS backend foundation for CRM Operations Platform.
 
-This backend currently contains runtime and persistence infrastructure only. It does not implement CRM Operations product APIs yet.
+This backend currently contains runtime infrastructure, Prisma persistence foundation and the first read-only reference data APIs. Campaign backend behavior is still deferred.
 
 ## What Exists
 
@@ -15,13 +15,16 @@ This backend currently contains runtime and persistence infrastructure only. It 
 - First migration SQL.
 - Safe reference seed script.
 - Minimal PrismaService/PrismaModule for future use.
+- Read-only Workspaces API.
+- Read-only Users API.
+- Read-only Squads API.
 
 ## What Does Not Exist Yet
 
-- Product APIs.
+- Campaign APIs.
 - Campaign persistence controllers/services.
-- User/Squad/Workspace APIs.
 - Campaign Workspace endpoint.
+- Write APIs for reference data.
 - Authentication.
 - Docker or deployment infrastructure.
 - Frontend integration.
@@ -71,6 +74,44 @@ Expected response:
 }
 ```
 
+Reference data endpoints:
+
+```txt
+GET http://localhost:4000/workspaces
+GET http://localhost:4000/workspaces/:workspaceId
+GET http://localhost:4000/users
+GET http://localhost:4000/users/:userId
+GET http://localhost:4000/squads
+GET http://localhost:4000/squads/:squadId
+```
+
+List responses use:
+
+```json
+{
+  "data": []
+}
+```
+
+Detail responses use:
+
+```json
+{
+  "data": {}
+}
+```
+
+Not-found responses use:
+
+```json
+{
+  "error": {
+    "code": "USER_NOT_FOUND",
+    "message": "User not found."
+  }
+}
+```
+
 ## Validate
 
 ```bash
@@ -91,6 +132,6 @@ npm run prisma:seed
 
 ## Next Cut
 
-The next backend cut should be Reference Data Implementation.
+The next backend cut should be Campaign persistence planning or implementation, depending on the approved sprint scope.
 
-It should not introduce product APIs beyond the approved cut.
+It should not introduce auth, Docker, realtime, workflow engines or frontend integration unless explicitly approved.

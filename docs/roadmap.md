@@ -1,33 +1,30 @@
 # Roadmap
 
 ## Current Focus
-
-Prisma And Database Foundation
+Reference Data Implementation
 
 ## Current Sprint Goals
-
-- Prisma setup introduced in the backend package
-- first `schema.prisma` created
-- PostgreSQL datasource configured through local environment and `prisma.config.ts`
-- `.env.example` created without secrets
-- Prisma Client generated
-- first migration SQL created
-- safe reference seed script created
-- backend health endpoint preserved
-- frontend lint/build behavior preserved
-- product API routes, auth, frontend integration, Docker and workflow engine behavior avoided
+- maintain implemented read-only Workspaces API
+- maintain implemented read-only Users API
+- maintain implemented read-only Squads API
+- expose seeded reference data from PostgreSQL through Prisma
+- keep endpoints simple and REST-first
+- use simple `{ data }` response wrappers
+- return explicit not-found error codes
+- preserve backend health endpoint
+- preserve frontend lint/build behavior
+- avoid Campaign APIs, Campaign Workspace endpoint, write APIs, auth, frontend integration, Docker and workflow engine behavior
 
 ## Still Deferred
-
-- applying migration locally until valid database credentials are available
-- running seed locally until valid database credentials are available
-- product API routes
 - Campaign API
-- User API
-- Squad API
-- Workspace API
 - Campaign Workspace API
 - Campaign persistence services/controllers
+- Campaign Activity API
+- Blocker API
+- Handoff API
+- Notes API
+- Decision Context API
+- write APIs for reference data
 - frontend API client implementation
 - frontend mappers implementation
 - authentication implementation

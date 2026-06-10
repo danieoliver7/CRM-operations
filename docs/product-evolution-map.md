@@ -312,14 +312,14 @@ Focus:
 - keep the minimal NestJS backend skeleton small
 - validate backend start/build behavior before future cuts
 - preserve existing frontend behavior
-- avoid Prisma, database, product APIs and auth
+- avoid Prisma, database, Campaign APIs and auth
 - prepare for Prisma and database foundation in the next backend cut
 
 This phase has created backend runtime code, but it has not created product backend behavior.
 
 ## 19. Prisma And Database Foundation
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -330,9 +330,25 @@ Focus:
 - keep first migration SQL ready
 - keep safe reference seed ready
 - preserve health endpoint and frontend behavior
-- avoid product APIs, auth and frontend integration
+- avoid Campaign APIs, auth and frontend integration
 
 This phase introduces persistence foundation, but it does not implement product backend behavior.
+
+---
+
+## 20. Reference Data Implementation
+
+Status: current phase
+
+Focus:
+
+- maintain read-only reference data APIs
+- expose seeded workspaces, users and squads
+- validate Prisma read access through backend services
+- prepare future Campaign persistence references
+- avoid Campaign APIs, frontend integration, auth and write APIs
+
+This phase introduces read-only reference data product APIs, but it does not introduce Campaign backend behavior.
 
 ---
 
@@ -340,11 +356,11 @@ This phase introduces persistence foundation, but it does not implement product 
 
 The current phase is:
 
-Prisma And Database Foundation
+Reference Data Implementation
 
-The goal is not to build product API routes, auth, Docker or frontend API clients.
+The goal is not to build Campaign API routes, Campaign Workspace endpoints, auth, Docker or frontend API clients.
 
-The goal is to prepare the database foundation before Reference Data Implementation.
+The goal is to expose stable reference facts for future Campaign persistence through a small read-only backend cut.
 
 ---
 
@@ -352,7 +368,12 @@ The goal is to prepare the database foundation before Reference Data Implementat
 
 Do not implement now:
 
-- product APIs
+- Campaign product APIs
+- Campaign APIs
+- Campaign Workspace endpoint
+- Campaign child resource APIs
+- write APIs for reference data
+- frontend API clients
 - auth
 - realtime
 - permissions

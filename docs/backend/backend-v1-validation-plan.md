@@ -294,6 +294,62 @@ If local credentials fail authentication, the sprint can still be considered str
 - health endpoint still works
 - frontend lint/build pass
 
+# Reference Data Implementation Validation
+
+During the Reference Data Implementation sprint, read-only backend APIs may be created for reference data.
+
+Allowed:
+
+- WorkspacesModule
+- WorkspacesController
+- WorkspacesService
+- UsersModule
+- UsersController
+- UsersService
+- SquadsModule
+- SquadsController
+- SquadsService
+
+Allowed endpoints:
+
+GET /workspaces
+GET /workspaces/:workspaceId
+GET /users
+GET /users/:userId
+GET /squads
+GET /squads/:squadId
+
+Validate that reference data APIs:
+
+- read seeded PostgreSQL data through Prisma
+- return list responses as `{ data: T[] }`
+- return detail responses as `{ data: T }`
+- return not-found responses as `{ error: { code, message } }`
+- use `WORKSPACE_NOT_FOUND`, `USER_NOT_FOUND` and `SQUAD_NOT_FOUND`
+- keep services simple and direct
+- avoid repository abstractions, workflow logic and derived intelligence
+
+Still disallowed:
+
+- Campaign APIs
+- Campaign Workspace endpoint
+- campaign child resource APIs
+- write APIs for reference data
+- frontend API client
+- auth
+- Docker
+- realtime
+- workflow engine behavior
+
+Use:
+
+- `/docs/backend/reference-data-implementation.md`
+- `/docs/backend/reference-data-api-contract.md`
+- `/docs/backend/reference-data-validation.md`
+- `/docs/decisions/ADR-018-reference-data-implementation.md`
+
+to validate the reference data sprint.
+
 ---
 
 # Final Principle
