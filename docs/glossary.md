@@ -129,6 +129,12 @@ Backend phase that exposes read-only workspace, user and squad reference facts t
 ## Reference Data API
 Read-only backend endpoint group for workspaces, users and squads. It supports future Campaign ownerId, squadId and workspaceId relationships without creating Campaign APIs yet.
 
+## Campaign Persistence Implementation
+Backend phase that exposes basic Campaign create, read and update APIs backed by Prisma/PostgreSQL without implementing Campaign Workspace behavior.
+
+## Campaign Persistence API
+REST endpoint group for persisted Campaign facts. It validates workspace, owner and squad references and keeps derived intelligence out of backend truth.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 

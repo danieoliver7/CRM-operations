@@ -78,6 +78,7 @@
 - `/docs/decisions/ADR-016-backend-skeleton-implementation.md`
 - `/docs/decisions/ADR-017-prisma-database-foundation.md`
 - `/docs/decisions/ADR-018-reference-data-implementation.md`
+- `/docs/decisions/ADR-019-campaign-persistence-implementation.md`
 
 ## Backend
 
@@ -115,6 +116,9 @@
 - `/docs/backend/reference-data-implementation.md`
 - `/docs/backend/reference-data-api-contract.md`
 - `/docs/backend/reference-data-validation.md`
+- `/docs/backend/campaign-persistence-implementation.md`
+- `/docs/backend/campaign-api-contract.md`
+- `/docs/backend/campaign-persistence-validation.md`
 
 ## Contracts
 - `/docs/contracts/frontend-backend-contract.md`

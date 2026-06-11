@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Reference Data Implementation
+Campaign Persistence Implementation
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -35,6 +35,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - lightweight collaboration context
 - decision context
 - operational memory
+- basic Campaign persistence APIs
 
 ## Current Architecture
 - React
@@ -45,15 +46,22 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - minimal NestJS backend skeleton
 - Prisma database foundation
 - read-only backend reference data APIs
+- basic Campaign persistence APIs
 
-## Current Priorities
-- maintain read-only reference data APIs for workspaces, users and squads
-- expose seeded reference data through simple REST endpoints
-- validate Prisma reads through backend services
-- keep only the modules needed for reference data registered
-- preserve backend health endpoint behavior
-- preserve frontend behavior
-- avoid Campaign APIs, Campaign Workspace endpoint, write APIs, auth, frontend integration, Docker and workflow engine behavior
+## Campaign Persistence Implementation Capabilities
+
+- basic Campaign API is implemented
+- Campaign records can be created, listed, retrieved and updated
+- Campaign status and priority can be updated as simple facts
+- Campaign ownerId and squadId can be updated as simple reference facts
+- Campaign writes validate workspace, user and squad references
+- Campaign API persists facts through Prisma/PostgreSQL
+- Campaign API returns simple `{ data }` response wrappers
+- Campaign API does not return derived operational intelligence as backend truth
+- Campaign Workspace endpoint remains deferred
+- campaign child resource APIs remain deferred
+- frontend integration remains deferred
+- auth remains deferred
 
 ## Workspace Consolidation Capabilities
 - workspace header communicates status, priority, health, SLA and coordination state
@@ -168,8 +176,8 @@ Focus:
 - minimal NestJS backend app exists under `/backend`
 - `GET /health` exists only for skeleton validation
 - backend build/start/lint/test scripts are configured
-- Campaign product modules remain deferred
-- auth, Docker, frontend integration and Campaign APIs remain deferred
+- Campaign Workspace and campaign child modules remain deferred
+- auth, Docker, frontend integration and advanced Campaign APIs remain deferred
 
 ## Prisma And Database Foundation Capabilities
 - Prisma is installed and configured in the backend
@@ -179,7 +187,7 @@ Focus:
 - Prisma Client can be generated
 - safe idempotent seed exists and loads default organization, workspace, users and squads
 - PrismaService and PrismaModule support the approved read-only reference data cut
-- product backend APIs beyond reference data remain deferred
+- Campaign Workspace and campaign child resource APIs remain deferred
 - auth, frontend integration, Docker and advanced infrastructure remain deferred
 
 ## Reference Data Implementation Capabilities
@@ -190,15 +198,17 @@ Focus:
 - endpoints use simple `{ data }` response wrappers
 - not-found responses use explicit operational error codes
 - reference APIs support future Campaign ownerId, squadId and workspaceId relationships
-- Campaign APIs remain deferred
+- basic Campaign APIs are implemented separately from reference data APIs
 - Campaign Workspace endpoint remains deferred
 - frontend integration remains deferred
 - auth remains deferred
 
 ## Avoid Right Now
-- Campaign APIs
 - Campaign Workspace endpoint
 - Campaign child resource APIs
+- Campaign Workspace backend behavior
+- automatic activity, timeline or handoff creation
+- derived intelligence persistence
 - write APIs for reference data
 - frontend integration
 - auth
@@ -234,4 +244,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Read-only reference data APIs without Campaign product backend behavior.
+Campaign persistence APIs without Campaign Workspace backend behavior.

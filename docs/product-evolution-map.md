@@ -338,7 +338,7 @@ This phase introduces persistence foundation, but it does not implement product 
 
 ## 20. Reference Data Implementation
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -352,15 +352,31 @@ This phase introduces read-only reference data product APIs, but it does not int
 
 ---
 
+## 21. Campaign Persistence Implementation
+
+Status: current phase
+
+Focus:
+
+- implement basic Campaign persistence APIs
+- create, list, retrieve and update Campaign facts
+- validate workspace, owner and squad references
+- preserve reference data APIs
+- avoid Campaign Workspace endpoint
+- avoid campaign child resources
+- avoid frontend integration and auth
+
+---
+
 # Current Rule
 
 The current phase is:
 
-Reference Data Implementation
+Campaign Persistence Implementation
 
-The goal is not to build Campaign API routes, Campaign Workspace endpoints, auth, Docker or frontend API clients.
+The goal is not to build Campaign Workspace endpoints, campaign child resource APIs, auth, Docker or frontend API clients.
 
-The goal is to expose stable reference facts for future Campaign persistence through a small read-only backend cut.
+The goal is to persist basic Campaign facts through simple REST APIs while preserving derived intelligence boundaries.
 
 ---
 
@@ -368,10 +384,10 @@ The goal is to expose stable reference facts for future Campaign persistence thr
 
 Do not implement now:
 
-- Campaign product APIs
-- Campaign APIs
 - Campaign Workspace endpoint
 - Campaign child resource APIs
+- automatic activity, timeline or handoff creation
+- derived intelligence persistence
 - write APIs for reference data
 - frontend API clients
 - auth

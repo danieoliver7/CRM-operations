@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 export type ListResponse<T> = {
   data: T[];
@@ -25,6 +25,16 @@ export function notFound(code: string, message: string): NotFoundException {
     error: {
       code,
       message,
+    },
+  } satisfies ApiErrorResponse);
+}
+
+export function badRequest(code: string, message: string, details?: unknown): BadRequestException {
+  return new BadRequestException({
+    error: {
+      code,
+      message,
+      ...(details !== undefined ? { details } : {}),
     },
   } satisfies ApiErrorResponse);
 }

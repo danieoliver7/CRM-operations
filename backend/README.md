@@ -2,7 +2,7 @@
 
 Minimal NestJS backend foundation for CRM Operations Platform.
 
-This backend currently contains runtime infrastructure, Prisma persistence foundation and the first read-only reference data APIs. Campaign backend behavior is still deferred.
+This backend currently contains runtime infrastructure, Prisma persistence foundation, read-only reference data APIs and basic Campaign persistence APIs.
 
 ## What Exists
 
@@ -18,12 +18,13 @@ This backend currently contains runtime infrastructure, Prisma persistence found
 - Read-only Workspaces API.
 - Read-only Users API.
 - Read-only Squads API.
+- Basic Campaign persistence API.
 
 ## What Does Not Exist Yet
 
-- Campaign APIs.
-- Campaign persistence controllers/services.
 - Campaign Workspace endpoint.
+- Campaign child resource APIs.
+- Automatic activity, timeline, handoff or decision context creation.
 - Write APIs for reference data.
 - Authentication.
 - Docker or deployment infrastructure.
@@ -85,6 +86,19 @@ GET http://localhost:4000/squads
 GET http://localhost:4000/squads/:squadId
 ```
 
+Campaign persistence endpoints:
+
+```txt
+GET http://localhost:4000/campaigns
+GET http://localhost:4000/campaigns/:campaignId
+POST http://localhost:4000/campaigns
+PATCH http://localhost:4000/campaigns/:campaignId
+PATCH http://localhost:4000/campaigns/:campaignId/status
+PATCH http://localhost:4000/campaigns/:campaignId/priority
+PATCH http://localhost:4000/campaigns/:campaignId/owner
+PATCH http://localhost:4000/campaigns/:campaignId/squad
+```
+
 List responses use:
 
 ```json
@@ -132,6 +146,6 @@ npm run prisma:seed
 
 ## Next Cut
 
-The next backend cut should be Campaign persistence planning or implementation, depending on the approved sprint scope.
+The next backend cut should be Campaign Workspace Facts Planning or campaign child resource implementation, depending on the approved sprint scope.
 
 It should not introduce auth, Docker, realtime, workflow engines or frontend integration unless explicitly approved.

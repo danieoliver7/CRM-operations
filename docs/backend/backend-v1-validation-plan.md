@@ -350,6 +350,66 @@ Use:
 
 to validate the reference data sprint.
 
+
+# Campaign Persistence Implementation Validation
+
+During the Campaign Persistence Implementation sprint, basic Campaign backend APIs may be created.
+
+Allowed:
+
+- CampaignsModule
+- CampaignsController
+- CampaignsService
+- Campaign DTOs
+- Campaign request DTOs
+- Campaign response mappers
+
+Allowed endpoints:
+
+GET /campaigns
+GET /campaigns/:campaignId
+POST /campaigns
+PATCH /campaigns/:campaignId
+PATCH /campaigns/:campaignId/status
+PATCH /campaigns/:campaignId/priority
+PATCH /campaigns/:campaignId/owner
+PATCH /campaigns/:campaignId/squad
+
+Validate that Campaign APIs:
+
+- persist Campaign records through Prisma/PostgreSQL
+- return list responses as `{ data: T[] }`
+- return detail responses as `{ data: T }`
+- validate `workspaceId`, `ownerId` and `squadId` before writes
+- use `CAMPAIGN_NOT_FOUND`, `WORKSPACE_NOT_FOUND`, `USER_NOT_FOUND`, `SQUAD_NOT_FOUND` and `INVALID_CAMPAIGN_INPUT`
+- keep status, priority, owner and squad updates as fact updates only
+- do not create activities, handoffs, timeline events or decision context automatically
+- do not return derived operational intelligence as backend truth
+
+Still disallowed:
+
+- Campaign Workspace endpoint
+- campaign child resource APIs
+- ActivitiesModule
+- BlockersModule
+- HandoffsModule
+- NotesModule
+- DecisionContextModule
+- frontend API client
+- auth
+- Docker
+- realtime
+- workflow engine behavior
+
+Use:
+
+- `/docs/backend/campaign-persistence-implementation.md`
+- `/docs/backend/campaign-api-contract.md`
+- `/docs/backend/campaign-persistence-validation.md`
+- `/docs/decisions/ADR-019-campaign-persistence-implementation.md`
+
+to validate the campaign persistence sprint.
+
 ---
 
 # Final Principle
