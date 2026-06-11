@@ -79,6 +79,7 @@
 - `/docs/decisions/ADR-017-prisma-database-foundation.md`
 - `/docs/decisions/ADR-018-reference-data-implementation.md`
 - `/docs/decisions/ADR-019-campaign-persistence-implementation.md`
+- `/docs/decisions/ADR-020-campaign-child-resources-planning.md`
 
 ## Backend
 
@@ -119,6 +120,10 @@
 - `/docs/backend/campaign-persistence-implementation.md`
 - `/docs/backend/campaign-api-contract.md`
 - `/docs/backend/campaign-persistence-validation.md`
+- `/docs/backend/campaign-child-resources-planning.md`
+- `/docs/backend/campaign-child-resource-prioritization.md`
+- `/docs/backend/campaign-child-resource-api-boundaries.md`
+- `/docs/backend/campaign-child-resource-validation.md`
 
 ## Contracts
 - `/docs/contracts/frontend-backend-contract.md`

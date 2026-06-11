@@ -410,6 +410,64 @@ Use:
 
 to validate the campaign persistence sprint.
 
+
+# Campaign Child Resources Planning Validation
+
+During Campaign Child Resources Planning, no child resource APIs should be implemented.
+
+Allowed:
+
+- planning docs for Campaign child resources
+- prioritization docs
+- API boundary docs
+- validation docs
+- ADR documenting child resource order
+
+Still disallowed in this planning sprint:
+
+- Blockers API implementation
+- Notes API implementation
+- Decision Context API implementation
+- Activities API implementation
+- Handoffs API implementation
+- Campaign Workspace endpoint
+- frontend API client
+- frontend integration
+- auth
+- RBAC
+- Docker
+- workflow engine
+- event sourcing
+- realtime
+
+Approved implementation order:
+
+1. Campaign Blockers Implementation
+2. Campaign Notes Implementation
+3. Campaign Decision Context Implementation
+4. Campaign Activities Implementation
+5. Campaign Handoffs Implementation
+6. Campaign Workspace Facts Endpoint
+
+Validate that planning docs preserve these guardrails:
+
+- Blockers do not become tickets, incidents, escalation or SLA engines
+- Notes do not become chat, comments, threads, mentions or collaboration platforms
+- Decision Context does not become approval workflow, comment system, knowledge base or documentation platform
+- Activities do not become event sourcing, audit logs, automatic logs, timeline presentation backend or notification feed
+- Handoffs do not become workflow engines, dependency graphs, BPM runtime or orchestration
+- Campaign Workspace Facts Endpoint does not become command center backend, derived intelligence API, timeline presentation API or dashboard summary API
+
+Use:
+
+- `/docs/backend/campaign-child-resources-planning.md`
+- `/docs/backend/campaign-child-resource-prioritization.md`
+- `/docs/backend/campaign-child-resource-api-boundaries.md`
+- `/docs/backend/campaign-child-resource-validation.md`
+- `/docs/decisions/ADR-020-campaign-child-resources-planning.md`
+
+to validate the planning sprint.
+
 ---
 
 # Final Principle

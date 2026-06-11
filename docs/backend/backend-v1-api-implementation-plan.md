@@ -62,11 +62,11 @@ Backend V1 should plan these API groups:
 - users
 - squads
 - campaigns
-- campaign activities
 - blockers
-- handoffs
 - notes
 - decision context
+- campaign activities
+- handoffs
 
 These groups expose operational facts required by Campaign Workspace durability.
 
@@ -151,50 +151,19 @@ Do not create workflow orchestration endpoints.
 
 ---
 
-## 5. Campaign Workspace Response
+## 5. Campaign Child Resources
 
-Recommended first strategy:
+These endpoints should support fact reads/writes around the future Campaign Workspace.
 
-```txt
-GET /campaigns/:campaignId/workspace
-```
-
-This endpoint should return a composed `CampaignWorkspaceResponseDto`:
+Approved implementation order:
 
 ```txt
-campaign
-owner
-squad
-activities
-blockers
-handoffs
-notes
-decisionContext
-```
-
-Why composed first:
-
-- Campaign Workspace is the central product surface.
-- The frontend needs a coherent set of facts to render the workspace.
-- A composed read endpoint lowers frontend integration risk.
-- It avoids a burst of parallel frontend calls during the first backend integration.
-- It does not prevent separate resource endpoints for writes or later optimization.
-
-Guardrail:
-
-The composed endpoint must return facts only. It must not return command center summaries, execution health, risk state, SLA labels, workflow continuity or timeline presentation events as backend truth.
-
----
-
-## 6. Campaign Child Resources
-
-These endpoints should support fact reads/writes around the Campaign Workspace.
-
-Activities:
-
-```txt
-GET /campaigns/:campaignId/activities
-POST /campaigns/:campaignId/activities
+1. Campaign Blockers Implementation
+2. Campaign Notes Implementation
+3. Campaign Decision Context Implementation
+4. Campaign Activities Implementation
+5. Campaign Handoffs Implementation
+6. Campaign Workspace Facts Endpoint
 ```
 
 Blockers:
@@ -204,16 +173,6 @@ GET /campaigns/:campaignId/blockers
 POST /campaigns/:campaignId/blockers
 PATCH /campaigns/:campaignId/blockers/:blockerId
 POST /campaigns/:campaignId/blockers/:blockerId/resolve
-```
-
-Handoffs:
-
-```txt
-GET /campaigns/:campaignId/handoffs
-POST /campaigns/:campaignId/handoffs
-PATCH /campaigns/:campaignId/handoffs/:handoffId
-POST /campaigns/:campaignId/handoffs/:handoffId/complete
-POST /campaigns/:campaignId/handoffs/:handoffId/cancel
 ```
 
 Notes:
@@ -232,13 +191,66 @@ POST /campaigns/:campaignId/decision-context
 PATCH /campaigns/:campaignId/decision-context/:decisionContextId
 ```
 
+Activities:
+
+```txt
+GET /campaigns/:campaignId/activities
+POST /campaigns/:campaignId/activities
+```
+
+Handoffs:
+
+```txt
+GET /campaigns/:campaignId/handoffs
+POST /campaigns/:campaignId/handoffs
+PATCH /campaigns/:campaignId/handoffs/:handoffId
+POST /campaigns/:campaignId/handoffs/:handoffId/complete
+POST /campaigns/:campaignId/handoffs/:handoffId/cancel
+```
+
 Do not create chat, comments, event sourcing, dependency graph or workflow runtime behavior.
+
+---
+
+## 6. Campaign Workspace Facts Response
+
+Recommended composed read strategy:
+
+```txt
+GET /campaigns/:campaignId/workspace
+```
+
+This endpoint should return a composed facts response after child facts exist:
+
+```txt
+campaign
+owner
+squad
+activities
+blockers
+handoffs
+notes
+decisionContext
+```
+
+Why composed after child resources:
+
+- Campaign Workspace is the central product surface.
+- The frontend needs a coherent set of facts to render the workspace.
+- The endpoint should compose real persisted child facts.
+- A composed read endpoint lowers frontend integration risk.
+- It avoids a burst of parallel frontend calls during the first backend integration.
+- It does not prevent separate resource endpoints for writes or later optimization.
+
+Guardrail:
+
+The composed endpoint must return facts only. It must not return command center summaries, execution health, risk state, SLA labels, workflow continuity or timeline presentation events as backend truth.
 
 ---
 
 # Workspace Endpoint Recommendation
 
-Backend V1 should start with a composed Campaign Workspace read endpoint plus separate resource endpoints for writes where needed.
+Backend V1 should implement Campaign child facts before the composed Campaign Workspace read endpoint.
 
 Recommended first read:
 
@@ -252,7 +264,7 @@ Recommended write direction:
 POST/PATCH campaign child resources
 ```
 
-This hybrid keeps the first frontend integration simple while preserving REST resource clarity.
+This sequence keeps the first frontend integration simple while preserving REST resource clarity.
 
 Separate-only reads may become useful later for caching, partial refreshes or large data volumes, but they add integration complexity too early.
 

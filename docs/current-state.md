@@ -1,7 +1,8 @@
 # Current State
 
 ## Current Phase
-Campaign Persistence Implementation
+
+Campaign Child Resources Planning
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -28,13 +29,15 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - ownership awareness
 - organized frontend domain model
 - persisted vs derived state separation
-- backend readiness without backend implementation
 - operational timeline
 - campaign execution history
 - activity model for workflow, coordination, execution, planning and collaboration events
 - lightweight collaboration context
 - decision context
 - operational memory
+- backend NestJS runtime
+- Prisma/PostgreSQL persistence foundation
+- read-only reference data APIs
 - basic Campaign persistence APIs
 
 ## Current Architecture
@@ -42,11 +45,41 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - TypeScript
 - Zustand
 - Tailwind
-- mock/local operational state
-- minimal NestJS backend skeleton
-- Prisma database foundation
-- read-only backend reference data APIs
-- basic Campaign persistence APIs
+- mock/local operational frontend state
+- NestJS backend
+- Prisma
+- PostgreSQL
+- REST-first API
+- modular monolith
+- Reference Data APIs
+- Campaign Persistence APIs
+
+## Current Priorities
+
+- plan Campaign child resources before implementation
+- define child resource implementation order
+- define API boundaries for Blockers, Notes, Decision Context, Activities and Handoffs
+- protect Campaign child resources from becoming tickets, chat, event sourcing or workflow engine
+- preserve Campaign as the central operational aggregate
+- keep derived intelligence out of backend truth
+- avoid implementing child resource APIs until planning is approved
+- avoid Campaign Workspace endpoint, frontend integration, auth, Docker and workflow engine behavior
+
+## Campaign Child Resources Planning Capabilities
+
+- Campaign child resources planning is the current phase
+- approved implementation order is Campaign Blockers, Campaign Notes, Campaign Decision Context, Campaign Activities, Campaign Handoffs, Campaign Workspace Facts Endpoint
+- child resources must remain campaign-scoped
+- child resources must persist facts only
+- no Campaign child resource API has been implemented yet
+- Blockers must not become ticketing
+- Notes must not become chat or threaded comments
+- Decision Context must not become approval workflow
+- Activities must not become event sourcing or audit log
+- Handoffs must not become workflow engine or dependency graph
+- Campaign Workspace endpoint remains deferred until child facts exist
+- frontend integration remains deferred
+- auth remains deferred
 
 ## Campaign Persistence Implementation Capabilities
 
@@ -244,4 +277,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Campaign persistence APIs without Campaign Workspace backend behavior.
+Campaign child resources planning without backend child resource implementation.

@@ -135,6 +135,12 @@ Backend phase that exposes basic Campaign create, read and update APIs backed by
 ## Campaign Persistence API
 REST endpoint group for persisted Campaign facts. It validates workspace, owner and squad references and keeps derived intelligence out of backend truth.
 
+## Campaign Child Resources Planning
+Documentation phase that validates campaign-scoped child resource order, API boundaries and guardrails before implementing Blockers, Notes, Decision Context, Activities or Handoffs.
+
+## Campaign Workspace Facts Endpoint
+Future composed read endpoint that should return persisted Campaign Workspace facts after child resources exist. It must not return derived intelligence, command center summaries or timeline presentation as backend truth.
+
 ## Modular Monolith
 Likely first backend architecture direction where modules are clearly separated inside one deployable backend instead of distributed microservices.
 

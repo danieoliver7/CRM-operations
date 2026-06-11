@@ -354,7 +354,7 @@ This phase introduces read-only reference data product APIs, but it does not int
 
 ## 21. Campaign Persistence Implementation
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -368,15 +368,41 @@ Focus:
 
 ---
 
+## 22. Campaign Child Resources Planning
+
+Status: current phase
+
+Focus:
+
+- plan Campaign child resources before implementation
+- define implementation order
+- define API boundaries
+- define validation expectations
+- protect child resources from becoming generic project management concepts
+- prepare Campaign Blockers Implementation as the next likely implementation cut
+
+Approved implementation order:
+
+```txt
+1. Campaign Blockers Implementation
+2. Campaign Notes Implementation
+3. Campaign Decision Context Implementation
+4. Campaign Activities Implementation
+5. Campaign Handoffs Implementation
+6. Campaign Workspace Facts Endpoint
+```
+
+---
+
 # Current Rule
 
 The current phase is:
 
-Campaign Persistence Implementation
+Campaign Child Resources Planning
 
 The goal is not to build Campaign Workspace endpoints, campaign child resource APIs, auth, Docker or frontend API clients.
 
-The goal is to persist basic Campaign facts through simple REST APIs while preserving derived intelligence boundaries.
+The goal is to validate child resource order, boundaries and guardrails before Campaign Blockers Implementation begins.
 
 ---
 
