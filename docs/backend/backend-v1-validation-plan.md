@@ -530,6 +530,54 @@ Use:
 
 to validate the Campaign Blockers implementation sprint.
 
+# Future Operational Copilot Guardrail
+
+CRM Operations Platform may eventually include a CRM Operations Copilot.
+
+This is future vision only.
+
+It must not affect MVP scope.
+
+During Backend V1 implementation, the only allowed implication is clean operational data modeling.
+
+Allowed:
+
+- persist operational facts cleanly
+- preserve campaign history
+- preserve blockers
+- preserve notes
+- preserve decision context
+- preserve activities
+- preserve handoffs
+- preserve timestamps and actor references where useful
+- avoid derived intelligence persistence
+- keep Campaign as the central operational aggregate
+
+Still disallowed:
+
+- embeddings
+- vector database
+- OpenAI API
+- LLM provider
+- RAG pipeline
+- prompt engine
+- agent runtime
+- Copilot UI
+- AI recommendations
+- semantic search
+- autonomous workflow actions
+- AI-generated campaign suggestions
+- AI-generated copy
+- agentic AI architecture
+
+AI-ready means:
+
+
+Persist facts.
+Preserve context.
+Keep semantics clear.
+Do not implement AI yet.
+
 ---
 
 # Final Principle

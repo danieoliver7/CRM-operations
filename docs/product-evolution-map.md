@@ -449,3 +449,55 @@ Do not implement now:
 The product should evolve from operational clarity to commercial infrastructure.
 
 Not the opposite.
+
+
+---
+
+## Future Strategic Layer: CRM Operations Copilot
+
+Status: future vision only
+
+Focus:
+
+- learn from operational history
+- analyze Campaign facts
+- analyze blockers
+- analyze notes
+- analyze decision context
+- analyze activities
+- analyze handoffs
+- analyze timeline
+- support future operational recommendations
+- help explain why campaigns delayed, changed or should be revisited
+
+This is not MVP scope.
+
+This is not current roadmap scope.
+
+Do not implement AI features now.
+
+Do not create:
+
+- embeddings
+- vector database
+- OpenAI API integration
+- LLM provider
+- RAG pipeline
+- prompt engine
+- agent runtime
+- Copilot UI
+- AI recommendations
+- semantic search
+- AI automations
+
+Current implication:
+
+- keep operational facts clean
+- preserve decision context
+- preserve blockers
+- preserve notes
+- preserve activities
+- preserve handoffs
+- avoid derived intelligence persistence
+- avoid UI state persistence
+- keep Campaign as the central operational aggregate

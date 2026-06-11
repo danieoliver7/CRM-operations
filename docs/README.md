@@ -62,6 +62,7 @@
 ## Vision
 
 - `/docs/vision/future-platform.md`
+- `/docs/vision/operational-copilot-future.md`
 
 ## Decisions
 
@@ -81,6 +82,7 @@
 - `/docs/decisions/ADR-019-campaign-persistence-implementation.md`
 - `/docs/decisions/ADR-020-campaign-child-resources-planning.md`
 - `/docs/decisions/ADR-021-campaign-blockers-implementation.md`
+- `/docs/decisions/ADR-022-operational-copilot-future-vision.md`
 
 ## Backend
 
