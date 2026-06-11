@@ -80,6 +80,7 @@
 - `/docs/decisions/ADR-018-reference-data-implementation.md`
 - `/docs/decisions/ADR-019-campaign-persistence-implementation.md`
 - `/docs/decisions/ADR-020-campaign-child-resources-planning.md`
+- `/docs/decisions/ADR-021-campaign-blockers-implementation.md`
 
 ## Backend
 
@@ -124,6 +125,9 @@
 - `/docs/backend/campaign-child-resource-prioritization.md`
 - `/docs/backend/campaign-child-resource-api-boundaries.md`
 - `/docs/backend/campaign-child-resource-validation.md`
+- `/docs/backend/campaign-blockers-implementation.md`
+- `/docs/backend/campaign-blockers-api-contract.md`
+- `/docs/backend/campaign-blockers-validation.md`
 
 ## Contracts
 - `/docs/contracts/frontend-backend-contract.md`

@@ -285,6 +285,57 @@ GET /campaigns/:campaignId/timeline-events
 
 These remain derived from persisted facts.
 
+# Campaign Blockers Implementation Validation
+
+During the Campaign Blockers Implementation sprint, the first Campaign child resource API may be created.
+
+Allowed:
+
+- BlockersModule
+- BlockersController
+- BlockersService
+- Blocker DTOs
+- Blocker request helpers
+- Blocker response mapper
+- Blocker validation tests
+
+Allowed endpoints:
+
+```txt
+GET /campaigns/:campaignId/blockers
+POST /campaigns/:campaignId/blockers
+PATCH /campaigns/:campaignId/blockers/:blockerId
+POST /campaigns/:campaignId/blockers/:blockerId/resolve
+```
+
+Validate that Campaign Blockers APIs:
+
+- persist blocker facts through Prisma/PostgreSQL
+- return list responses as `{ data: T[] }`
+- return detail responses as `{ data: T }`
+- validate Campaign existence for every operation
+- validate blocker ownership by Campaign for update and resolve
+- validate User references when `createdById` or `resolvedById` are provided
+- use `CAMPAIGN_NOT_FOUND`, `BLOCKER_NOT_FOUND`, `USER_NOT_FOUND` and `INVALID_BLOCKER_INPUT`
+- do not create activities, timeline events, handoffs, notifications or decision context automatically
+- do not return derived intelligence, ticketing state or escalation state as backend truth
+
+Still disallowed:
+
+- NotesModule
+- DecisionContextModule
+- ActivitiesModule
+- HandoffsModule
+- CampaignWorkspaceModule
+- frontend API client
+- auth
+- Docker
+- realtime
+- workflow engine behavior
+- event sourcing behavior
+- ticketing behavior
+- SLA engine behavior
+
 ---
 
 # Final Principle

@@ -59,6 +59,25 @@ Every child resource implementation must validate:
 
 ---
 
+# Campaign Blockers Implementation Validation
+
+Campaign Blockers is the first implemented Campaign child resource.
+
+Validate:
+
+- only Blockers API endpoints are implemented
+- blockers remain campaign-scoped
+- blocker create/update/resolve operations persist facts only
+- Campaign existence is validated
+- blocker ownership by Campaign is validated
+- `createdById` and `resolvedById` references are validated when provided
+- no other child resource API is introduced
+- no Campaign Workspace endpoint is introduced
+- no automatic activity, timeline, handoff or decision context is created
+- no ticketing, incident, escalation or SLA engine behavior is introduced
+
+---
+
 # Future Backend Commands
 
 For future implementation sprints, run from `/backend`:

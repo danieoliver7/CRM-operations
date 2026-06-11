@@ -2,7 +2,7 @@
 
 Minimal NestJS backend foundation for CRM Operations Platform.
 
-This backend currently contains runtime infrastructure, Prisma persistence foundation, read-only reference data APIs and basic Campaign persistence APIs.
+This backend currently contains runtime infrastructure, Prisma persistence foundation, read-only reference data APIs, basic Campaign persistence APIs and campaign-scoped Blockers APIs.
 
 ## What Exists
 
@@ -19,11 +19,12 @@ This backend currently contains runtime infrastructure, Prisma persistence found
 - Read-only Users API.
 - Read-only Squads API.
 - Basic Campaign persistence API.
+- Campaign Blockers API.
 
 ## What Does Not Exist Yet
 
 - Campaign Workspace endpoint.
-- Campaign child resource APIs.
+- Non-blocker Campaign child resource APIs.
 - Automatic activity, timeline, handoff or decision context creation.
 - Write APIs for reference data.
 - Authentication.
@@ -99,6 +100,15 @@ PATCH http://localhost:4000/campaigns/:campaignId/owner
 PATCH http://localhost:4000/campaigns/:campaignId/squad
 ```
 
+Campaign Blockers endpoints:
+
+```txt
+GET http://localhost:4000/campaigns/:campaignId/blockers
+POST http://localhost:4000/campaigns/:campaignId/blockers
+PATCH http://localhost:4000/campaigns/:campaignId/blockers/:blockerId
+POST http://localhost:4000/campaigns/:campaignId/blockers/:blockerId/resolve
+```
+
 List responses use:
 
 ```json
@@ -146,6 +156,6 @@ npm run prisma:seed
 
 ## Next Cut
 
-The next backend cut should be Campaign Workspace Facts Planning or campaign child resource implementation, depending on the approved sprint scope.
+The next backend cut should likely be Campaign Notes Implementation, if approved.
 
 It should not introduce auth, Docker, realtime, workflow engines or frontend integration unless explicitly approved.

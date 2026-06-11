@@ -37,11 +37,11 @@ Every child resource API must validate that the Campaign exists before reading o
 
 ---
 
-# Planned API Boundaries
+# API Boundaries
 
 ## Campaign Blockers
 
-Potential future routes:
+Implemented routes:
 
 ```txt
 GET /campaigns/:campaignId/blockers
@@ -54,6 +54,7 @@ Boundary:
 
 - Blockers capture operational impediments.
 - Blockers do not create tickets, incidents or escalations.
+- Blockers do not automatically create activities, timeline events, handoffs or decision context.
 
 ## Campaign Notes
 

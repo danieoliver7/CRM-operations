@@ -1,8 +1,7 @@
 # Current State
 
 ## Current Phase
-
-Campaign Child Resources Planning
+Campaign Blockers Implementation
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -39,6 +38,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Prisma/PostgreSQL persistence foundation
 - read-only reference data APIs
 - basic Campaign persistence APIs
+- campaign-scoped Blockers API
 
 ## Current Architecture
 - React
@@ -53,25 +53,44 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - modular monolith
 - Reference Data APIs
 - Campaign Persistence APIs
+- Campaign Blockers API
 
 ## Current Priorities
-
-- plan Campaign child resources before implementation
-- define child resource implementation order
-- define API boundaries for Blockers, Notes, Decision Context, Activities and Handoffs
-- protect Campaign child resources from becoming tickets, chat, event sourcing or workflow engine
+- implement Campaign Blockers as the first Campaign child resource
+- create campaign-scoped blocker APIs
+- support listing, creating, updating and resolving blockers
+- validate Campaign existence for all blocker operations
+- validate User references when createdById or resolvedById are provided
+- keep Blockers as operational impediments, not tickets
 - preserve Campaign as the central operational aggregate
 - keep derived intelligence out of backend truth
-- avoid implementing child resource APIs until planning is approved
-- avoid Campaign Workspace endpoint, frontend integration, auth, Docker and workflow engine behavior
+- avoid Notes, Decision Context, Activities, Handoffs, Campaign Workspace endpoint, frontend integration, auth, Docker and workflow engine behavior
+
+## Campaign Blockers Implementation Capabilities
+
+- Campaign Blockers implementation is complete
+- Blockers are the first implemented Campaign child resource
+- Blockers must remain campaign-scoped
+- Blockers can be listed, created, updated and resolved through REST endpoints
+- Blocker writes must validate campaign existence
+- Blocker writes must validate user references when provided
+- Blocker responses expose persisted blocker facts only
+- Blocker resolution sets `status`, `resolvedAt` and optional `resolvedById`
+- Blockers must not become tickets, incidents, escalation workflows or SLA engine
+- Blocker operations must not automatically create activities or timeline events
+- Notes, Decision Context, Activities and Handoffs remain deferred
+- Campaign Workspace endpoint remains deferred
+- frontend integration remains deferred
+- auth remains deferred
 
 ## Campaign Child Resources Planning Capabilities
 
-- Campaign child resources planning is the current phase
+- Campaign child resources planning is validated
 - approved implementation order is Campaign Blockers, Campaign Notes, Campaign Decision Context, Campaign Activities, Campaign Handoffs, Campaign Workspace Facts Endpoint
 - child resources must remain campaign-scoped
 - child resources must persist facts only
-- no Campaign child resource API has been implemented yet
+- Campaign Blockers API is implemented as the first child resource
+- Notes, Decision Context, Activities, Handoffs and Campaign Workspace Facts Endpoint are not implemented yet
 - Blockers must not become ticketing
 - Notes must not become chat or threaded comments
 - Decision Context must not become approval workflow
@@ -92,7 +111,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign API returns simple `{ data }` response wrappers
 - Campaign API does not return derived operational intelligence as backend truth
 - Campaign Workspace endpoint remains deferred
-- campaign child resource APIs remain deferred
+- non-blocker campaign child resource APIs remain deferred
 - frontend integration remains deferred
 - auth remains deferred
 
@@ -238,7 +257,10 @@ Focus:
 
 ## Avoid Right Now
 - Campaign Workspace endpoint
-- Campaign child resource APIs
+- Notes API
+- Decision Context API
+- Activities API
+- Handoffs API
 - Campaign Workspace backend behavior
 - automatic activity, timeline or handoff creation
 - derived intelligence persistence
@@ -277,4 +299,4 @@ Operational-first experience.
 The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
-Campaign child resources planning without backend child resource implementation.
+Campaign Blockers APIs without ticketing, workflow automation or Campaign Workspace backend behavior.

@@ -470,6 +470,68 @@ to validate the planning sprint.
 
 ---
 
+# Campaign Blockers Implementation Validation
+
+During the Campaign Blockers Implementation sprint, the first Campaign child resource API may be created.
+
+Allowed:
+
+- BlockersModule
+- BlockersController
+- BlockersService
+- Blocker DTOs
+- Blocker request helpers
+- Blocker response mapper
+- Blocker validation tests
+
+Allowed endpoints:
+
+```txt
+GET /campaigns/:campaignId/blockers
+POST /campaigns/:campaignId/blockers
+PATCH /campaigns/:campaignId/blockers/:blockerId
+POST /campaigns/:campaignId/blockers/:blockerId/resolve
+```
+
+Validate that Campaign Blockers APIs:
+
+- persist blocker facts through Prisma/PostgreSQL
+- return simple `{ data }` wrappers
+- validate Campaign existence for every operation
+- validate blocker belongs to the route Campaign
+- validate User references when provided
+- use `CAMPAIGN_NOT_FOUND`, `BLOCKER_NOT_FOUND`, `USER_NOT_FOUND` and `INVALID_BLOCKER_INPUT`
+- avoid automatic activity, timeline, handoff, decision context or notification creation
+- avoid derived intelligence persistence or response fields
+
+Still disallowed:
+
+- Notes API implementation
+- Decision Context API implementation
+- Activities API implementation
+- Handoffs API implementation
+- Campaign Workspace endpoint
+- frontend API client
+- auth
+- RBAC
+- Docker
+- workflow engine
+- event sourcing
+- realtime
+- ticketing system
+- SLA engine
+
+Use:
+
+- `/docs/backend/campaign-blockers-implementation.md`
+- `/docs/backend/campaign-blockers-api-contract.md`
+- `/docs/backend/campaign-blockers-validation.md`
+- `/docs/decisions/ADR-021-campaign-blockers-implementation.md`
+
+to validate the Campaign Blockers implementation sprint.
+
+---
+
 # Final Principle
 
 Backend V1 validation should protect the product from accidental architecture drift.

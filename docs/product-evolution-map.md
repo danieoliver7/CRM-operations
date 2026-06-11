@@ -370,7 +370,7 @@ Focus:
 
 ## 22. Campaign Child Resources Planning
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -392,17 +392,30 @@ Approved implementation order:
 6. Campaign Workspace Facts Endpoint
 ```
 
+## 23. Campaign Blockers Implementation
+
+Status: current phase
+
+Focus:
+
+- implement Campaign Blockers as the first Campaign child resource
+- expose campaign-scoped blocker APIs
+- support blocker list, create, update and resolve operations
+- validate Campaign and User references
+- keep blockers as operational impediments
+- avoid ticketing, escalation workflow, automatic activities and Campaign Workspace endpoint
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Campaign Child Resources Planning
+Campaign Blockers Implementation
 
-The goal is not to build Campaign Workspace endpoints, campaign child resource APIs, auth, Docker or frontend API clients.
+The goal is to implement Campaign Blockers APIs only.
 
-The goal is to validate child resource order, boundaries and guardrails before Campaign Blockers Implementation begins.
+The goal is not to build Notes, Decision Context, Activities, Handoffs, Campaign Workspace endpoints, auth, Docker or frontend API clients.
 
 ---
 
@@ -411,7 +424,10 @@ The goal is to validate child resource order, boundaries and guardrails before C
 Do not implement now:
 
 - Campaign Workspace endpoint
-- Campaign child resource APIs
+- Notes API
+- Decision Context API
+- Activities API
+- Handoffs API
 - automatic activity, timeline or handoff creation
 - derived intelligence persistence
 - write APIs for reference data

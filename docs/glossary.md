@@ -138,6 +138,15 @@ REST endpoint group for persisted Campaign facts. It validates workspace, owner 
 ## Campaign Child Resources Planning
 Documentation phase that validates campaign-scoped child resource order, API boundaries and guardrails before implementing Blockers, Notes, Decision Context, Activities or Handoffs.
 
+## Campaign Blockers Implementation
+Backend phase that implements campaign-scoped Blockers APIs as the first Campaign child resource.
+
+## Campaign Blockers API
+REST endpoint group for listing, creating, updating and resolving persisted blocker facts under a Campaign.
+
+## Blocker Resolution
+Fact update that marks a blocker as resolved, sets `resolvedAt` and may record `resolvedById`. It does not create activity, timeline, notification or workflow automation.
+
 ## Campaign Workspace Facts Endpoint
 Future composed read endpoint that should return persisted Campaign Workspace facts after child resources exist. It must not return derived intelligence, command center summaries or timeline presentation as backend truth.
 
