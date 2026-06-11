@@ -2,28 +2,29 @@
 
 ## Current Focus
 
-Campaign Blockers Implementation
+Campaign Notes Implementation
 
 ## Current Sprint Goals
 
-- implement Campaign Blockers API
-- implement BlockersModule
-- implement BlockersController
-- implement BlockersService
-- expose `GET /campaigns/:campaignId/blockers`
-- expose `POST /campaigns/:campaignId/blockers`
-- expose `PATCH /campaigns/:campaignId/blockers/:blockerId`
-- expose `POST /campaigns/:campaignId/blockers/:blockerId/resolve`
-- validate Campaign existence for all blocker operations
-- validate blocker belongs to campaign
-- validate User references when provided
+- implement Campaign Notes API
+- implement NotesModule
+- implement NotesController
+- implement NotesService
+- expose `GET /campaigns/:campaignId/notes`
+- expose `POST /campaigns/:campaignId/notes`
+- expose `PATCH /campaigns/:campaignId/notes/:noteId`
+- validate Campaign existence for all note operations
+- validate note belongs to campaign
+- validate User reference when authorId is provided
 - preserve existing Campaign APIs
+- preserve existing Campaign Blockers API
 - preserve existing Reference Data APIs
 - preserve backend health endpoint
 - preserve frontend lint/build behavior
-- avoid Notes API, Decision Context API, Activities API, Handoffs API, Campaign Workspace endpoint, frontend integration, auth, Docker and workflow engine behavior
+- avoid Decision Context API, Activities API, Handoffs API, Campaign Workspace endpoint, frontend integration, auth, Docker, workflow engine and AI behavior
 
 ## Approved Child Resource Order
+
 1. Campaign Blockers Implementation
 2. Campaign Notes Implementation
 3. Campaign Decision Context Implementation
@@ -31,17 +32,33 @@ Campaign Blockers Implementation
 5. Campaign Handoffs Implementation
 6. Campaign Workspace Facts Endpoint
 
+## Current Implementation Status
+
+- Campaign Blockers Implementation: completed
+- Campaign Notes Implementation: current
+- Campaign Decision Context Implementation: deferred
+- Campaign Activities Implementation: deferred
+- Campaign Handoffs Implementation: deferred
+- Campaign Workspace Facts Endpoint: deferred
+
 ## Still Deferred
 
 - Campaign Workspace API
+- Campaign Decision Context API
 - Campaign Activity API
 - Handoff API
-- Notes API
-- Decision Context API
+- automatic activity creation
 - timeline generation
-- activity creation
-- handoff creation
 - decision context creation
+- handoff creation
+- chat behavior
+- comments system
+- replies
+- mentions
+- threaded discussions
+- AI features
+- embeddings
+- semantic search
 - frontend API client implementation
 - frontend mappers implementation
 - authentication implementation

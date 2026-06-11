@@ -572,11 +572,75 @@ Still disallowed:
 
 AI-ready means:
 
-
+```txt
 Persist facts.
 Preserve context.
 Keep semantics clear.
 Do not implement AI yet.
+```
+
+---
+
+# Campaign Notes Implementation Validation
+
+During the Campaign Notes Implementation sprint, the second Campaign child resource API may be created.
+
+Allowed:
+
+- NotesModule
+- NotesController
+- NotesService
+- Note DTOs
+- Note request helpers
+- Note response mapper
+- Note validation tests
+
+Allowed endpoints:
+
+```txt
+GET /campaigns/:campaignId/notes
+POST /campaigns/:campaignId/notes
+PATCH /campaigns/:campaignId/notes/:noteId
+```
+
+Validate that Campaign Notes APIs:
+
+- persist note facts through Prisma/PostgreSQL
+- return simple `{ data }` wrappers
+- validate Campaign existence for every operation
+- validate note belongs to the route Campaign
+- validate User reference when `authorId` is provided
+- use `CAMPAIGN_NOT_FOUND`, `NOTE_NOT_FOUND`, `USER_NOT_FOUND` and `INVALID_NOTE_INPUT`
+- avoid automatic activity, timeline or decision context creation
+- avoid chat/comment/reply/thread/mention behavior
+- avoid AI/Copilot behavior
+- avoid derived intelligence persistence or response fields
+
+Still disallowed:
+
+- Decision Context API implementation
+- Activities API implementation
+- Handoffs API implementation
+- Campaign Workspace endpoint
+- frontend API client
+- auth
+- RBAC
+- Docker
+- workflow engine
+- event sourcing
+- realtime
+- chat system
+- comments system
+- AI/Copilot implementation
+
+Use:
+
+- `/docs/backend/campaign-notes-implementation.md`
+- `/docs/backend/campaign-notes-api-contract.md`
+- `/docs/backend/campaign-notes-validation.md`
+- `/docs/decisions/ADR-023-campaign-notes-implementation.md`
+
+to validate the Campaign Notes implementation sprint.
 
 ---
 

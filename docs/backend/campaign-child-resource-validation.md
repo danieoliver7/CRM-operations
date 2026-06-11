@@ -78,6 +78,28 @@ Validate:
 
 ---
 
+# Campaign Notes Implementation Validation
+
+Campaign Notes is the second implemented Campaign child resource.
+
+Validate:
+
+- only Notes API endpoints are implemented in this cut
+- notes remain campaign-scoped
+- note create/update operations persist facts only
+- Campaign existence is validated
+- note ownership by Campaign is validated
+- `authorId` reference is validated when provided
+- no Decision Context API is introduced
+- no Activities API is introduced
+- no Handoffs API is introduced
+- no Campaign Workspace endpoint is introduced
+- no automatic activity, timeline or decision context is created
+- no chat/comment/reply/thread/mention behavior is introduced
+- no AI/Copilot behavior is introduced
+
+---
+
 # Future Backend Commands
 
 For future implementation sprints, run from `/backend`:

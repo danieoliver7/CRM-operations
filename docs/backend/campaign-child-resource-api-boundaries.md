@@ -58,7 +58,7 @@ Boundary:
 
 ## Campaign Notes
 
-Potential future routes:
+Implemented routes:
 
 ```txt
 GET /campaigns/:campaignId/notes
@@ -70,6 +70,7 @@ Boundary:
 
 - Notes preserve lightweight operational memory.
 - Notes do not create chat, replies, mentions or threaded comments.
+- Notes do not automatically create activities, timeline events or decision context.
 
 ## Campaign Decision Context
 

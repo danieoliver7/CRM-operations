@@ -147,6 +147,15 @@ REST endpoint group for listing, creating, updating and resolving persisted bloc
 ## Blocker Resolution
 Fact update that marks a blocker as resolved, sets `resolvedAt` and may record `resolvedById`. It does not create activity, timeline, notification or workflow automation.
 
+## Campaign Notes Implementation
+Backend phase that implements campaign-scoped Notes APIs as the second Campaign child resource.
+
+## Campaign Notes API
+REST endpoint group for listing, creating and updating persisted note facts under a Campaign.
+
+## Campaign Note
+Lightweight campaign-scoped operational memory fact. It is not chat, comments, threads, Decision Context or AI output.
+
 ## Campaign Workspace Facts Endpoint
 Future composed read endpoint that should return persisted Campaign Workspace facts after child resources exist. It must not return derived intelligence, command center summaries or timeline presentation as backend truth.
 

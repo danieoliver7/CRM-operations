@@ -394,7 +394,7 @@ Approved implementation order:
 
 ## 23. Campaign Blockers Implementation
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -405,17 +405,30 @@ Focus:
 - keep blockers as operational impediments
 - avoid ticketing, escalation workflow, automatic activities and Campaign Workspace endpoint
 
+## 24. Campaign Notes Implementation
+
+Status: current phase
+
+Focus:
+
+- implement Campaign Notes as the second Campaign child resource
+- expose campaign-scoped note APIs
+- support note list, create and update operations
+- validate Campaign and User references
+- keep notes as lightweight operational memory
+- avoid chat, comments, replies, mentions, automatic activities and Campaign Workspace endpoint
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Campaign Blockers Implementation
+Campaign Notes Implementation
 
-The goal is to implement Campaign Blockers APIs only.
+The goal is to implement Campaign Notes APIs only.
 
-The goal is not to build Notes, Decision Context, Activities, Handoffs, Campaign Workspace endpoints, auth, Docker or frontend API clients.
+The goal is not to build Decision Context, Activities, Handoffs, Campaign Workspace endpoints, auth, Docker, frontend API clients or AI/Copilot features.
 
 ---
 
@@ -424,11 +437,10 @@ The goal is not to build Notes, Decision Context, Activities, Handoffs, Campaign
 Do not implement now:
 
 - Campaign Workspace endpoint
-- Notes API
 - Decision Context API
 - Activities API
 - Handoffs API
-- automatic activity, timeline or handoff creation
+- automatic activity, timeline, decision context or handoff creation
 - derived intelligence persistence
 - write APIs for reference data
 - frontend API clients
