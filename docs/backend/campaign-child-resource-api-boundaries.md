@@ -90,7 +90,7 @@ Boundary:
 
 ## Campaign Activities
 
-Potential future routes:
+Implemented routes:
 
 ```txt
 GET /campaigns/:campaignId/activities
@@ -100,7 +100,9 @@ POST /campaigns/:campaignId/activities
 Boundary:
 
 - Activities record meaningful operational events.
+- Activities can be created only through the Activities API in this cut.
 - Activities do not become event sourcing, audit log infrastructure or timeline presentation backend.
+- Activities do not automatically create notes, decision context, timeline events or handoffs.
 
 ## Campaign Handoffs
 

@@ -146,11 +146,15 @@ Squad pressure remains derived from campaigns and workload facts.
 type CampaignActivityDto = {
   id: string;
   campaignId: string;
-  actorUserId?: string;
+  actorId?: string | null;
   type: string;
   category?: 'workflow' | 'coordination' | 'execution' | 'planning' | 'collaboration';
   message: string;
   metadata?: Record<string, unknown>;
+  relatedBlockerId?: string | null;
+  relatedNoteId?: string | null;
+  relatedDecisionContextId?: string | null;
+  relatedHandoffId?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };

@@ -136,11 +136,15 @@ Required facts:
 
 - id
 - campaignId
-- actorUserId
+- actorId
 - type
 - category
 - message
 - metadata
+- relatedBlockerId
+- relatedNoteId
+- relatedDecisionContextId
+- relatedHandoffId
 - createdAt
 - updatedAt
 

@@ -706,6 +706,69 @@ to validate the Campaign Decision Context implementation sprint.
 
 ---
 
+# Campaign Activities Implementation Validation
+
+During the Campaign Activities Implementation sprint, the fourth Campaign child resource API may be created.
+
+Allowed:
+
+- ActivitiesModule
+- ActivitiesController
+- ActivitiesService
+- Activity DTOs
+- Activity request helpers
+- Activity response mapper
+- Activity validation tests
+
+Allowed endpoints:
+
+```txt
+GET /campaigns/:campaignId/activities
+POST /campaigns/:campaignId/activities
+```
+
+Validate that Campaign Activities APIs:
+
+- persist meaningful operational event facts through Prisma/PostgreSQL
+- return simple `{ data }` wrappers
+- validate Campaign existence for every operation
+- validate User reference when `actorId` is provided
+- validate accepted related references when provided
+- store related references through existing activity metadata instead of schema expansion
+- use `CAMPAIGN_NOT_FOUND`, `USER_NOT_FOUND`, `BLOCKER_NOT_FOUND`, `NOTE_NOT_FOUND`, `DECISION_CONTEXT_NOT_FOUND`, `HANDOFF_NOT_FOUND` and `INVALID_ACTIVITY_INPUT`
+- avoid automatic activity creation from other backend writes
+- avoid timeline generation
+- avoid event sourcing, audit log, replay, projection or notification behavior
+- avoid AI/Copilot behavior
+- avoid derived intelligence persistence or response fields
+
+Still disallowed:
+
+- Handoffs API implementation
+- Campaign Workspace endpoint
+- Timeline endpoint
+- frontend API client
+- auth
+- RBAC
+- Docker
+- workflow engine
+- event sourcing
+- realtime
+- notification feed
+- audit log platform
+- AI/Copilot implementation
+
+Use:
+
+- `/docs/backend/campaign-activities-implementation.md`
+- `/docs/backend/campaign-activities-api-contract.md`
+- `/docs/backend/campaign-activities-validation.md`
+- `/docs/decisions/ADR-025-campaign-activities-implementation.md`
+
+to validate the Campaign Activities implementation sprint.
+
+---
+
 # Final Principle
 
 Backend V1 validation should protect the product from accidental architecture drift.

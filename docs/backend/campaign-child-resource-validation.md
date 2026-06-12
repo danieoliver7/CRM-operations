@@ -122,6 +122,28 @@ Validate:
 
 ---
 
+# Campaign Activities Implementation Validation
+
+Campaign Activities is the fourth implemented Campaign child resource.
+
+Validate:
+
+- only Activities API endpoints are implemented in this cut
+- activities remain campaign-scoped
+- activity create operations persist meaningful operational event facts only
+- Campaign existence is validated
+- `actorId` reference is validated when provided
+- accepted related references are validated when provided
+- related references are stored through existing activity metadata instead of schema expansion
+- no Handoffs API is introduced
+- no Campaign Workspace endpoint is introduced
+- no Timeline endpoint is introduced
+- no automatic activity creation from Campaign, Blocker, Note or Decision Context writes is introduced
+- no event sourcing, replay, projection, audit log or notification behavior is introduced
+- no AI/Copilot behavior is introduced
+
+---
+
 # Future Backend Commands
 
 For future implementation sprints, run from `/backend`:

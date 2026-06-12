@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Campaign Decision Context Implementation
+Campaign Activities Implementation
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -41,6 +41,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - campaign-scoped Blockers API
 - campaign-scoped Notes API
 - campaign-scoped Decision Context API
+- campaign-scoped Activities API
 
 ## Current Architecture
 - React
@@ -58,33 +59,50 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign Blockers API
 - Campaign Notes API
 - Campaign Decision Context API
+- Campaign Activities API
 
 ## Current Priorities
 
-- implement Campaign Decision Context as the third Campaign child resource
-- create campaign-scoped decision context APIs
-- support listing, creating and updating decision context
-- validate Campaign existence for all decision context operations
-- validate User reference when authorId is provided
-- keep Decision Context as operational reasoning, not comments, approvals or knowledge base
+- keep Campaign Activities stable as the fourth implemented Campaign child resource
+- prepare the next likely child resource cut, Campaign Handoffs, only when explicitly approved
 - preserve Campaign as the central operational aggregate
 - keep derived intelligence out of backend truth
-- avoid Activities, Handoffs, Campaign Workspace endpoint, frontend integration, auth, Docker, workflow engine and AI behavior
+- avoid Campaign Workspace endpoint, frontend integration, auth, Docker, workflow engine, timeline generation, event sourcing and AI behavior
+
+## Campaign Activities Implementation Capabilities
+
+- Campaign Activities implementation is complete
+- Activities are the fourth implemented Campaign child resource
+- Activities must remain campaign-scoped
+- Activities can be listed and created through REST endpoints
+- Activity writes must validate campaign existence
+- Activity writes must validate actor user reference when provided
+- Activity writes validate accepted related references when provided
+- Activity related references are stored through existing activity metadata instead of schema expansion
+- Activities must preserve meaningful operational events
+- Activities must not become event sourcing, audit logs, notification feed or timeline backend
+- Activity operations must not automatically create timeline events, notes, decision context or handoffs
+- Handoffs remain deferred
+- Campaign Workspace endpoint remains deferred
+- frontend integration remains deferred
+- auth remains deferred
+- AI features remain deferred
 
 ## Campaign Decision Context Implementation Capabilities
 
 - Campaign Decision Context implementation is complete
 - Decision Context is the third implemented Campaign child resource
-- Decision Context must remain campaign-scoped
+- Decision Context remains campaign-scoped
 - Decision Context can be listed, created and updated through REST endpoints
 - Decision Context writes validate campaign existence
 - Decision Context writes validate author user reference when provided
 - Decision Context writes validate accepted related references when provided
 - Decision Context responses expose persisted operational reasoning facts only
-- Decision Context must preserve operational reasoning
+- Decision Context preserves operational reasoning
 - Decision Context must not become chat, comments, approval workflow or knowledge base
 - Decision Context operations must not automatically create activities, notes or timeline events
-- Activities and Handoffs remain deferred
+- Activities API is implemented after Decision Context
+- Handoffs remain deferred
 - Campaign Workspace endpoint remains deferred
 - frontend integration remains deferred
 - auth remains deferred
@@ -103,7 +121,8 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Notes must not become chat, comments, replies, mentions or threaded discussions
 - Note operations must not automatically create activities, decision context or timeline events
 - Decision Context API is implemented after Notes
-- Activities and Handoffs remain deferred
+- Activities API is implemented after Decision Context
+- Handoffs remain deferred
 - Campaign Workspace endpoint remains deferred
 - frontend integration remains deferred
 - auth remains deferred
@@ -122,7 +141,8 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Blockers must not become tickets, incidents, escalation workflows or SLA engine
 - Blocker operations must not automatically create activities or timeline events
 - Notes and Decision Context APIs are implemented after Blockers
-- Activities and Handoffs remain deferred
+- Activities API is implemented after Decision Context
+- Handoffs remain deferred
 - Campaign Workspace endpoint remains deferred
 - frontend integration remains deferred
 - auth remains deferred
@@ -136,11 +156,11 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign Blockers API is implemented as the first child resource
 - Campaign Notes API is implemented as the second child resource
 - Campaign Decision Context API is implemented as the third child resource
-- Activities, Handoffs and Campaign Workspace Facts Endpoint are not implemented yet
+- Campaign Activities API is implemented as the fourth child resource
+- Handoffs and Campaign Workspace Facts Endpoint are not implemented yet
 - Blockers must not become ticketing
 - Notes must not become chat or threaded comments
 - Decision Context must not become approval workflow
-- Campaign Decision Context API is implemented as the third child resource
 - Activities must not become event sourcing or audit log
 - Handoffs must not become workflow engine or dependency graph
 - Campaign Workspace endpoint remains deferred until child facts exist
@@ -158,7 +178,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign API returns simple `{ data }` response wrappers
 - Campaign API does not return derived operational intelligence as backend truth
 - Campaign Workspace endpoint remains deferred
-- non-blocker/non-note/non-decision-context campaign child resource APIs remain deferred
+- non-blocker/non-note/non-decision-context/non-activity campaign child resource APIs remain deferred
 - frontend integration remains deferred
 - auth remains deferred
 
@@ -305,10 +325,18 @@ Focus:
 ## Avoid Right Now
 
 - Campaign Workspace endpoint
-- Activities API
 - Handoffs API
 - Campaign Workspace backend behavior
-- automatic activity, timeline, note or handoff creation
+- automatic activity creation from other resources
+- automatic timeline, note, decision context or handoff creation
+- event sourcing
+- audit log platform
+- activity replay
+- projections
+- CQRS
+- notification feed
+- timeline generation
+- workflow engine
 - comments system
 - approval workflow
 - knowledge base
@@ -325,7 +353,6 @@ Focus:
 - auth
 - realtime
 - websocket
-- workflow engine
 - complex automation
 - Docker
 - advanced infrastructure
@@ -356,4 +383,4 @@ The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
 
-Campaign Decision Context APIs without comments, approvals, Activities, Handoffs or Campaign Workspace backend behavior.
+Campaign Activities APIs without event sourcing, audit logs, timeline generation, Handoffs or Campaign Workspace backend behavior.

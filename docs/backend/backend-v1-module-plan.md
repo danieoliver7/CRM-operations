@@ -265,6 +265,67 @@ Campaign child resources include:
 
 Avoid circular dependencies and avoid cross-module orchestration.
 
+# Campaign Activities Implementation Validation
+
+During the Campaign Activities Implementation sprint, the fourth Campaign child resource API is created.
+
+Allowed:
+
+- ActivitiesModule
+- ActivitiesController
+- ActivitiesService
+- Activity DTOs
+- Activity request helpers
+- Activity response mapper
+- Activity validation tests
+
+Allowed endpoints:
+
+```txt
+GET /campaigns/:campaignId/activities
+POST /campaigns/:campaignId/activities
+```
+
+Still disallowed:
+
+- Handoffs API
+- Campaign Workspace endpoint
+- frontend API client
+- frontend mappers
+- auth
+- RBAC
+- Docker
+- workflow engine
+- event sourcing
+- audit log platform
+- activity replay
+- projections
+- CQRS
+- timeline generation
+- notification engine
+- realtime
+- AI features
+- embeddings
+- semantic search
+
+Use:
+
+- `/docs/backend/campaign-activities-implementation.md`
+- `/docs/backend/campaign-activities-api-contract.md`
+- `/docs/backend/campaign-activities-validation.md`
+
+to validate the sprint.
+
+Activities APIs must remain campaign-scoped.
+
+Activities store activity text in `message` and optional operational context in `metadata`.
+
+Activity operations must not automatically create timeline events, notes, decision context, handoffs or notifications.
+
+Activities must not return or persist derived intelligence as backend truth.
+
+Activities must not introduce event sourcing, audit log, replay, projection, workflow engine, notification feed, timeline backend or AI behavior.
+
 ---
 
 # Final Principle

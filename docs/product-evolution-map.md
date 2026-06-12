@@ -420,7 +420,7 @@ Focus:
 
 ## 25. Campaign Decision Context Implementation
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -431,17 +431,31 @@ Focus:
 - keep decision context as operational reasoning
 - avoid comments, approvals, knowledge base, automatic activities and Campaign Workspace endpoint
 
+## 26. Campaign Activities Implementation
+
+Status: validated
+
+Focus:
+
+- implement Campaign Activities as the fourth Campaign child resource
+- expose campaign-scoped activity APIs
+- support activity list and create operations
+- validate Campaign and User references
+- validate accepted related references when provided
+- keep activities as meaningful operational events
+- avoid event sourcing, audit logs, automatic activity creation, timeline generation and Campaign Workspace endpoint
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Campaign Decision Context Implementation
+Campaign Activities Implementation
 
-The goal is to implement Campaign Decision Context APIs only.
+The goal is to implement Campaign Activities APIs only.
 
-The goal is not to build Activities, Handoffs, Campaign Workspace endpoints, auth, Docker, frontend API clients or AI/Copilot features.
+The goal is not to build Handoffs, Campaign Workspace endpoints, auth, Docker, frontend API clients, timeline generation, event sourcing, audit logs or AI/Copilot features.
 
 ---
 
@@ -450,7 +464,6 @@ The goal is not to build Activities, Handoffs, Campaign Workspace endpoints, aut
 Do not implement now:
 
 - Campaign Workspace endpoint
-- Activities API
 - Handoffs API
 - automatic activity, timeline, decision context or handoff creation
 - derived intelligence persistence

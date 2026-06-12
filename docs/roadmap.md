@@ -2,27 +2,27 @@
 
 ## Current Focus
 
-Campaign Decision Context Implementation
+Campaign Activities Implementation
 
 ## Current Sprint Goals
 
-- implement Campaign Decision Context API
-- implement DecisionContextModule
-- implement DecisionContextController
-- implement DecisionContextService
-- expose `GET /campaigns/:campaignId/decision-context`
-- expose `POST /campaigns/:campaignId/decision-context`
-- expose `PATCH /campaigns/:campaignId/decision-context/:decisionContextId`
-- validate Campaign existence for all decision context operations
-- validate decision context belongs to campaign
-- validate User reference when authorId is provided
+- implement Campaign Activities API
+- implement ActivitiesModule
+- implement ActivitiesController
+- implement ActivitiesService
+- expose `GET /campaigns/:campaignId/activities`
+- expose `POST /campaigns/:campaignId/activities`
+- validate Campaign existence for all activity operations
+- validate User reference when actorId is provided
+- validate accepted related references when provided
 - preserve existing Campaign APIs
 - preserve existing Campaign Blockers API
 - preserve existing Campaign Notes API
+- preserve existing Campaign Decision Context API
 - preserve existing Reference Data APIs
 - preserve backend health endpoint
 - preserve frontend lint/build behavior
-- avoid Activities API, Handoffs API, Campaign Workspace endpoint, frontend integration, auth, Docker, workflow engine and AI behavior
+- avoid Handoffs API, Campaign Workspace endpoint, frontend integration, auth, Docker, workflow engine, event sourcing, timeline generation and AI behavior
 
 ## Approved Child Resource Order
 
@@ -37,19 +37,26 @@ Campaign Decision Context Implementation
 
 - Campaign Blockers Implementation: completed
 - Campaign Notes Implementation: completed
-- Campaign Decision Context Implementation: current
-- Campaign Activities Implementation: deferred
+- Campaign Decision Context Implementation: completed
+- Campaign Activities Implementation: completed
 - Campaign Handoffs Implementation: deferred
 - Campaign Workspace Facts Endpoint: deferred
+
+## Next Expected Cut
+
+Campaign Handoffs Implementation, if explicitly approved.
 
 ## Still Deferred
 
 - Campaign Workspace API
-- Campaign Activity API
 - Handoff API
-- automatic activity creation
-- timeline generation
-- note creation from decision context
+- automatic activity creation from other resources
+- automatic timeline generation
+- activity replay
+- event sourcing
+- audit log platform
+- projections
+- notification feed
 - handoff creation
 - comments system
 - approval workflow
@@ -68,7 +75,6 @@ Campaign Decision Context Implementation
 - RBAC
 - realtime
 - websocket
-- event sourcing
 - CQRS
 - microservices
 - Docker
