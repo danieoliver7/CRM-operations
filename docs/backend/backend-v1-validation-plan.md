@@ -767,6 +767,89 @@ Use:
 
 to validate the Campaign Activities implementation sprint.
 
+
+# Campaign Handoffs Implementation Validation
+
+During the Campaign Handoffs Implementation sprint, the fifth Campaign child resource API is created.
+
+Allowed:
+
+- HandoffsModule
+- HandoffsController
+- HandoffsService
+- Handoff DTOs
+- Handoff request helpers
+- Handoff response mapper
+- Handoff validation tests
+
+Allowed endpoints:
+
+```txt
+GET /campaigns/:campaignId/handoffs
+POST /campaigns/:campaignId/handoffs
+PATCH /campaigns/:campaignId/handoffs/:handoffId
+POST /campaigns/:campaignId/handoffs/:handoffId/complete
+POST /campaigns/:campaignId/handoffs/:handoffId/cancel
+```
+
+Validate that Campaign Handoffs APIs:
+
+- persist lightweight transition facts through Prisma/PostgreSQL
+- return simple `{ data }` wrappers
+- validate Campaign existence for every operation
+- validate handoff ownership by route Campaign
+- validate accepted user references when provided
+- validate accepted squad references when provided
+- set `status` and `completedAt` through the complete endpoint
+- set `status`, `cancelledAt` and optional `reason` through the cancel endpoint
+- reject unsupported schema fields such as `requestedById`, `completedById`, `cancelledById`, `notes` and `dueAt`
+- use `CAMPAIGN_NOT_FOUND`, `HANDOFF_NOT_FOUND`, `USER_NOT_FOUND`, `SQUAD_NOT_FOUND` and `INVALID_HANDOFF_INPUT`
+- avoid automatic Campaign status transitions
+- avoid automatic activity, timeline, note or decision context creation
+- avoid workflow engine, dependency graph, BPM, task management, notification or AI behavior
+- avoid derived intelligence persistence or response fields
+
+Still disallowed:
+
+- Campaign Workspace endpoint
+- frontend API client
+- frontend mappers
+- auth
+- RBAC
+- Docker
+- workflow engine
+- dependency graph
+- BPM
+- task management
+- orchestration layer
+- automatic Campaign status transitions
+- automatic activity creation
+- automatic timeline generation
+- notification engine
+- realtime
+- AI features
+- embeddings
+- semantic search
+
+Use:
+
+- `/docs/backend/campaign-handoffs-implementation.md`
+- `/docs/backend/campaign-handoffs-api-contract.md`
+- `/docs/backend/campaign-handoffs-validation.md`
+- `/docs/domain/handoffs.md`
+
+to validate the sprint.
+
+Handoffs APIs must remain campaign-scoped.
+
+Handoff operations must not automatically change Campaign status.
+
+Handoff operations must not automatically create activities, timeline events, notes, decision context or notifications.
+
+Handoffs must not return or persist derived intelligence as backend truth.
+
+Handoffs must not introduce workflow engine, dependency graph, BPM, task management, orchestration, automatic workflow, notification feed, timeline backend or AI behavior.
+
 ---
 
 # Final Principle

@@ -328,6 +328,66 @@ Activities must not introduce event sourcing, audit log, replay, projection, wor
 
 ---
 
+# Campaign Handoffs Implementation Validation
+
+During the Campaign Handoffs Implementation sprint, the fifth Campaign child resource API is created.
+
+Allowed:
+
+- HandoffsModule
+- HandoffsController
+- HandoffsService
+- Handoff DTOs
+- Handoff request helpers
+- Handoff response mapper
+- Handoff validation tests
+
+Allowed endpoints:
+
+```txt
+GET /campaigns/:campaignId/handoffs
+POST /campaigns/:campaignId/handoffs
+PATCH /campaigns/:campaignId/handoffs/:handoffId
+POST /campaigns/:campaignId/handoffs/:handoffId/complete
+POST /campaigns/:campaignId/handoffs/:handoffId/cancel
+```
+
+Still disallowed:
+
+- Campaign Workspace endpoint
+- frontend API client
+- frontend mappers
+- auth
+- RBAC
+- Docker
+- workflow engine
+- dependency graph
+- BPM
+- task management
+- orchestration layer
+- automatic Campaign status transitions
+- automatic activity creation
+- automatic timeline generation
+- notification engine
+- realtime
+- AI features
+- embeddings
+- semantic search
+
+Handoffs APIs must remain campaign-scoped.
+
+Handoff operations must not automatically change Campaign status.
+
+Handoff operations must not automatically create activities, timeline events, notes, decision context or notifications.
+
+Handoffs store lightweight transition facts supported by the current schema.
+
+Unsupported schema fields such as `requestedById`, `completedById`, `cancelledById`, `notes` and `dueAt` must remain rejected until the schema explicitly supports them.
+
+Handoffs must not introduce workflow engine, dependency graph, BPM, task management, orchestration, automatic workflow, notification feed, timeline backend or AI behavior.
+
+---
+
 # Final Principle
 
 Modules should make ownership clear.

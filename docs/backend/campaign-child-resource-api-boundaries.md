@@ -106,7 +106,7 @@ Boundary:
 
 ## Campaign Handoffs
 
-Potential future routes:
+Implemented routes:
 
 ```txt
 GET /campaigns/:campaignId/handoffs
@@ -120,6 +120,8 @@ Boundary:
 
 - Handoffs capture transition facts between workflow stages, owners or squads.
 - Handoffs do not become workflow engines, dependency graphs or BPM runtime.
+- Handoffs do not automatically change Campaign status.
+- Handoffs do not automatically create activities, timeline events, notes or decision context.
 
 ## Campaign Workspace Facts Endpoint
 

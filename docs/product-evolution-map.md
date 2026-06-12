@@ -445,17 +445,30 @@ Focus:
 - keep activities as meaningful operational events
 - avoid event sourcing, audit logs, automatic activity creation, timeline generation and Campaign Workspace endpoint
 
+## 27. Campaign Handoffs Implementation
+
+Status: validated
+
+Focus:
+
+- implement Campaign Handoffs as the fifth Campaign child resource
+- expose campaign-scoped handoff APIs
+- support handoff list, create, update, complete and cancel operations
+- validate Campaign, User and Squad references
+- keep handoffs as lightweight operational transitions
+- avoid workflow engine, dependency graph, task management, automatic activity creation, timeline generation and Campaign Workspace endpoint
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Campaign Activities Implementation
+Campaign Handoffs Implementation
 
-The goal is to implement Campaign Activities APIs only.
+The goal is to implement Campaign Handoffs APIs only.
 
-The goal is not to build Handoffs, Campaign Workspace endpoints, auth, Docker, frontend API clients, timeline generation, event sourcing, audit logs or AI/Copilot features.
+The goal is not to build Campaign Workspace endpoints, workflow engine, dependency graph, task management, auth, Docker, frontend API clients, timeline generation, notifications or AI/Copilot features.
 
 ---
 
@@ -464,7 +477,6 @@ The goal is not to build Handoffs, Campaign Workspace endpoints, auth, Docker, f
 Do not implement now:
 
 - Campaign Workspace endpoint
-- Handoffs API
 - automatic activity, timeline, decision context or handoff creation
 - derived intelligence persistence
 - write APIs for reference data

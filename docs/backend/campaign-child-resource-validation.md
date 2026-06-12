@@ -202,6 +202,23 @@ Reject implementations that turn activities into:
 
 ## Handoffs
 
+Campaign Handoffs is the fifth implemented Campaign child resource.
+
+Validate:
+
+- only Handoffs API endpoints are implemented in this cut
+- handoffs remain campaign-scoped
+- handoff create/update/complete/cancel operations persist lightweight transition facts only
+- Campaign existence is validated
+- handoff ownership by Campaign is validated
+- accepted user references are validated when provided
+- accepted squad references are validated when provided
+- unsupported schema fields such as `requestedById`, `completedById`, `cancelledById`, `notes` and `dueAt` are rejected
+- no Campaign Workspace endpoint is introduced
+- no automatic Campaign status transition is introduced
+- no automatic activity, timeline, note or decision context is created
+- no workflow engine, dependency graph, BPM, task management or AI behavior is introduced
+
 Reject implementations that turn handoffs into:
 
 - workflow engine

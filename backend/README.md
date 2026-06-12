@@ -2,7 +2,7 @@
 
 Minimal NestJS backend foundation for CRM Operations Platform.
 
-This backend currently contains runtime infrastructure, Prisma persistence foundation, read-only reference data APIs, basic Campaign persistence APIs, campaign-scoped Blockers APIs, campaign-scoped Notes APIs, campaign-scoped Decision Context APIs and campaign-scoped Activities APIs.
+This backend currently contains runtime infrastructure, Prisma persistence foundation, read-only reference data APIs, basic Campaign persistence APIs, campaign-scoped Blockers APIs, campaign-scoped Notes APIs, campaign-scoped Decision Context APIs, campaign-scoped Activities APIs and campaign-scoped Handoffs APIs.
 
 ## What Exists
 
@@ -23,11 +23,11 @@ This backend currently contains runtime infrastructure, Prisma persistence found
 - Campaign Notes API.
 - Campaign Decision Context API.
 - Campaign Activities API.
+- Campaign Handoffs API.
 
 ## What Does Not Exist Yet
 
 - Campaign Workspace endpoint.
-- Handoffs API.
 - Automatic activity, timeline, handoff, note or decision context creation.
 - Write APIs for reference data.
 - Authentication.
@@ -135,6 +135,16 @@ GET http://localhost:4000/campaigns/:campaignId/activities
 POST http://localhost:4000/campaigns/:campaignId/activities
 ```
 
+Campaign Handoffs endpoints:
+
+```txt
+GET http://localhost:4000/campaigns/:campaignId/handoffs
+POST http://localhost:4000/campaigns/:campaignId/handoffs
+PATCH http://localhost:4000/campaigns/:campaignId/handoffs/:handoffId
+POST http://localhost:4000/campaigns/:campaignId/handoffs/:handoffId/complete
+POST http://localhost:4000/campaigns/:campaignId/handoffs/:handoffId/cancel
+```
+
 List responses use:
 
 ```json
@@ -182,6 +192,6 @@ npm run prisma:seed
 
 ## Next Cut
 
-The next backend cut should likely be Campaign Handoffs Implementation, if approved.
+The next backend cut should likely be Campaign Workspace Facts Endpoint, if approved.
 
 It should not introduce auth, Docker, realtime, workflow engines or frontend integration unless explicitly approved.

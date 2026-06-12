@@ -192,16 +192,16 @@ Blockers are lightweight operational impediments. They should not become tickets
 type HandoffDto = {
   id: string;
   campaignId: string;
-  fromStatus?: CampaignStatus;
-  toStatus?: CampaignStatus;
-  fromOwnerId?: string;
-  toOwnerId?: string;
-  fromSquadId?: string;
-  toSquadId?: string;
-  status: 'pending' | 'completed' | 'canceled';
-  reason?: string;
-  completedAt?: string;
-  canceledAt?: string;
+  status: 'pending' | 'completed' | 'cancelled';
+  fromStage?: CampaignStatus | null;
+  toStage?: CampaignStatus | null;
+  fromOwnerId?: string | null;
+  toOwnerId?: string | null;
+  fromSquadId?: string | null;
+  toSquadId?: string | null;
+  reason?: string | null;
+  completedAt?: string | null;
+  cancelledAt?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };

@@ -58,6 +58,7 @@
 - `/docs/domain/sla.md`
 - `/docs/domain/analytics-philosophy.md`
 - `/docs/domain/notifications.md`
+- `/docs/domain/handoffs.md`
 
 ## Vision
 
@@ -86,6 +87,7 @@
 - `/docs/decisions/ADR-023-campaign-notes-implementation.md`
 - `/docs/decisions/ADR-024-campaign-decision-context-implementation.md`
 - `/docs/decisions/ADR-025-campaign-activities-implementation.md`
+- `/docs/decisions/ADR-026-campaign-handoffs-implementation.md`
 
 ## Backend
 
@@ -145,6 +147,9 @@
 - `/docs/backend/campaign-activities-implementation.md`
 - `/docs/backend/campaign-activities-api-contract.md`
 - `/docs/backend/campaign-activities-validation.md`
+- `/docs/backend/campaign-handoffs-implementation.md`
+- `/docs/backend/campaign-handoffs-api-contract.md`
+- `/docs/backend/campaign-handoffs-validation.md`
 
 ## Contracts
 - `/docs/contracts/frontend-backend-contract.md`

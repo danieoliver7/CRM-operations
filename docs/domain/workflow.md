@@ -71,16 +71,40 @@ It should NOT:
 
 ## Handoff Philosophy
 
-Handoffs are lightweight operational transitions between workflow stages.
+Handoffs are lightweight operational transitions between workflow stages, owners or squads.
 
 Examples:
+
 - briefing to copy
 - copy to approval
 - approval to development
 - development to QA
 - QA to scheduling
+- CRM to media
+- media to CRM
+- owner to owner
+- squad to squad
 
-Handoffs should be visual and contextual, not enforced by runtime logic.
+Handoffs should clarify responsibility and continuity.
+
+Handoffs should be visual, contextual and operational.
+
+Handoffs should not be enforced by runtime workflow logic.
+
+During Backend V1, Handoffs may become persisted campaign-scoped facts.
+
+They must not become:
+
+- workflow engine
+- dependency graph
+- BPM
+- task management
+- orchestration layer
+- automatic Campaign status transition system
+- automatic activity creation system
+- notification engine
+
+A handoff may support future workflow continuity, but workflow continuity must remain derived from facts.
 
 ## Waiting State Philosophy
 
@@ -91,3 +115,15 @@ Waiting states should explain operational pause:
 - waiting for implementation handoff
 
 Waiting states should guide attention without creating a task system.
+
+## Backend Handoff Boundary
+
+The backend may persist handoff facts.
+
+The backend must not enforce workflow progression through handoffs.
+
+Creating, completing or cancelling a handoff must not automatically move Campaign status.
+
+Creating, completing or cancelling a handoff must not automatically create activities or timeline events during the initial Handoffs implementation.
+
+Campaign Workspace may later compose Handoff facts into workflow continuity, but that remains deferred.

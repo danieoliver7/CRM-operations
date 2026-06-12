@@ -182,16 +182,16 @@ Required facts:
 
 - id
 - campaignId
-- fromStatus
-- toStatus
+- status
+- fromStage
+- toStage
 - fromOwnerId
 - toOwnerId
 - fromSquadId
 - toSquadId
-- status
 - reason
 - completedAt
-- canceledAt
+- cancelledAt
 - createdAt
 - updatedAt
 
