@@ -156,6 +156,15 @@ REST endpoint group for listing, creating and updating persisted note facts unde
 ## Campaign Note
 Lightweight campaign-scoped operational memory fact. It is not chat, comments, threads, Decision Context or AI output.
 
+## Campaign Decision Context Implementation
+Backend phase that implements campaign-scoped Decision Context APIs as the third Campaign child resource.
+
+## Campaign Decision Context API
+REST endpoint group for listing, creating and updating persisted operational reasoning facts under a Campaign.
+
+## Campaign Decision Context
+Campaign-scoped operational reasoning fact that explains why a decision, delay, priority change or operational adjustment happened.
+
 ## Campaign Workspace Facts Endpoint
 Future composed read endpoint that should return persisted Campaign Workspace facts after child resources exist. It must not return derived intelligence, command center summaries or timeline presentation as backend truth.
 

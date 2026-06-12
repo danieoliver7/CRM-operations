@@ -100,6 +100,28 @@ Validate:
 
 ---
 
+# Campaign Decision Context Implementation Validation
+
+Campaign Decision Context is the third implemented Campaign child resource.
+
+Validate:
+
+- only Decision Context API endpoints are implemented in this cut
+- decision context remains campaign-scoped
+- decision context create/update operations persist facts only
+- Campaign existence is validated
+- decision context ownership by Campaign is validated
+- `authorId` reference is validated when provided
+- accepted related references are validated when provided
+- no Activities API is introduced
+- no Handoffs API is introduced
+- no Campaign Workspace endpoint is introduced
+- no automatic activity, timeline, note or handoff is created
+- no comment/approval/knowledge-base behavior is introduced
+- no AI/Copilot behavior is introduced
+
+---
+
 # Future Backend Commands
 
 For future implementation sprints, run from `/backend`:

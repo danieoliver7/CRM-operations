@@ -2,7 +2,7 @@
 
 Minimal NestJS backend foundation for CRM Operations Platform.
 
-This backend currently contains runtime infrastructure, Prisma persistence foundation, read-only reference data APIs, basic Campaign persistence APIs, campaign-scoped Blockers APIs and campaign-scoped Notes APIs.
+This backend currently contains runtime infrastructure, Prisma persistence foundation, read-only reference data APIs, basic Campaign persistence APIs, campaign-scoped Blockers APIs, campaign-scoped Notes APIs and campaign-scoped Decision Context APIs.
 
 ## What Exists
 
@@ -21,12 +21,13 @@ This backend currently contains runtime infrastructure, Prisma persistence found
 - Basic Campaign persistence API.
 - Campaign Blockers API.
 - Campaign Notes API.
+- Campaign Decision Context API.
 
 ## What Does Not Exist Yet
 
 - Campaign Workspace endpoint.
-- Non-blocker/non-note Campaign child resource APIs.
-- Automatic activity, timeline, handoff or decision context creation.
+- Non-blocker/non-note/non-decision-context Campaign child resource APIs.
+- Automatic activity, timeline, handoff, note or decision context creation.
 - Write APIs for reference data.
 - Authentication.
 - Docker or deployment infrastructure.
@@ -118,6 +119,14 @@ POST http://localhost:4000/campaigns/:campaignId/notes
 PATCH http://localhost:4000/campaigns/:campaignId/notes/:noteId
 ```
 
+Campaign Decision Context endpoints:
+
+```txt
+GET http://localhost:4000/campaigns/:campaignId/decision-context
+POST http://localhost:4000/campaigns/:campaignId/decision-context
+PATCH http://localhost:4000/campaigns/:campaignId/decision-context/:decisionContextId
+```
+
 List responses use:
 
 ```json
@@ -165,6 +174,6 @@ npm run prisma:seed
 
 ## Next Cut
 
-The next backend cut should likely be Campaign Decision Context Implementation, if approved.
+The next backend cut should likely be Campaign Activities Implementation, if approved.
 
 It should not introduce auth, Docker, realtime, workflow engines or frontend integration unless explicitly approved.

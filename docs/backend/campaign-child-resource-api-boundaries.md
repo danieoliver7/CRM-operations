@@ -74,7 +74,7 @@ Boundary:
 
 ## Campaign Decision Context
 
-Potential future routes:
+Implemented routes:
 
 ```txt
 GET /campaigns/:campaignId/decision-context
@@ -86,6 +86,7 @@ Boundary:
 
 - Decision Context explains operational reasoning.
 - Decision Context does not create approval workflow or documentation systems.
+- Decision Context does not automatically create notes, activities, timeline events or handoffs.
 
 ## Campaign Activities
 

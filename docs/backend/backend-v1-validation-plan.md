@@ -642,6 +642,68 @@ Use:
 
 to validate the Campaign Notes implementation sprint.
 
+# Campaign Decision Context Implementation Validation
+
+During the Campaign Decision Context Implementation sprint, the third Campaign child resource API may be created.
+
+Allowed:
+
+- DecisionContextModule
+- DecisionContextController
+- DecisionContextService
+- Decision Context DTOs
+- Decision Context request helpers
+- Decision Context response mapper
+- Decision Context validation tests
+
+Allowed endpoints:
+
+```txt
+GET /campaigns/:campaignId/decision-context
+POST /campaigns/:campaignId/decision-context
+PATCH /campaigns/:campaignId/decision-context/:decisionContextId
+```
+
+Validate that Campaign Decision Context APIs:
+
+- persist operational reasoning facts through Prisma/PostgreSQL
+- return simple `{ data }` wrappers
+- validate Campaign existence for every operation
+- validate decision context belongs to the route Campaign
+- validate User reference when `authorId` is provided
+- validate accepted related references when provided
+- use `CAMPAIGN_NOT_FOUND`, `DECISION_CONTEXT_NOT_FOUND`, `USER_NOT_FOUND`, `BLOCKER_NOT_FOUND`, `ACTIVITY_NOT_FOUND`, `HANDOFF_NOT_FOUND` and `INVALID_DECISION_CONTEXT_INPUT`
+- avoid automatic activity, timeline, note or handoff creation
+- avoid comment/approval/knowledge-base behavior
+- avoid AI/Copilot behavior
+- avoid derived intelligence persistence or response fields
+
+Still disallowed:
+
+- Activities API implementation
+- Handoffs API implementation
+- Campaign Workspace endpoint
+- frontend API client
+- auth
+- RBAC
+- Docker
+- workflow engine
+- event sourcing
+- realtime
+- comment system
+- approval workflow
+- knowledge base
+- AI/Copilot implementation
+
+Use:
+
+- `/docs/backend/campaign-decision-context-implementation.md`
+- `/docs/backend/campaign-decision-context-api-contract.md`
+- `/docs/backend/campaign-decision-context-validation.md`
+- `/docs/decisions/ADR-024-campaign-decision-context-implementation.md`
+
+to validate the Campaign Decision Context implementation sprint.
+
 ---
 
 # Final Principle

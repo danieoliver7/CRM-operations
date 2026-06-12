@@ -2,26 +2,27 @@
 
 ## Current Focus
 
-Campaign Notes Implementation
+Campaign Decision Context Implementation
 
 ## Current Sprint Goals
 
-- implement Campaign Notes API
-- implement NotesModule
-- implement NotesController
-- implement NotesService
-- expose `GET /campaigns/:campaignId/notes`
-- expose `POST /campaigns/:campaignId/notes`
-- expose `PATCH /campaigns/:campaignId/notes/:noteId`
-- validate Campaign existence for all note operations
-- validate note belongs to campaign
+- implement Campaign Decision Context API
+- implement DecisionContextModule
+- implement DecisionContextController
+- implement DecisionContextService
+- expose `GET /campaigns/:campaignId/decision-context`
+- expose `POST /campaigns/:campaignId/decision-context`
+- expose `PATCH /campaigns/:campaignId/decision-context/:decisionContextId`
+- validate Campaign existence for all decision context operations
+- validate decision context belongs to campaign
 - validate User reference when authorId is provided
 - preserve existing Campaign APIs
 - preserve existing Campaign Blockers API
+- preserve existing Campaign Notes API
 - preserve existing Reference Data APIs
 - preserve backend health endpoint
 - preserve frontend lint/build behavior
-- avoid Decision Context API, Activities API, Handoffs API, Campaign Workspace endpoint, frontend integration, auth, Docker, workflow engine and AI behavior
+- avoid Activities API, Handoffs API, Campaign Workspace endpoint, frontend integration, auth, Docker, workflow engine and AI behavior
 
 ## Approved Child Resource Order
 
@@ -35,8 +36,8 @@ Campaign Notes Implementation
 ## Current Implementation Status
 
 - Campaign Blockers Implementation: completed
-- Campaign Notes Implementation: current
-- Campaign Decision Context Implementation: deferred
+- Campaign Notes Implementation: completed
+- Campaign Decision Context Implementation: current
 - Campaign Activities Implementation: deferred
 - Campaign Handoffs Implementation: deferred
 - Campaign Workspace Facts Endpoint: deferred
@@ -44,15 +45,16 @@ Campaign Notes Implementation
 ## Still Deferred
 
 - Campaign Workspace API
-- Campaign Decision Context API
 - Campaign Activity API
 - Handoff API
 - automatic activity creation
 - timeline generation
-- decision context creation
+- note creation from decision context
 - handoff creation
-- chat behavior
 - comments system
+- approval workflow
+- knowledge base
+- chat behavior
 - replies
 - mentions
 - threaded discussions

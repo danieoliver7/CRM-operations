@@ -407,7 +407,7 @@ Focus:
 
 ## 24. Campaign Notes Implementation
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -418,17 +418,30 @@ Focus:
 - keep notes as lightweight operational memory
 - avoid chat, comments, replies, mentions, automatic activities and Campaign Workspace endpoint
 
+## 25. Campaign Decision Context Implementation
+
+Status: current phase
+
+Focus:
+
+- implement Campaign Decision Context as the third Campaign child resource
+- expose campaign-scoped decision context APIs
+- support decision context list, create and update operations
+- validate Campaign and User references
+- keep decision context as operational reasoning
+- avoid comments, approvals, knowledge base, automatic activities and Campaign Workspace endpoint
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Campaign Notes Implementation
+Campaign Decision Context Implementation
 
-The goal is to implement Campaign Notes APIs only.
+The goal is to implement Campaign Decision Context APIs only.
 
-The goal is not to build Decision Context, Activities, Handoffs, Campaign Workspace endpoints, auth, Docker, frontend API clients or AI/Copilot features.
+The goal is not to build Activities, Handoffs, Campaign Workspace endpoints, auth, Docker, frontend API clients or AI/Copilot features.
 
 ---
 
@@ -437,7 +450,6 @@ The goal is not to build Decision Context, Activities, Handoffs, Campaign Worksp
 Do not implement now:
 
 - Campaign Workspace endpoint
-- Decision Context API
 - Activities API
 - Handoffs API
 - automatic activity, timeline, decision context or handoff creation

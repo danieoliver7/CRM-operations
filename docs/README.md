@@ -84,6 +84,8 @@
 - `/docs/decisions/ADR-021-campaign-blockers-implementation.md`
 - `/docs/decisions/ADR-022-operational-copilot-future-vision.md`
 - `/docs/decisions/ADR-023-campaign-notes-implementation.md`
+- `/docs/decisions/ADR-024-campaign-decision-context-implementation.md`
+- `/docs/decisions/ADR-024-campaign-decision-context-implementation.md`
 
 ## Backend
 
@@ -134,6 +136,12 @@
 - `/docs/backend/campaign-notes-implementation.md`
 - `/docs/backend/campaign-notes-api-contract.md`
 - `/docs/backend/campaign-notes-validation.md`
+- `/docs/backend/campaign-decision-context-implementation.md`
+- `/docs/backend/campaign-decision-context-api-contract.md`
+- `/docs/backend/campaign-decision-context-validation.md`
+- `/docs/backend/campaign-decision-context-implementation.md`
+- `/docs/backend/campaign-decision-context-api-contract.md`
+- `/docs/backend/campaign-decision-context-validation.md`
 
 ## Contracts
 - `/docs/contracts/frontend-backend-contract.md`
