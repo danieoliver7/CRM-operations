@@ -1,12 +1,26 @@
 # Campaign Workspace API Client Plan
 
+## Status
+
+Implemented
+
+This plan was approved as input for Campaign Workspace Frontend Integration.
+
+Runtime implementation created:
+
+```txt
+frontend/src/modules/campaigns/services/campaign-workspace.service.ts
+```
+
 ## Purpose
 
 This document defines the planned frontend API client direction for Campaign Workspace integration.
 
-This is planning only.
+Runtime API client code is now implemented for the CampaignDetails route only.
 
-Do not create runtime API client code during this planning sprint.
+The implementation uses native `fetch`, unwraps `{ data }`, returns `CampaignWorkspaceFactsDto` and normalizes workspace load errors.
+
+Local development uses a minimal Vite proxy for `/campaigns` when `VITE_API_BASE_URL` is not provided. This keeps browser integration working without changing backend code.
 
 ---
 

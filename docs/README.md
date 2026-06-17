@@ -41,6 +41,9 @@
 - `/docs/frontend/campaign-workspace-api-client-plan.md`
 - `/docs/frontend/campaign-workspace-dto-mapping-plan.md`
 - `/docs/frontend/campaign-workspace-integration-validation.md`
+- `/docs/frontend/campaign-workspace-frontend-integration-implementation.md`
+- `/docs/frontend/campaign-workspace-frontend-integration-contract.md`
+- `/docs/frontend/campaign-workspace-frontend-integration-validation.md`
 
 ## Domain
 
@@ -94,6 +97,7 @@
 - `/docs/decisions/ADR-026-campaign-handoffs-implementation.md`
 - `/docs/decisions/ADR-027-campaign-workspace-facts-endpoint.md`
 - `/docs/decisions/ADR-028-frontend-workspace-integration-planning.md`
+- `/docs/decisions/ADR-029-campaign-workspace-frontend-integration.md`
 
 ## Backend
 

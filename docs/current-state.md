@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Frontend Workspace Integration Planning
+Campaign Workspace Frontend Integration
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -44,6 +44,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - campaign-scoped Activities API
 - campaign-scoped Handoffs API
 - campaign-scoped Campaign Workspace Facts endpoint
+- Campaign Workspace frontend integration for `CampaignDetails.tsx`
 
 ## Current Architecture
 - React
@@ -64,33 +65,46 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign Activities API
 - Campaign Handoffs API
 - Campaign Workspace Facts endpoint
+- Campaign Workspace frontend API client
+- Campaign Workspace DTO to View Model mapper
+- minimal Vite development proxy for local Campaign Workspace reads
 
 ## Current Priorities
 
-- plan Campaign Workspace frontend integration with the backend Workspace Facts Endpoint
-- define frontend API client direction for `GET /campaigns/:campaignId/workspace`
-- define DTO to View Model mapping direction
-- define mock replacement strategy
-- define loading, error and empty state behavior
-- preserve frontend-derived execution intelligence
-- preserve frontend-derived SLA, risk, coordination, workflow continuity, command center and timeline presentation
-- avoid runtime frontend implementation until planning is complete
-- avoid frontend mock replacement, auth, React Query/SWR, redesign, backend changes and AI behavior
+- maintain Campaign Workspace frontend integration with `GET /campaigns/:campaignId/workspace`
+- keep the typed frontend API client limited to Campaign Workspace facts
+- keep Campaign Workspace backend DTO types separated from UI props
+- keep Campaign Workspace View Model/compatible frontend mapping as the UI boundary
+- keep only `frontend/src/pages/CampaignDetails.tsx` connected to backend workspace facts
+- preserve existing Campaign Workspace UI layout
+- preserve frontend-derived execution health, SLA, operational risk, coordination, workflow continuity, command center and timeline presentation
+- keep Dashboard, Kanban, Calendar and Campaign List out of scope
+- avoid React Query, SWR, Axios, auth, RBAC, backend changes, global mock replacement, redesign and AI behavior
+
+## Campaign Workspace Frontend Integration Capabilities
+
+- Campaign Workspace Frontend Integration is implemented for `frontend/src/pages/CampaignDetails.tsx`
+- CampaignDetails consumes `GET /campaigns/:campaignId/workspace` through a typed frontend API client
+- Campaign Workspace backend DTO types exist under the Campaigns module
+- Campaign Workspace facts are mapped into a compatible frontend campaign/View Model boundary before rendering
+- raw backend DTOs stay out of visual components
+- frontend-derived intelligence remains in frontend utilities/components
+- existing Campaign Workspace layout is preserved
+- Dashboard, Kanban, Calendar and Campaign List remain out of scope and mock/store-driven
+- React Query, SWR, Axios, auth, RBAC, backend changes, redesign and AI behavior remain deferred
 
 ## Frontend Workspace Integration Planning Capabilities
 
-- Frontend Workspace Integration Planning is now allowed
-- planning may define how Campaign Workspace consumes `GET /campaigns/:campaignId/workspace`
-- planning may define API client direction
-- planning may define DTO type direction
-- planning may define DTO to View Model mapping direction
-- planning may define mock replacement strategy
-- planning may define loading, error and empty state behavior
-- planning must preserve frontend-derived intelligence
-- planning must not create runtime API client code
-- planning must not connect Campaign Workspace components to backend
-- planning must not replace mocks
-- planning must not introduce React Query, SWR, auth, RBAC, redesign or AI behavior
+- Frontend Workspace Integration Planning is complete
+- planning defined how Campaign Workspace consumes `GET /campaigns/:campaignId/workspace`
+- planning defined API client direction
+- planning defined DTO type direction
+- planning defined DTO to View Model mapping direction
+- planning defined mock replacement strategy
+- planning defined loading, error and empty state behavior
+- planning preserved frontend-derived intelligence
+- planning selected `frontend/src/modules/campaigns/` as the integration boundary
+- Campaign Workspace Frontend Integration is the current implementation phase
 
 ## Campaign Workspace Facts Endpoint Capabilities
 
@@ -112,7 +126,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - the endpoint does not generate timeline presentation
 - the endpoint does not calculate command center summary
 - the endpoint does not connect frontend
-- Frontend Workspace Integration Planning is the current next phase
+- Campaign Workspace frontend integration is implemented for the CampaignDetails route only
 - auth remains deferred
 - AI features remain deferred
 
@@ -392,12 +406,11 @@ Focus:
 
 ## Avoid Right Now
 
-- runtime frontend API client implementation before planning is complete
-- Campaign Workspace component integration before planning is complete
-- frontend mock replacement before mapping is defined
-- React Query or SWR adoption without explicit approval
-- frontend redesign
-- backend changes for UI convenience
+- dashboard backend integration
+- kanban backend integration
+- calendar backend integration
+- campaign list backend integration
+- global mock replacement
 - raw backend DTO rendering in components
 - removing frontend-derived intelligence
 - moving executionHealth to backend
@@ -406,12 +419,17 @@ Focus:
 - moving workflowContinuity to backend
 - moving commandCenterSummary to backend
 - moving timelinePresentation to backend
+- React Query adoption
+- SWR adoption
+- Axios adoption
+- frontend redesign
+- backend changes for UI convenience
 - auth
 - RBAC
 - Docker
 - Campaign Workspace intelligence backend
 - command center backend logic
-- timeline generation
+- timeline generation backend
 - timeline presentation persistence
 - derived intelligence persistence
 - automatic activity creation from workspace endpoint
@@ -468,4 +486,4 @@ The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
 
-Frontend Workspace Integration Planning without runtime API client implementation, mock replacement, frontend redesign, backend intelligence, auth or AI behavior.
+Campaign Workspace Frontend Integration for `CampaignDetails.tsx` only, using DTO mapping and preserving frontend-derived intelligence without redesign, auth, broad mock replacement, backend changes or AI behavior.

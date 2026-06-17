@@ -77,13 +77,13 @@ It must not introduce frontend integration by itself.
 
 ---
 
-# Frontend Integration Planning Direction
+# Frontend Runtime Integration Direction
 
 The backend endpoint is implemented.
 
-Frontend integration remains deferred until planning is complete.
+Campaign Workspace frontend integration is implemented for `CampaignDetails.tsx`.
 
-The frontend should consume:
+The frontend consumes:
 
 ```txt
 GET /campaigns/:campaignId/workspace
@@ -93,7 +93,7 @@ through a frontend API client, not directly inside visual components.
 
 The response should be mapped into a Campaign Workspace View Model before rendering.
 
-Recommended future frontend integration target:
+Implemented frontend integration target:
 
 ```txt
 frontend/src/pages/CampaignDetails.tsx
@@ -117,7 +117,7 @@ The frontend must continue deriving:
 - progress display
 - dashboard warnings
 
-This contract does not authorize runtime frontend implementation by itself.
+Dashboard, Kanban, Calendar and Campaign List remain outside this runtime integration.
 
 ---
 

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCampaignsStore } from '@/stores';
 import {
   getCampaignWorkflowActions,
@@ -6,13 +6,12 @@ import {
   type CampaignWorkflowAction,
 } from '@/modules/campaigns/utils';
 import type { Campaign, CampaignPriority, CampaignStatus } from '@/types/campaign';
+import type { CampaignWorkspaceActivityItem } from '@/modules/campaigns/types';
 
-export interface CampaignWorkspaceActivity {
-  id: string;
-  user: string;
-  time: string;
-  text: string;
-  avatar: string;
+export type CampaignWorkspaceActivity = CampaignWorkspaceActivityItem;
+
+interface CampaignWorkspaceStateOptions {
+  initialActivities?: CampaignWorkspaceActivity[];
 }
 
 export interface CampaignChecklistItem {
@@ -70,13 +69,23 @@ function getInitialActivities(campaign: Campaign): CampaignWorkspaceActivity[] {
   ];
 }
 
-export function useCampaignWorkspaceState(initialCampaign: Campaign) {
+export function useCampaignWorkspaceState(
+  initialCampaign: Campaign,
+  options: CampaignWorkspaceStateOptions = {},
+) {
+  const [campaign, setCampaign] = useState(initialCampaign);
   const [checklistItems, setChecklistItems] = useState(() => getInitialChecklist(initialCampaign));
-  const [activities, setActivities] = useState(() => getInitialActivities(initialCampaign));
+  const [activities, setActivities] = useState(() => options.initialActivities ?? getInitialActivities(initialCampaign));
   const [feedback, setFeedback] = useState<string | null>(null);
   const updateCampaignStatus = useCampaignsStore((state) => state.updateCampaignStatus);
   const updateCampaignPriority = useCampaignsStore((state) => state.updateCampaignPriority);
-  const campaign = initialCampaign;
+
+  useEffect(() => {
+    setCampaign(initialCampaign);
+    setChecklistItems(getInitialChecklist(initialCampaign));
+    setActivities(options.initialActivities ?? getInitialActivities(initialCampaign));
+    setFeedback(null);
+  }, [initialCampaign.id]);
 
   function pushActivity(text: string) {
     setActivities((current) => [
@@ -97,6 +106,7 @@ export function useCampaignWorkspaceState(initialCampaign: Campaign) {
   }
 
   function moveToStatus(status: CampaignStatus) {
+    setCampaign((current) => ({ ...current, status }));
     updateCampaignStatus(campaign.id, status);
     const derivedChecklist = getInitialChecklist({ ...campaign, status });
     setChecklistItems((current) =>
@@ -110,6 +120,7 @@ export function useCampaignWorkspaceState(initialCampaign: Campaign) {
   }
 
   function updatePriority(priority: CampaignPriority) {
+    setCampaign((current) => ({ ...current, priority }));
     updateCampaignPriority(campaign.id, priority);
     pushActivity(`changed priority to ${priority}.`);
     showFeedback(`Priority updated to ${priority}`);
@@ -117,6 +128,7 @@ export function useCampaignWorkspaceState(initialCampaign: Campaign) {
 
   function executeWorkflowAction(action: CampaignWorkflowAction) {
     if (action.targetStatus) {
+      setCampaign((current) => ({ ...current, status: action.targetStatus }));
       updateCampaignStatus(campaign.id, action.targetStatus);
       const derivedChecklist = getInitialChecklist({ ...campaign, status: action.targetStatus });
       setChecklistItems((current) =>
@@ -128,6 +140,7 @@ export function useCampaignWorkspaceState(initialCampaign: Campaign) {
     }
 
     if (action.id === 'flag_qa_issue') {
+      setCampaign((current) => ({ ...current, priority: 'urgent' }));
       updateCampaignPriority(campaign.id, 'urgent');
     }
 

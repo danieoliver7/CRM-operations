@@ -1,12 +1,24 @@
 # Campaign Workspace DTO Mapping Plan
 
+## Status
+
+Implemented
+
+This mapping plan was approved as input for Campaign Workspace Frontend Integration.
+
+Runtime implementation created:
+
+```txt
+frontend/src/modules/campaigns/types/campaign-workspace-api.ts
+frontend/src/modules/campaigns/types/campaign-workspace.ts
+frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts
+```
+
 ## Purpose
 
 This document defines how Campaign Workspace backend DTOs should be mapped into frontend View Models.
 
-This is planning only.
-
-Do not create runtime mapper code during this planning sprint.
+Runtime mapper code is now implemented for the CampaignDetails route only.
 
 ---
 

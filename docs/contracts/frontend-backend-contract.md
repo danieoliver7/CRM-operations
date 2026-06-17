@@ -2,25 +2,41 @@
 
 ## Purpose
 
-This document defines how the future backend should expose operational facts and how the frontend should consume them before backend implementation begins.
+This document defines how the backend exposes operational facts and how the frontend consumes them through DTO, mapper and View Model boundaries.
 
-This is contract planning only. It is not backend implementation, an OpenAPI specification, a Prisma schema, or frontend API client code.
+This is not an OpenAPI specification, Prisma schema or backend implementation document.
 
 ---
 
 # Current Phase
 
-Frontend Workspace Integration Planning
+Campaign Workspace Frontend Integration
 
 The backend Campaign Workspace Facts Endpoint is implemented.
 
-The next step is to plan how the frontend should consume:
+Frontend Workspace Integration Planning is complete.
+
+The current implementation phase connects:
+
+```txt
+frontend/src/pages/CampaignDetails.tsx
+```
+
+to:
 
 ```txt
 GET /campaigns/:campaignId/workspace
 ```
 
-This planning phase protects the boundary between backend DTOs, frontend View Models and frontend-derived operational intelligence.
+using:
+
+```txt
+API client
+DTO types
+mapper
+View Model / compatible Campaign model
+existing derived intelligence utilities
+```
 
 ---
 
@@ -58,7 +74,7 @@ Render operational UI.
 
 # Current Integration Direction
 
-The next frontend integration should follow:
+Campaign Workspace frontend integration follows:
 
 ```txt
 Backend Workspace Facts Endpoint
@@ -74,7 +90,7 @@ The endpoint should not be consumed directly inside visual components.
 
 Backend DTOs should not become component props without mapping.
 
-Recommended future frontend locations:
+Implemented frontend locations:
 
 - `frontend/src/pages/CampaignDetails.tsx` remains the Campaign Workspace orchestration point.
 - `frontend/src/modules/campaigns/services/campaign-workspace.service.ts` should own the workspace facts API call.
@@ -83,6 +99,18 @@ Recommended future frontend locations:
 - `frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts` should map backend facts into View Models.
 
 These paths keep the future integration inside the existing Campaigns domain instead of creating a parallel Campaign Workspace module prematurely.
+
+# Current Runtime Boundary
+
+Only Campaign Workspace route integration is allowed.
+
+Dashboard, Kanban, Calendar and Campaign List remain out of scope.
+
+The frontend must not render raw backend DTOs directly.
+
+The backend must not be changed for UI convenience.
+
+Derived intelligence remains frontend-derived.
 
 ---
 

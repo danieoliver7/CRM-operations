@@ -164,7 +164,7 @@ Empty facts are not automatically errors.
 
 # Campaign Workspace Initial Pattern
 
-For Campaign Workspace integration, the expected future flow is:
+For Campaign Workspace integration, the implemented flow is:
 
 ```txt
 getCampaignWorkspaceFacts(campaignId)
@@ -174,7 +174,7 @@ getCampaignWorkspaceFacts(campaignId)
   -> existing Campaign Workspace components
 ```
 
-Recommended future files for the first integration:
+Implemented files for the first integration:
 
 ```txt
 frontend/src/modules/campaigns/services/campaign-workspace.service.ts
@@ -184,7 +184,7 @@ frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts
 frontend/src/pages/CampaignDetails.tsx
 ```
 
-Optional future hook:
+Optional future hook, not implemented in this sprint:
 
 ```txt
 frontend/src/modules/campaigns/hooks/useCampaignWorkspaceFacts.ts
@@ -207,6 +207,32 @@ No sessions.
 No permissions.
 
 No RBAC.
+
+---
+
+# Campaign Workspace Runtime Integration Pattern
+
+During Campaign Workspace Frontend Integration, the first backend-connected frontend route may use this pattern:
+
+```txt
+getCampaignWorkspaceFacts(campaignId)
+  -> CampaignWorkspaceFactsDto
+  -> mapCampaignWorkspaceFactsToViewModel(dto)
+  -> CampaignWorkspaceViewModel or compatible Campaign model
+  -> CampaignDetails.tsx
+  -> existing Campaign Workspace components
+```
+
+Rules:
+
+- use native fetch
+- unwrap `{ data }`
+- normalize known errors
+- do not use React Query, SWR or Axios
+- do not mutate Zustand inside API client
+- do not render raw DTOs in components
+- do not calculate derived intelligence inside API client
+- do not connect unrelated screens
 
 ---
 

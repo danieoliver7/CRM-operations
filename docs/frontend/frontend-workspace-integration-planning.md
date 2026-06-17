@@ -1,12 +1,27 @@
 # Frontend Workspace Integration Planning
 
+## Status
+
+Validated
+
+Frontend Workspace Integration Planning is complete.
+
+The next phase, Campaign Workspace Frontend Integration, has been implemented for `CampaignDetails.tsx`.
+
+Runtime implementation remains limited to the boundaries defined by:
+
+- `/docs/frontend/campaign-workspace-frontend-integration-implementation.md`
+- `/docs/frontend/campaign-workspace-frontend-integration-contract.md`
+- `/docs/frontend/campaign-workspace-frontend-integration-validation.md`
+- `/docs/decisions/ADR-029-campaign-workspace-frontend-integration.md`
+
 ## Purpose
 
 This document defines the planning phase for integrating the Campaign Workspace frontend with the backend Campaign Workspace Facts Endpoint.
 
-This is a planning sprint.
+This was a planning sprint.
 
-It does not implement frontend runtime code.
+It did not implement frontend runtime code by itself.
 
 It does not replace mocks yet.
 

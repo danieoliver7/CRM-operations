@@ -2,25 +2,24 @@
 
 ## Current Focus
 
-Frontend Workspace Integration Planning
+Campaign Workspace Frontend Integration
 
-## Current Sprint Goals
+## Current Sprint Result
 
-- plan Campaign Workspace frontend integration with `GET /campaigns/:campaignId/workspace`
-- define frontend API client direction
-- define DTO type direction
-- define DTO to View Model mapper direction
-- define Campaign Workspace View Model direction
-- define staged mock replacement strategy
-- define loading state behavior
-- define error state behavior
-- define empty state behavior
-- preserve frontend-derived execution intelligence
-- preserve frontend-derived SLA, risk, coordination, workflow continuity, command center and timeline presentation
-- avoid runtime frontend implementation
-- avoid frontend mock replacement
-- avoid backend changes
-- avoid auth, RBAC, React Query/SWR, redesign and AI behavior
+- typed frontend API client for `GET /campaigns/:campaignId/workspace` implemented
+- Campaign Workspace backend DTO types implemented
+- Campaign Workspace compatible View Model mapping implemented
+- DTO to View Model mapper implemented
+- only `frontend/src/pages/CampaignDetails.tsx` connected to backend workspace facts
+- existing Campaign Workspace layout preserved
+- existing derived intelligence utilities preserved
+- minimal loading state preserved
+- minimal error state added for missing id, not found, backend unavailable and unexpected response
+- empty child resource arrays handled without crashing
+- Dashboard, Kanban, Calendar and Campaign List remain mock-driven
+- global mock replacement avoided
+- React Query, SWR, Axios, auth, RBAC, redesign, backend changes and AI behavior avoided
+- minimal Vite development proxy added for `/campaigns` to support local browser integration without backend changes
 
 ## Completed Backend V1 Fact Foundation
 
@@ -32,24 +31,33 @@ Frontend Workspace Integration Planning
 - Campaign Handoffs API: completed
 - Campaign Workspace Facts Endpoint: completed
 
-## Next Expected Cut
+## Completed Frontend Planning
 
-Campaign Workspace Frontend Integration, if explicitly approved after planning.
+- Frontend Workspace Integration Planning: completed
+- Campaign Workspace API Client Plan: completed
+- Campaign Workspace DTO Mapping Plan: completed
+- Campaign Workspace Integration Validation Plan: completed
+- Frontend API Patterns: completed
+
+## Current Implementation Status
+
+- Campaign Workspace Frontend Integration: implemented for CampaignDetails only
 
 ## Still Deferred
 
-- frontend API client runtime implementation
-- frontend mapper runtime implementation
-- Campaign Workspace component integration
-- frontend mock replacement
 - dashboard backend integration
 - kanban backend integration
 - calendar backend integration
+- campaign list backend integration
+- backend-connected workspace writes
+- global frontend mock replacement
+- backend writes from workspace actions
 - authentication implementation
 - authorization
 - RBAC
 - React Query
 - SWR
+- Axios
 - command center backend logic
 - timeline generation backend
 - timeline presentation persistence

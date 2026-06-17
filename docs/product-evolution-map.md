@@ -475,7 +475,7 @@ Focus:
 
 ## 29. Frontend Workspace Integration Planning
 
-Status: current phase
+Status: validated
 
 Focus:
 
@@ -488,17 +488,34 @@ Focus:
 - preserve frontend-derived intelligence
 - avoid runtime implementation, mock replacement, redesign, auth, React Query/SWR, backend changes and AI behavior
 
+
+## 30. Campaign Workspace Frontend Integration
+
+Status: implemented
+
+Focus:
+
+- connect `frontend/src/pages/CampaignDetails.tsx` to `GET /campaigns/:campaignId/workspace`
+- create typed API client under `frontend/src/modules/campaigns/services/`
+- create DTO types under `frontend/src/modules/campaigns/types/`
+- create mapper under `frontend/src/modules/campaigns/mappers/`
+- map backend facts into Campaign Workspace View Model or compatible campaign model
+- preserve existing derived intelligence utilities
+- preserve Campaign Workspace layout
+- avoid Dashboard, Kanban, Calendar and Campaign List integration
+- avoid global mock replacement, React Query, SWR, Axios, auth, backend changes, redesign and AI behavior
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Frontend Workspace Integration Planning
+Campaign Workspace Frontend Integration
 
-The goal is to plan how Campaign Workspace will consume persisted backend facts without implementing runtime integration yet.
+The goal is to keep CampaignDetails connected to backend workspace facts through a typed API client, DTO boundary and mapper while preserving frontend-derived operational intelligence.
 
-The goal is not to build frontend API clients, replace mocks, connect components, add fetching libraries, redesign the UI, change backend behavior, add auth or introduce AI/Copilot features.
+The goal is not to connect Dashboard, Kanban, Calendar or Campaign List, replace all mocks, add fetching libraries, redesign the UI, change backend behavior, add auth or introduce AI/Copilot features.
 
 ---
 
@@ -510,7 +527,8 @@ Do not implement now:
 - automatic activity, timeline, decision context or handoff creation
 - derived intelligence persistence
 - write APIs for reference data
-- frontend API clients
+- frontend API clients for Dashboard, Kanban, Calendar and Campaign List
+- backend writes from Campaign Workspace actions
 - auth
 - realtime
 - permissions

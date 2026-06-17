@@ -199,24 +199,22 @@ Do not convert current mock fields into backend schema fields without review.
 
 # Mapper Placement
 
-Frontend Workspace Integration Planning may define mapper placement.
+Frontend Workspace Integration Planning defined mapper placement.
 
-Runtime mapper code should not be created during planning.
+Runtime mapper code is now implemented for Campaign Workspace Frontend Integration.
 
-Recommended future direction based on the current frontend module structure:
+Implemented mapper:
 
 ```txt
 frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts
 ```
 
-Supporting future types:
+Supporting implemented types:
 
 ```txt
 frontend/src/modules/campaigns/types/campaign-workspace-api.ts
 frontend/src/modules/campaigns/types/campaign-workspace.ts
 ```
-
-The implementation sprint should choose the location that best matches the existing frontend structure.
 
 The mapper should convert:
 
@@ -262,6 +260,17 @@ The mapper should preserve:
 These remain frontend-derived or frontend-composed.
 
 They must not be added to backend DTOs.
+
+----
+
+# Campaign Workspace Runtime Mapping
+
+During Campaign Workspace Frontend Integration, runtime mapper implementation is allowed.
+
+Allowed mapper:
+
+
+frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts
 
 ---
 

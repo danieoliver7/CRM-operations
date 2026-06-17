@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { CheckCircle, Edit3, ExternalLink, FileText, Users, Zap } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import {
@@ -11,39 +12,111 @@ import {
   CampaignSquadPanel,
   CampaignWorkspaceHeader,
   CampaignWorkspaceToast,
-  useCampaigns,
+  CampaignWorkspaceApiError,
+  getCampaignWorkspaceFacts,
+  mapCampaignWorkspaceFactsToViewModel,
   useCampaignWorkspaceState,
+  type CampaignWorkspaceViewModel,
 } from '@/modules/campaigns';
+
+type WorkspaceLoadError = 'missing-id' | 'not-found' | 'backend-unavailable' | 'unexpected';
 
 export default function CampaignDetails() {
   const { id } = useParams();
-  const { campaigns, isLoading } = useCampaigns();
-  const sourceCampaign = campaigns.find((item) => item.id === id);
+  const [workspace, setWorkspace] = useState<CampaignWorkspaceViewModel | null>(null);
+  const [error, setError] = useState<WorkspaceLoadError | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!id) {
+      setWorkspace(null);
+      setError('missing-id');
+      setIsLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    setIsLoading(true);
+    setError(null);
+
+    getCampaignWorkspaceFacts(id, { signal: controller.signal })
+      .then((facts) => {
+        setWorkspace(mapCampaignWorkspaceFactsToViewModel(facts));
+      })
+      .catch((loadError: unknown) => {
+        if (loadError instanceof DOMException && loadError.name === 'AbortError') return;
+
+        setWorkspace(null);
+
+        if (loadError instanceof CampaignWorkspaceApiError) {
+          if (loadError.code === 'CAMPAIGN_NOT_FOUND') {
+            setError('not-found');
+            return;
+          }
+
+          if (loadError.code === 'BACKEND_UNAVAILABLE') {
+            setError('backend-unavailable');
+            return;
+          }
+        }
+
+        setError('unexpected');
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => controller.abort();
+  }, [id]);
 
   if (isLoading) {
     return <div className="text-sm text-on-surface-variant">Loading campaign context...</div>;
   }
 
-  if (!sourceCampaign) {
-    return (
-      <div className="space-y-4">
-        <Link to="/campaigns" className="text-primary text-xs font-bold hover:underline">
-          Back to campaigns
-        </Link>
-        <div className="glass p-8 rounded-2xl">
-          <h1 className="text-2xl font-bold">Campaign not found</h1>
-          <p className="text-sm text-on-surface-variant mt-2">
-            This campaign id is not available in the current workspace mock.
-          </p>
-        </div>
-      </div>
-    );
+  if (error || !workspace) {
+    return <CampaignWorkspaceLoadError error={error ?? 'unexpected'} />;
   }
 
-  return <CampaignWorkspace campaign={sourceCampaign} />;
+  return <CampaignWorkspace workspace={workspace} />;
 }
 
-function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable<ReturnType<typeof useCampaigns>['campaigns'][number]> }) {
+function CampaignWorkspaceLoadError({ error }: { error: WorkspaceLoadError }) {
+  const errorCopy: Record<WorkspaceLoadError, { title: string; description: string }> = {
+    'missing-id': {
+      title: 'Campaign not found',
+      description: 'This route is missing a campaign id.',
+    },
+    'not-found': {
+      title: 'Campaign not found',
+      description: 'This campaign id is not available in the backend workspace facts.',
+    },
+    'backend-unavailable': {
+      title: 'Backend unavailable',
+      description: 'Campaign workspace facts could not be loaded. Confirm the backend is running and try again.',
+    },
+    unexpected: {
+      title: 'Unable to load campaign workspace',
+      description: 'The workspace facts response could not be read safely.',
+    },
+  };
+
+  return (
+    <div className="space-y-4">
+      <Link to="/campaigns" className="text-primary text-xs font-bold hover:underline">
+        Back to campaigns
+      </Link>
+      <div className="glass p-8 rounded-2xl">
+        <h1 className="text-2xl font-bold">{errorCopy[error].title}</h1>
+        <p className="text-sm text-on-surface-variant mt-2">{errorCopy[error].description}</p>
+      </div>
+    </div>
+  );
+}
+
+function CampaignWorkspace({ workspace }: { workspace: CampaignWorkspaceViewModel }) {
   const {
     activities,
     campaign,
@@ -53,7 +126,9 @@ function CampaignWorkspace({ campaign: sourceCampaign }: { campaign: NonNullable
     toggleChecklistItem,
     updatePriority,
     workflowActions,
-  } = useCampaignWorkspaceState(sourceCampaign);
+  } = useCampaignWorkspaceState(workspace.campaign, {
+    initialActivities: workspace.activities,
+  });
 
   return (
     <div className="space-y-6 pb-20 max-w-[1200px] mx-auto">
