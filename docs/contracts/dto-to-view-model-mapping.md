@@ -199,15 +199,69 @@ Do not convert current mock fields into backend schema fields without review.
 
 # Mapper Placement
 
-Future mappers may live near feature or service boundaries, but this sprint should not create mapper code.
+Frontend Workspace Integration Planning may define mapper placement.
 
-Suggested future direction:
+Runtime mapper code should not be created during planning.
+
+Recommended future direction based on the current frontend module structure:
 
 ```txt
-frontend/src/modules/campaigns/mappers/
+frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts
 ```
 
-This is documentation only. Do not create runtime files during this sprint.
+Supporting future types:
+
+```txt
+frontend/src/modules/campaigns/types/campaign-workspace-api.ts
+frontend/src/modules/campaigns/types/campaign-workspace.ts
+```
+
+The implementation sprint should choose the location that best matches the existing frontend structure.
+
+The mapper should convert:
+
+```txt
+CampaignWorkspaceFactsDto
+  -> CampaignWorkspaceViewModel
+```
+
+The mapper should not live inside visual components.
+
+The current Campaign Workspace page is:
+
+```txt
+frontend/src/pages/CampaignDetails.tsx
+```
+
+The current Campaign Workspace components live in:
+
+```txt
+frontend/src/modules/campaigns/components/
+```
+
+---
+
+# Campaign Workspace Mapping Planning
+
+The current planning phase defines how the implemented backend workspace endpoint will map to frontend View Models.
+
+The mapper should preserve:
+
+- owner display
+- squad display
+- progress display
+- SLA state
+- execution health
+- operational risk
+- coordination state
+- workflow continuity
+- command center items
+- timeline presentation events
+- empty state messages
+
+These remain frontend-derived or frontend-composed.
+
+They must not be added to backend DTOs.
 
 ---
 

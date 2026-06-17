@@ -10,9 +10,17 @@ This is contract planning only. It is not backend implementation, an OpenAPI spe
 
 # Current Phase
 
-Frontend Backend Contract Preparation
+Frontend Workspace Integration Planning
 
-The project has already validated the operational product model, Backend MVP scope, Backend V1 stack direction, and frontend layout stability. The next step is to protect the interface between frontend and backend before technical execution starts.
+The backend Campaign Workspace Facts Endpoint is implemented.
+
+The next step is to plan how the frontend should consume:
+
+```txt
+GET /campaigns/:campaignId/workspace
+```
+
+This planning phase protects the boundary between backend DTOs, frontend View Models and frontend-derived operational intelligence.
 
 ---
 
@@ -45,6 +53,36 @@ Map DTOs.
 Derive intelligence.
 Render operational UI.
 ```
+
+---
+
+# Current Integration Direction
+
+The next frontend integration should follow:
+
+```txt
+Backend Workspace Facts Endpoint
+  -> frontend API client
+  -> DTO types
+  -> mapper
+  -> Campaign Workspace View Model
+  -> derived intelligence
+  -> Campaign Workspace components
+```
+
+The endpoint should not be consumed directly inside visual components.
+
+Backend DTOs should not become component props without mapping.
+
+Recommended future frontend locations:
+
+- `frontend/src/pages/CampaignDetails.tsx` remains the Campaign Workspace orchestration point.
+- `frontend/src/modules/campaigns/services/campaign-workspace.service.ts` should own the workspace facts API call.
+- `frontend/src/modules/campaigns/types/campaign-workspace-api.ts` should define transport DTO types.
+- `frontend/src/modules/campaigns/types/campaign-workspace.ts` should define UI-ready Campaign Workspace View Model types.
+- `frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts` should map backend facts into View Models.
+
+These paths keep the future integration inside the existing Campaigns domain instead of creating a parallel Campaign Workspace module prematurely.
 
 ---
 
@@ -188,6 +226,10 @@ Use these documents together:
 - `/docs/contracts/campaign-workspace-contract.md`
 - `/docs/frontend/api-patterns.md`
 - `/docs/backend/api-boundaries.md`
+- `/docs/frontend/frontend-workspace-integration-planning.md`
+- `/docs/frontend/campaign-workspace-api-client-plan.md`
+- `/docs/frontend/campaign-workspace-dto-mapping-plan.md`
+- `/docs/frontend/campaign-workspace-integration-validation.md`
 
 API boundaries define resource ownership.
 

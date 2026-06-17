@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Campaign Workspace Facts Endpoint
+Frontend Workspace Integration Planning
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -67,14 +67,30 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 
 ## Current Priorities
 
-- maintain Campaign Workspace Facts Endpoint as the composed read endpoint for Campaign Workspace
-- expose `GET /campaigns/:campaignId/workspace`
-- compose Campaign facts with owner, squad, blockers, notes, decision context, activities and handoffs
-- validate Campaign existence
-- return empty arrays for empty child resources
-- preserve Campaign as the central operational aggregate
-- keep derived intelligence out of backend truth
-- avoid frontend integration, auth, Docker, workflow engine, timeline generation, command center logic, derived intelligence persistence and AI behavior
+- plan Campaign Workspace frontend integration with the backend Workspace Facts Endpoint
+- define frontend API client direction for `GET /campaigns/:campaignId/workspace`
+- define DTO to View Model mapping direction
+- define mock replacement strategy
+- define loading, error and empty state behavior
+- preserve frontend-derived execution intelligence
+- preserve frontend-derived SLA, risk, coordination, workflow continuity, command center and timeline presentation
+- avoid runtime frontend implementation until planning is complete
+- avoid frontend mock replacement, auth, React Query/SWR, redesign, backend changes and AI behavior
+
+## Frontend Workspace Integration Planning Capabilities
+
+- Frontend Workspace Integration Planning is now allowed
+- planning may define how Campaign Workspace consumes `GET /campaigns/:campaignId/workspace`
+- planning may define API client direction
+- planning may define DTO type direction
+- planning may define DTO to View Model mapping direction
+- planning may define mock replacement strategy
+- planning may define loading, error and empty state behavior
+- planning must preserve frontend-derived intelligence
+- planning must not create runtime API client code
+- planning must not connect Campaign Workspace components to backend
+- planning must not replace mocks
+- planning must not introduce React Query, SWR, auth, RBAC, redesign or AI behavior
 
 ## Campaign Workspace Facts Endpoint Capabilities
 
@@ -96,6 +112,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - the endpoint does not generate timeline presentation
 - the endpoint does not calculate command center summary
 - the endpoint does not connect frontend
+- Frontend Workspace Integration Planning is the current next phase
 - auth remains deferred
 - AI features remain deferred
 
@@ -375,8 +392,20 @@ Focus:
 
 ## Avoid Right Now
 
-- frontend API client
-- frontend mock replacement
+- runtime frontend API client implementation before planning is complete
+- Campaign Workspace component integration before planning is complete
+- frontend mock replacement before mapping is defined
+- React Query or SWR adoption without explicit approval
+- frontend redesign
+- backend changes for UI convenience
+- raw backend DTO rendering in components
+- removing frontend-derived intelligence
+- moving executionHealth to backend
+- moving operationalRisk to backend
+- moving coordinationState to backend
+- moving workflowContinuity to backend
+- moving commandCenterSummary to backend
+- moving timelinePresentation to backend
 - auth
 - RBAC
 - Docker
@@ -385,12 +414,6 @@ Focus:
 - timeline generation
 - timeline presentation persistence
 - derived intelligence persistence
-- executionHealth as backend truth
-- operationalRisk as backend truth
-- coordinationState as backend truth
-- workflowContinuity as backend truth
-- commandCenterSummary as backend truth
-- dashboardWarnings as backend truth
 - automatic activity creation from workspace endpoint
 - automatic Campaign status transitions
 - workflow engine
@@ -445,4 +468,4 @@ The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
 
-Campaign Workspace Facts Endpoint as a composed read endpoint that returns persisted facts only, without frontend integration, derived intelligence, timeline generation or AI behavior.
+Frontend Workspace Integration Planning without runtime API client implementation, mock replacement, frontend redesign, backend intelligence, auth or AI behavior.

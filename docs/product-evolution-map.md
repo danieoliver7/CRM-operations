@@ -472,17 +472,33 @@ Focus:
 - keep endpoint as read-only fact composition
 - avoid frontend integration, derived intelligence, timeline generation, command center logic and AI behavior
 
+
+## 29. Frontend Workspace Integration Planning
+
+Status: current phase
+
+Focus:
+
+- plan Campaign Workspace frontend integration with the backend Workspace Facts Endpoint
+- define API client direction
+- define DTO to View Model mapping direction
+- define Campaign Workspace View Model direction
+- define staged mock replacement strategy
+- define loading, error and empty state behavior
+- preserve frontend-derived intelligence
+- avoid runtime implementation, mock replacement, redesign, auth, React Query/SWR, backend changes and AI behavior
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Campaign Workspace Facts Endpoint
+Frontend Workspace Integration Planning
 
-The goal is to compose persisted Campaign Workspace facts only.
+The goal is to plan how Campaign Workspace will consume persisted backend facts without implementing runtime integration yet.
 
-The goal is not to build frontend integration, workflow engine, dependency graph, task management, auth, Docker, timeline generation, command center backend logic, notifications or AI/Copilot features.
+The goal is not to build frontend API clients, replace mocks, connect components, add fetching libraries, redesign the UI, change backend behavior, add auth or introduce AI/Copilot features.
 
 ---
 

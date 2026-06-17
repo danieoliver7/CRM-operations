@@ -2,188 +2,216 @@
 
 ## Purpose
 
-This document defines how the frontend should consume future backend APIs.
+This document defines lightweight frontend API patterns for CRM Operations Platform.
 
-It exists to keep API usage consistent, simple and aligned with the product architecture.
-
----
-
-# Current Status
-
-The project does not yet have backend implementation.
-
-The current phase is Frontend Backend Contract Preparation.
-
-Do not create API clients, fetchers, React Query setup or real service integrations during this phase unless explicitly requested.
+It exists to keep frontend API integration simple, typed and separated from UI components.
 
 ---
 
-# Core Rule
+# Core Principle
 
-Frontend components should not render raw API DTOs directly.
-
-Recommended future flow:
-
-```txt
-API DTO
-  -> feature mapper
-  -> View Model
-  -> component
-```
-
-Components render operational UI.
-
-Hooks coordinate data usage.
-
-Services/API clients fetch facts.
+API clients fetch facts.
 
 Mappers prepare View Models.
 
-Utils derive intelligence.
+Domain utilities derive intelligence.
 
----
-
-# Component Boundary
-
-Components should receive:
-
-- View Models
-- display labels
-- derived state
-- callbacks
-- empty state copy
-
-Components should not:
-
-- call `fetch` directly
-- know endpoint URLs
-- parse backend DTOs
-- calculate API errors
-- persist operational intelligence
-
----
-
-# Hook Boundary
-
-Future hooks may coordinate API usage and local UI state.
-
-Hooks may:
-
-- call feature services
-- invoke mappers
-- expose loading/error/empty states
-- combine mapped facts with derived intelligence
-
-Hooks should not become backend replacements or orchestration runtimes.
-
----
-
-# Service Boundary
-
-Future API services should fetch backend facts and return DTOs or typed responses.
-
-Services should not:
-
-- render UI messages
-- derive command center summaries
-- create workflow engines
-- hide product decisions behind generic CRUD utilities
-
----
-
-# Mapper Boundary
-
-Mappers convert DTOs to View Models.
-
-They should handle:
-
-- `ownerId` plus `UserDto` into owner display data
-- `squadId` plus `SquadDto` into squad display data
-- missing optional reference data
-- DTO field naming differences
-- fallback labels
-
-Mappers should not persist data or call APIs.
-
----
-
-# Error Handling Direction
-
-Backend errors should become operational messages.
-
-Examples:
-
-- campaign not found
-- workspace unavailable
-- campaign could not be saved
-- blocker could not be resolved
-
-Avoid exposing raw framework errors to components.
-
----
-
-# Empty State Direction
-
-Empty arrays are valid successful responses.
-
-Examples:
-
-- no blockers
-- no handoffs
-- no notes
-- no decision context
-- no activities
-
-The frontend should translate these into calm operational empty states, not backend errors.
-
----
-
-# Derived Intelligence Boundary
-
-The frontend continues to derive:
-
-- execution health
-- SLA state
-- operational risk
-- coordination state
-- workflow continuity
-- planning pressure
-- owner pressure
-- squad pressure
-- command center summary
-- timeline presentation events
-
-These should remain in feature/domain utilities unless a later backend product decision changes the boundary.
-
----
-
-# Campaign Workspace Priority
-
-Campaign Workspace is the first API consumption priority.
-
-Future frontend API work should support:
+Components render UI.
 
 ```txt
-CampaignWorkspaceResponseDto
-  -> CampaignWorkspaceViewModel
-  -> Campaign Workspace sections
+API client
+  -> DTO
+  -> mapper
+  -> View Model
+  -> derived intelligence
+  -> component
 ```
-
-Do not create separate screen-specific API clients for Dashboard, Kanban and Calendar until implementation planning proves they are needed.
 
 ---
 
-# What Not To Build During Contract Preparation
+# API Client Rules
 
-Do not create:
+API clients should:
 
-- fetch clients
-- axios clients
-- React Query setup
-- SWR setup
-- real API hooks
-- endpoint files
-- DTO TypeScript files
-- mapper runtime code
+- call backend endpoints
+- parse response JSON
+- return typed DTOs
+- normalize known error responses
+- remain framework-light
+- avoid UI logic
 
-Documentation may suggest future locations, but this sprint should not create runtime implementation.
+API clients should not:
+
+- import React components
+- call React hooks
+- mutate Zustand directly unless explicitly planned
+- derive execution intelligence
+- build timeline presentation
+- build command center content
+- create fallback UI labels
+- perform backend writes not in scope
+
+---
+
+# Fetching Library Direction
+
+Default MVP direction:
+
+```txt
+native fetch
+```
+
+Do not add Axios, React Query, SWR or similar libraries unless explicitly approved.
+
+A future decision may add a fetching library after multiple backend-connected screens exist.
+
+---
+
+# Response Wrapper Rule
+
+Backend responses commonly use:
+
+```ts
+type DetailResponse<T> = {
+  data: T;
+};
+
+type ListResponse<T> = {
+  data: T[];
+};
+```
+
+Frontend API clients should parse these consistently.
+
+---
+
+# Error Handling Rule
+
+Backend errors may use:
+
+```ts
+type ApiErrorResponse = {
+  error: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+};
+```
+
+Frontend should map known error codes to operational UI states.
+
+Do not expose raw technical errors in components.
+
+---
+
+# DTO Rule
+
+DTOs mirror backend transport shapes.
+
+DTOs should not contain:
+
+- frontend labels
+- progress display
+- SLA labels
+- timeline cards
+- command center summaries
+- component props
+- modal state
+- filter state
+- AI summaries
+
+---
+
+# Mapper Rule
+
+A mapper converts DTOs into View Models.
+
+Mappers should:
+
+- be pure when possible
+- handle null references safely
+- handle empty arrays
+- preserve ids and timestamps
+- create display fallbacks
+- prepare component-friendly shapes
+
+Mappers should not:
+
+- fetch data
+- mutate global state
+- render components
+- persist data
+- call AI
+- create fake backend facts
+
+---
+
+# Loading/Error/Empty Rule
+
+Every backend-connected screen should plan for:
+
+- loading
+- loaded
+- empty
+- not found
+- backend unavailable
+- unexpected error
+
+Empty facts are not automatically errors.
+
+---
+
+# Campaign Workspace Initial Pattern
+
+For Campaign Workspace integration, the expected future flow is:
+
+```txt
+getCampaignWorkspaceFacts(campaignId)
+  -> CampaignWorkspaceFactsDto
+  -> mapCampaignWorkspaceFactsToViewModel(dto)
+  -> CampaignWorkspaceViewModel
+  -> existing Campaign Workspace components
+```
+
+Recommended future files for the first integration:
+
+```txt
+frontend/src/modules/campaigns/services/campaign-workspace.service.ts
+frontend/src/modules/campaigns/types/campaign-workspace-api.ts
+frontend/src/modules/campaigns/types/campaign-workspace.ts
+frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts
+frontend/src/pages/CampaignDetails.tsx
+```
+
+Optional future hook:
+
+```txt
+frontend/src/modules/campaigns/hooks/useCampaignWorkspaceFacts.ts
+```
+
+Do not place fetch calls inside visual components.
+
+Do not make components render raw `CampaignWorkspaceFactsDto`.
+
+---
+
+# Auth Boundary
+
+Do not add auth handling until the auth sprint is explicitly approved.
+
+No JWT.
+
+No sessions.
+
+No permissions.
+
+No RBAC.
+
+---
+
+# Final Principle
+
+Keep API integration boring.
+
+Do not use the first frontend-backend integration as an excuse to add global architecture complexity.

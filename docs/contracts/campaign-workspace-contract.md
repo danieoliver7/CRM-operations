@@ -47,8 +47,8 @@ Expected response direction:
 type CampaignWorkspaceFactsResponse = {
   data: {
     campaign: CampaignDto;
-    owner?: UserDto | null;
-    squad?: SquadDto | null;
+    owner: UserDto | null;
+    squad: SquadDto | null;
     blockers: CampaignBlockerDto[];
     notes: CampaignNoteDto[];
     decisionContext: CampaignDecisionContextDto[];
@@ -74,6 +74,50 @@ The composed endpoint exists to reduce future frontend read orchestration.
 It must not replace write endpoints.
 
 It must not introduce frontend integration by itself.
+
+---
+
+# Frontend Integration Planning Direction
+
+The backend endpoint is implemented.
+
+Frontend integration remains deferred until planning is complete.
+
+The frontend should consume:
+
+```txt
+GET /campaigns/:campaignId/workspace
+```
+
+through a frontend API client, not directly inside visual components.
+
+The response should be mapped into a Campaign Workspace View Model before rendering.
+
+Recommended future frontend integration target:
+
+```txt
+frontend/src/pages/CampaignDetails.tsx
+  -> frontend/src/modules/campaigns/services/campaign-workspace.service.ts
+  -> frontend/src/modules/campaigns/types/campaign-workspace-api.ts
+  -> frontend/src/modules/campaigns/mappers/mapCampaignWorkspaceFactsToViewModel.ts
+  -> frontend/src/modules/campaigns/types/campaign-workspace.ts
+```
+
+The existing Campaign Workspace visual components should continue receiving UI-ready props and should not fetch the endpoint directly.
+
+The frontend must continue deriving:
+
+- executionHealth
+- operationalRisk
+- coordinationState
+- workflowContinuity
+- commandCenterSummary
+- timeline presentation events
+- SLA label
+- progress display
+- dashboard warnings
+
+This contract does not authorize runtime frontend implementation by itself.
 
 ---
 
@@ -347,6 +391,8 @@ The workspace contract should allow the frontend to handle:
 These should not be backend errors.
 
 The frontend should display calm operational empty states instead of generic missing-data messages.
+
+During frontend integration, these empty arrays should map into calm operational empty states, not generic broken data states.
 
 ---
 

@@ -37,6 +37,10 @@
 - `/docs/frontend/frontend-architecture-rules.md`
 - `/docs/frontend/responsive-layout-rules.md`
 - `/docs/frontend/kanban-layout-rules.md`
+- `/docs/frontend/frontend-workspace-integration-planning.md`
+- `/docs/frontend/campaign-workspace-api-client-plan.md`
+- `/docs/frontend/campaign-workspace-dto-mapping-plan.md`
+- `/docs/frontend/campaign-workspace-integration-validation.md`
 
 ## Domain
 
@@ -89,6 +93,7 @@
 - `/docs/decisions/ADR-025-campaign-activities-implementation.md`
 - `/docs/decisions/ADR-026-campaign-handoffs-implementation.md`
 - `/docs/decisions/ADR-027-campaign-workspace-facts-endpoint.md`
+- `/docs/decisions/ADR-028-frontend-workspace-integration-planning.md`
 
 ## Backend
 
@@ -139,9 +144,6 @@
 - `/docs/backend/campaign-notes-implementation.md`
 - `/docs/backend/campaign-notes-api-contract.md`
 - `/docs/backend/campaign-notes-validation.md`
-- `/docs/backend/campaign-decision-context-implementation.md`
-- `/docs/backend/campaign-decision-context-api-contract.md`
-- `/docs/backend/campaign-decision-context-validation.md`
 - `/docs/backend/campaign-decision-context-implementation.md`
 - `/docs/backend/campaign-decision-context-api-contract.md`
 - `/docs/backend/campaign-decision-context-validation.md`

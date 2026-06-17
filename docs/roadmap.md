@@ -2,61 +2,56 @@
 
 ## Current Focus
 
-Campaign Workspace Facts Endpoint
+Frontend Workspace Integration Planning
 
-## Current Sprint Result
+## Current Sprint Goals
 
-- Campaign Workspace Facts Endpoint implemented
-- `GET /campaigns/:campaignId/workspace` exposed
-- Campaign existence validated
-- Campaign facts composed
-- owner reference facts composed or returned as `null`
-- squad reference facts composed or returned as `null`
-- Campaign Blockers composed
-- Campaign Notes composed
-- Campaign Decision Context composed
-- Campaign Activities composed
-- Campaign Handoffs composed
-- empty arrays returned for empty child resource lists
-- preserve existing Campaign APIs
-- preserve existing Campaign Blockers API
-- preserve existing Campaign Notes API
-- preserve existing Campaign Decision Context API
-- preserve existing Campaign Activities API
-- preserve existing Campaign Handoffs API
-- preserve existing Reference Data APIs
-- preserve backend health endpoint
-- preserve frontend lint/build behavior
-- avoid frontend integration, auth, Docker, workflow engine, timeline generation, command center logic, derived intelligence persistence and AI behavior
+- plan Campaign Workspace frontend integration with `GET /campaigns/:campaignId/workspace`
+- define frontend API client direction
+- define DTO type direction
+- define DTO to View Model mapper direction
+- define Campaign Workspace View Model direction
+- define staged mock replacement strategy
+- define loading state behavior
+- define error state behavior
+- define empty state behavior
+- preserve frontend-derived execution intelligence
+- preserve frontend-derived SLA, risk, coordination, workflow continuity, command center and timeline presentation
+- avoid runtime frontend implementation
+- avoid frontend mock replacement
+- avoid backend changes
+- avoid auth, RBAC, React Query/SWR, redesign and AI behavior
 
-## Approved Child Resource Order
+## Completed Backend V1 Fact Foundation
 
-1. Campaign Blockers Implementation
-2. Campaign Notes Implementation
-3. Campaign Decision Context Implementation
-4. Campaign Activities Implementation
-5. Campaign Handoffs Implementation
-6. Campaign Workspace Facts Endpoint
-
-## Current Implementation Status
-
-- Campaign Blockers Implementation: completed
-- Campaign Notes Implementation: completed
-- Campaign Decision Context Implementation: completed
-- Campaign Activities Implementation: completed
-- Campaign Handoffs Implementation: completed
+- Campaign Persistence API: completed
+- Campaign Blockers API: completed
+- Campaign Notes API: completed
+- Campaign Decision Context API: completed
+- Campaign Activities API: completed
+- Campaign Handoffs API: completed
 - Campaign Workspace Facts Endpoint: completed
+
+## Next Expected Cut
+
+Campaign Workspace Frontend Integration, if explicitly approved after planning.
 
 ## Still Deferred
 
-- frontend API client implementation
-- frontend mappers implementation
+- frontend API client runtime implementation
+- frontend mapper runtime implementation
+- Campaign Workspace component integration
 - frontend mock replacement
+- dashboard backend integration
+- kanban backend integration
+- calendar backend integration
 - authentication implementation
 - authorization
 - RBAC
+- React Query
+- SWR
 - command center backend logic
-- timeline generation
+- timeline generation backend
 - timeline presentation persistence
 - derived intelligence persistence
 - execution health backend calculation
