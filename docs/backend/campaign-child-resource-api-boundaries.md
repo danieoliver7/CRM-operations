@@ -125,7 +125,7 @@ Boundary:
 
 ## Campaign Workspace Facts Endpoint
 
-Potential future route:
+Implemented composed read route:
 
 ```txt
 GET /campaigns/:campaignId/workspace
@@ -133,9 +133,12 @@ GET /campaigns/:campaignId/workspace
 
 Boundary:
 
-- The endpoint should compose persisted facts.
-- The endpoint should not return derived intelligence as backend truth.
-- The endpoint should come after child facts exist.
+- The endpoint composes persisted facts.
+- The endpoint returns Campaign, owner, squad, Blockers, Notes, Decision Context, Activities and Handoffs.
+- The endpoint returns empty arrays for empty child resource lists.
+- The endpoint does not return derived intelligence as backend truth.
+- The endpoint exists after child facts exist.
+- The endpoint is read-only and does not replace resource write endpoints.
 
 ---
 

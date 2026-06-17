@@ -264,8 +264,8 @@ Decision Context explains why execution changed. It is not a comment system.
 ```ts
 type CampaignWorkspaceResponseDto = {
   campaign: CampaignDto;
-  owner?: UserDto;
-  squad?: SquadDto;
+  owner: UserDto | null;
+  squad: SquadDto | null;
   activities: CampaignActivityDto[];
   blockers: BlockerDto[];
   handoffs: HandoffDto[];

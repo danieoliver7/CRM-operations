@@ -228,6 +228,23 @@ Reject implementations that turn handoffs into:
 
 ## Campaign Workspace Facts Endpoint
 
+Campaign Workspace Facts Endpoint is the sixth implemented Campaign child-resource-adjacent cut.
+
+Validate:
+
+- only `GET /campaigns/:campaignId/workspace` is implemented in this cut
+- the endpoint remains campaign-scoped
+- Campaign existence is validated
+- Campaign facts are returned
+- owner reference facts are returned or `null`
+- squad reference facts are returned or `null`
+- Blockers, Notes, Decision Context, Activities and Handoffs are returned as arrays
+- empty child resource lists return empty arrays
+- no frontend API client is introduced
+- no timeline generation is introduced
+- no command center backend logic is introduced
+- no derived intelligence is persisted or returned as backend truth
+
 Reject implementations that turn workspace facts into:
 
 - command center backend

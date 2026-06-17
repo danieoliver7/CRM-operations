@@ -88,6 +88,7 @@
 - `/docs/decisions/ADR-024-campaign-decision-context-implementation.md`
 - `/docs/decisions/ADR-025-campaign-activities-implementation.md`
 - `/docs/decisions/ADR-026-campaign-handoffs-implementation.md`
+- `/docs/decisions/ADR-027-campaign-workspace-facts-endpoint.md`
 
 ## Backend
 
@@ -150,8 +151,12 @@
 - `/docs/backend/campaign-handoffs-implementation.md`
 - `/docs/backend/campaign-handoffs-api-contract.md`
 - `/docs/backend/campaign-handoffs-validation.md`
+- `/docs/backend/campaign-workspace-facts-implementation.md`
+- `/docs/backend/campaign-workspace-facts-api-contract.md`
+- `/docs/backend/campaign-workspace-facts-validation.md`
 
 ## Contracts
+
 - `/docs/contracts/frontend-backend-contract.md`
 - `/docs/contracts/api-response-shapes.md`
 - `/docs/contracts/dto-to-view-model-mapping.md`

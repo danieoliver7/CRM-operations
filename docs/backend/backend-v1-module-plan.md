@@ -40,6 +40,7 @@ backend/
       activities/
       blockers/
       handoffs/
+      campaign-workspace/
       notes/
       decision-context/
     shared/
@@ -203,6 +204,26 @@ Non-goals:
 - comment system
 - knowledge base
 - approval workflow
+
+---
+
+## campaign-workspace
+
+Responsibilities:
+
+- composed Campaign Workspace facts read
+- Campaign, owner and squad fact composition
+- campaign-scoped Blockers, Notes, Decision Context, Activities and Handoffs composition
+- empty child resource list handling
+
+Non-goals:
+
+- frontend integration
+- timeline generation
+- command center backend
+- derived intelligence service
+- workflow engine
+- AI/Copilot behavior
 
 ---
 
@@ -385,6 +406,58 @@ Handoffs store lightweight transition facts supported by the current schema.
 Unsupported schema fields such as `requestedById`, `completedById`, `cancelledById`, `notes` and `dueAt` must remain rejected until the schema explicitly supports them.
 
 Handoffs must not introduce workflow engine, dependency graph, BPM, task management, orchestration, automatic workflow, notification feed, timeline backend or AI behavior.
+
+---
+
+# Campaign Workspace Facts Endpoint Validation
+
+During the Campaign Workspace Facts Endpoint sprint, the composed Campaign Workspace read endpoint is created.
+
+Allowed:
+
+- CampaignWorkspaceModule
+- CampaignWorkspaceController
+- CampaignWorkspaceService
+- Campaign Workspace Facts DTOs
+- Campaign Workspace response mapper/composer
+- Campaign Workspace validation tests
+
+Allowed endpoint:
+
+```txt
+GET /campaigns/:campaignId/workspace
+```
+
+Still disallowed:
+
+- frontend API client
+- frontend mappers
+- frontend mock replacement
+- auth
+- RBAC
+- Docker
+- workflow engine
+- dependency graph
+- timeline generation
+- command center backend logic
+- derived intelligence persistence
+- notification engine
+- realtime
+- AI features
+- embeddings
+- semantic search
+
+Campaign Workspace Facts Endpoint must remain read-only.
+
+Campaign Workspace Facts Endpoint must compose persisted facts only.
+
+Campaign Workspace Facts Endpoint must not mutate Campaign or child resources.
+
+Campaign Workspace Facts Endpoint must not automatically create activities, timeline events, notes, decision context, handoffs or notifications.
+
+Campaign Workspace Facts Endpoint must not return or persist derived intelligence as backend truth.
+
+Campaign Workspace Facts Endpoint must not introduce frontend integration, timeline backend, command center backend, workflow engine, notification feed or AI behavior.
 
 ---
 

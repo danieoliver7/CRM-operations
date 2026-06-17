@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { HealthModule } from './health/health.module';
 import { ActivitiesModule } from './modules/activities/activities.module';
 import { BlockersModule } from './modules/blockers/blockers.module';
+import { CampaignWorkspaceModule } from './modules/campaign-workspace/campaign-workspace.module';
 import { CampaignsModule } from './modules/campaigns/campaigns.module';
 import { DecisionContextModule } from './modules/decision-context/decision-context.module';
 import { HandoffsModule } from './modules/handoffs/handoffs.module';
@@ -24,6 +25,7 @@ import { WorkspacesModule } from './modules/workspaces/workspaces.module';
     DecisionContextModule,
     ActivitiesModule,
     HandoffsModule,
+    CampaignWorkspaceModule,
   ],
 })
 export class AppModule {}

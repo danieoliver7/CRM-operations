@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Phase
-Campaign Handoffs Implementation
+Campaign Workspace Facts Endpoint
 
 ## Current Product State
 Frontend-first CRM Operations SaaS MVP focused on operational workflow and campaign coordination.
@@ -43,6 +43,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - campaign-scoped Decision Context API
 - campaign-scoped Activities API
 - campaign-scoped Handoffs API
+- campaign-scoped Campaign Workspace Facts endpoint
 
 ## Current Architecture
 - React
@@ -62,14 +63,41 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign Decision Context API
 - Campaign Activities API
 - Campaign Handoffs API
+- Campaign Workspace Facts endpoint
 
 ## Current Priorities
 
-- keep Campaign Handoffs stable as the fifth implemented Campaign child resource
-- prepare Campaign Workspace Facts Endpoint only when explicitly approved
+- maintain Campaign Workspace Facts Endpoint as the composed read endpoint for Campaign Workspace
+- expose `GET /campaigns/:campaignId/workspace`
+- compose Campaign facts with owner, squad, blockers, notes, decision context, activities and handoffs
+- validate Campaign existence
+- return empty arrays for empty child resources
 - preserve Campaign as the central operational aggregate
 - keep derived intelligence out of backend truth
-- avoid Campaign Workspace endpoint, frontend integration, auth, Docker, workflow engine, dependency graph, task management, automatic activity creation, timeline generation and AI behavior
+- avoid frontend integration, auth, Docker, workflow engine, timeline generation, command center logic, derived intelligence persistence and AI behavior
+
+## Campaign Workspace Facts Endpoint Capabilities
+
+- Campaign Workspace Facts Endpoint implementation is complete
+- Campaign Workspace Facts Endpoint is the composed read endpoint after all planned child resources
+- Campaign Workspace Facts Endpoint exposes `GET /campaigns/:campaignId/workspace`
+- the endpoint validates Campaign existence
+- the endpoint composes Campaign facts
+- the endpoint composes owner reference facts or `null`
+- the endpoint composes squad reference facts or `null`
+- the endpoint composes Blockers
+- the endpoint composes Notes
+- the endpoint composes Decision Context
+- the endpoint composes Activities
+- the endpoint composes Handoffs
+- child resource empty states return empty arrays
+- the endpoint returns persisted facts only
+- the endpoint does not return derived intelligence as backend truth
+- the endpoint does not generate timeline presentation
+- the endpoint does not calculate command center summary
+- the endpoint does not connect frontend
+- auth remains deferred
+- AI features remain deferred
 
 ## Campaign Handoffs Implementation Capabilities
 
@@ -77,17 +105,17 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Handoffs are the fifth implemented Campaign child resource
 - Handoffs remain campaign-scoped
 - Handoffs can be listed, created, updated, completed and cancelled through REST endpoints
-- Handoff writes must validate campaign existence
-- Handoff writes must validate user references when provided
-- Handoff writes must validate squad references when provided
+- Handoff writes validate campaign existence
+- Handoff writes validate user references when provided
+- Handoff writes validate squad references when provided
 - Handoff writes validate handoff ownership by route campaign
 - Handoff responses expose only persisted transition facts supported by the current schema
 - Handoff API does not accept `requestedById`, `completedById`, `cancelledById`, `notes` or `dueAt` until the schema supports them
-- Handoffs must preserve lightweight operational transitions
+- Handoffs preserve lightweight operational transitions
 - Handoffs must not become workflow engine, dependency graph, task management, BPM or orchestration
 - Handoff operations must not automatically change Campaign status
 - Handoff operations must not automatically create activities, timeline events, notes or decision context
-- Campaign Workspace endpoint remains deferred
+- Campaign Workspace Facts Endpoint is implemented after Handoffs
 - frontend integration remains deferred
 - auth remains deferred
 - AI features remain deferred
@@ -106,7 +134,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Activities must not become event sourcing, audit logs, notification feed or timeline backend
 - Activity operations must not automatically create timeline events, notes, decision context or handoffs
 - Handoffs API is implemented after Activities
-- Campaign Workspace endpoint remains deferred
+- Campaign Workspace Facts Endpoint is implemented after Activities and Handoffs
 - frontend integration remains deferred
 - auth remains deferred
 - AI features remain deferred
@@ -126,7 +154,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Decision Context operations must not automatically create activities, notes or timeline events
 - Activities API is implemented after Decision Context
 - Handoffs API is implemented after Activities
-- Campaign Workspace endpoint remains deferred
+- Campaign Workspace Facts Endpoint is implemented after Handoffs
 - frontend integration remains deferred
 - auth remains deferred
 - AI features remain deferred
@@ -146,7 +174,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Decision Context API is implemented after Notes
 - Activities API is implemented after Decision Context
 - Handoffs API is implemented after Activities
-- Campaign Workspace endpoint remains deferred
+- Campaign Workspace Facts Endpoint is implemented after Handoffs
 - frontend integration remains deferred
 - auth remains deferred
 - AI features remain deferred
@@ -166,7 +194,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Notes and Decision Context APIs are implemented after Blockers
 - Activities API is implemented after Decision Context
 - Handoffs API is implemented after Activities
-- Campaign Workspace endpoint remains deferred
+- Campaign Workspace Facts Endpoint is implemented after Handoffs
 - frontend integration remains deferred
 - auth remains deferred
 
@@ -181,13 +209,13 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign Decision Context API is implemented as the third child resource
 - Campaign Activities API is implemented as the fourth child resource
 - Campaign Handoffs API is implemented as the fifth child resource
-- Campaign Workspace Facts Endpoint is not implemented yet
+- Campaign Workspace Facts Endpoint is implemented as the composed read endpoint
 - Blockers must not become ticketing
 - Notes must not become chat or threaded comments
 - Decision Context must not become approval workflow
 - Activities must not become event sourcing or audit log
 - Handoffs must not become workflow engine or dependency graph
-- Campaign Workspace endpoint remains deferred until child facts exist
+- Campaign Workspace Facts Endpoint must not become derived intelligence backend
 - frontend integration remains deferred
 - auth remains deferred
 
@@ -201,8 +229,7 @@ Frontend-first CRM Operations SaaS MVP focused on operational workflow and campa
 - Campaign API persists facts through Prisma/PostgreSQL
 - Campaign API returns simple `{ data }` response wrappers
 - Campaign API does not return derived operational intelligence as backend truth
-- Campaign Workspace endpoint remains deferred
-- Campaign Workspace endpoint remains deferred
+- Campaign Workspace Facts Endpoint is implemented separately from Campaign write APIs
 - frontend integration remains deferred
 - auth remains deferred
 
@@ -342,17 +369,30 @@ Focus:
 - not-found responses use explicit operational error codes
 - reference APIs support future Campaign ownerId, squadId and workspaceId relationships
 - basic Campaign APIs are implemented separately from reference data APIs
-- Campaign Workspace endpoint remains deferred
+- Campaign Workspace Facts Endpoint is implemented later as a composed read endpoint
 - frontend integration remains deferred
 - auth remains deferred
 
 ## Avoid Right Now
 
-- Campaign Workspace endpoint
-- Campaign Workspace backend behavior
-- automatic Campaign status transitions from handoffs
-- automatic activity creation from handoffs
-- automatic timeline, note, decision context or handoff-derived creation
+- frontend API client
+- frontend mock replacement
+- auth
+- RBAC
+- Docker
+- Campaign Workspace intelligence backend
+- command center backend logic
+- timeline generation
+- timeline presentation persistence
+- derived intelligence persistence
+- executionHealth as backend truth
+- operationalRisk as backend truth
+- coordinationState as backend truth
+- workflowContinuity as backend truth
+- commandCenterSummary as backend truth
+- dashboardWarnings as backend truth
+- automatic activity creation from workspace endpoint
+- automatic Campaign status transitions
 - workflow engine
 - dependency graph
 - BPM
@@ -362,10 +402,8 @@ Focus:
 - notification feed
 - event sourcing
 - audit log platform
-- activity replay
 - projections
 - CQRS
-- timeline generation
 - comments system
 - approval workflow
 - knowledge base
@@ -376,16 +414,11 @@ Focus:
 - AI features
 - embeddings
 - semantic search
-- derived intelligence persistence
 - write APIs for reference data
-- frontend integration
-- auth
 - realtime
 - websocket
 - complex automation
-- Docker
 - advanced infrastructure
-
 
 ## MVP Philosophy
 Prioritize:
@@ -412,4 +445,4 @@ The system should feel like a CRM operations workspace, not a generic dashboard.
 
 ## Current Domain Focus
 
-Campaign Handoffs APIs without workflow engine, dependency graph, task management, automatic activity creation or Campaign Workspace backend behavior.
+Campaign Workspace Facts Endpoint as a composed read endpoint that returns persisted facts only, without frontend integration, derived intelligence, timeline generation or AI behavior.

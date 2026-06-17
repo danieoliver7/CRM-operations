@@ -29,41 +29,51 @@ The contract should not return derived command center summaries as backend truth
 
 ---
 
-# Suggested Endpoint Direction
+# Implemented Endpoint Direction
 
-Possible future composed endpoint:
+Backend V1 now allows the composed Campaign Workspace Facts Endpoint:
 
 ```txt
 GET /campaigns/:campaignId/workspace
 ```
 
-Candidate response:
+This endpoint should return persisted facts needed by Campaign Workspace.
+
+It should not return derived command center summaries as backend truth.
+
+Expected response direction:
 
 ```ts
-type CampaignWorkspaceResponseDto = {
-  campaign: CampaignDto;
-  owner?: UserDto;
-  squad?: SquadDto;
-  activities: CampaignActivityDto[];
-  blockers: BlockerDto[];
-  handoffs: HandoffDto[];
-  notes: CampaignNoteDto[];
-  decisionContext: DecisionContextDto[];
+type CampaignWorkspaceFactsResponse = {
+  data: {
+    campaign: CampaignDto;
+    owner?: UserDto | null;
+    squad?: SquadDto | null;
+    blockers: CampaignBlockerDto[];
+    notes: CampaignNoteDto[];
+    decisionContext: CampaignDecisionContextDto[];
+    activities: CampaignActivityDto[];
+    handoffs: CampaignHandoffDto[];
+  };
 };
 ```
 
-Alternative future resource endpoints:
+Existing individual resource endpoints remain valid:
 
 ```txt
 GET /campaigns/:campaignId
-GET /campaigns/:campaignId/activities
 GET /campaigns/:campaignId/blockers
-GET /campaigns/:campaignId/handoffs
 GET /campaigns/:campaignId/notes
 GET /campaigns/:campaignId/decision-context
+GET /campaigns/:campaignId/activities
+GET /campaigns/:campaignId/handoffs
 ```
 
-Both directions remain valid for planning. The implementation planning sprint should decide whether Backend V1 starts with a composed workspace endpoint, separate resource endpoints, or a small hybrid.
+The composed endpoint exists to reduce future frontend read orchestration.
+
+It must not replace write endpoints.
+
+It must not introduce frontend integration by itself.
 
 ---
 
@@ -277,12 +287,49 @@ Do not include these as backend truth:
 - workflowContinuity
 - commandCenterSummary
 - timeline presentation events
+- timelineEvents
 - SLA label
 - planning pressure
 - owner pressure
 - squad pressure
+- dashboard warnings
+- next best action
+- recommended action
+- AI summary
+- Copilot insight
 
 The frontend derives these from campaign facts and related operational records.
+
+A future backend intelligence layer may be evaluated later, but it is not part of the Campaign Workspace Facts Endpoint.
+
+# Campaign Workspace Facts Endpoint Boundary
+
+The Campaign Workspace Facts Endpoint is a read-only composition endpoint.
+
+It may compose:
+
+- Campaign facts
+- owner reference facts
+- squad reference facts
+- Blockers
+- Notes
+- Decision Context
+- Activities
+- Handoffs
+
+It must not:
+
+- create records
+- update records
+- generate timeline events
+- calculate command center summaries
+- calculate execution health
+- calculate operational risk
+- calculate coordination state
+- calculate workflow continuity
+- call AI
+- return recommendations
+- connect frontend
 
 ---
 

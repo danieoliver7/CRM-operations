@@ -458,17 +458,31 @@ Focus:
 - keep handoffs as lightweight operational transitions
 - avoid workflow engine, dependency graph, task management, automatic activity creation, timeline generation and Campaign Workspace endpoint
 
+## 28. Campaign Workspace Facts Endpoint
+
+Status: validated
+
+Focus:
+
+- maintain `GET /campaigns/:campaignId/workspace`
+- compose persisted Campaign facts
+- compose owner and squad reference facts
+- compose Blockers, Notes, Decision Context, Activities and Handoffs
+- return empty arrays for missing child resources
+- keep endpoint as read-only fact composition
+- avoid frontend integration, derived intelligence, timeline generation, command center logic and AI behavior
+
 ---
 
 # Current Rule
 
 The current phase is:
 
-Campaign Handoffs Implementation
+Campaign Workspace Facts Endpoint
 
-The goal is to implement Campaign Handoffs APIs only.
+The goal is to compose persisted Campaign Workspace facts only.
 
-The goal is not to build Campaign Workspace endpoints, workflow engine, dependency graph, task management, auth, Docker, frontend API clients, timeline generation, notifications or AI/Copilot features.
+The goal is not to build frontend integration, workflow engine, dependency graph, task management, auth, Docker, timeline generation, command center backend logic, notifications or AI/Copilot features.
 
 ---
 
@@ -476,7 +490,7 @@ The goal is not to build Campaign Workspace endpoints, workflow engine, dependen
 
 Do not implement now:
 
-- Campaign Workspace endpoint
+- Campaign Workspace write endpoints
 - automatic activity, timeline, decision context or handoff creation
 - derived intelligence persistence
 - write APIs for reference data
