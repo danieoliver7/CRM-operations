@@ -1,159 +1,124 @@
 # CRM Operations Platform
 
-MVP de uma plataforma SaaS para centralizar a operação de campanhas de CRM Marketing em um fluxo único, moderno e colaborativo.
+MVP de uma plataforma SaaS para centralizar a operacao de campanhas de CRM Marketing em um fluxo unico, moderno e colaborativo.
 
-O produto combina referências de Linear, Jira, Notion e Trello, mas com foco específico em times de CRM, marketing automation, copy, design, implementação, QA e gestão operacional.
+O produto cobre planejamento, briefing, copy, aprovacao, desenvolvimento, QA, agendamento, envio e acompanhamento operacional. Campaign e a entidade central da experiencia.
 
-> Este repositório contém documentação estratégica e técnica do produto. Mantenha-o privado.
+## Status atual
 
-## Visão do Produto
+O repositorio e uma aplicacao full-stack incremental:
 
-Times de CRM normalmente operam em ferramentas fragmentadas: planejamento em planilhas, copy em documentos, aprovações em chats, implementação em plataformas como Salesforce Marketing Cloud, HubSpot ou Braze, e métricas em dashboards separados.
+- o frontend operacional esta implementado com React e Zustand;
+- o backend esta implementado com NestJS, Prisma e PostgreSQL;
+- APIs REST persistem campanhas, dados de referencia e recursos operacionais relacionados;
+- Campaign Details consome os fatos persistidos do Campaign Workspace;
+- Dashboard, Campaign List, Kanban e Calendar ainda usam os mocks e o estado compartilhado do frontend.
 
-A CRM Operations Platform busca unificar esse fluxo em uma experiência SaaS enterprise:
+A migracao de dados para o backend e intencionalmente gradual. A existencia do backend nao significa que todas as telas ja foram migradas.
 
-- Planejamento de campanhas
-- Inventário operacional
-- Kanban de produção
-- Calendário de envios
-- Detalhes de campanha
-- QA e aprovações
-- Analytics executivo
-- Colaboração assíncrona
+## Arquitetura
 
-## Status Atual
-
-O projeto está na fase de MVP frontend. O visual inicial foi gerado no Google AI Studio/Stitch e deve ser preservado enquanto a arquitetura evolui de forma incremental.
-
-Já existem telas funcionais para:
-
-- Dashboard
-- Campaigns
-- Kanban
-- Calendar
-- Analytics
-- Campaign Details
-
-## Stack
-
-Frontend:
+### Frontend
 
 - React 19
 - TypeScript
 - Vite
-- TailwindCSS v4
+- Tailwind CSS v4
 - React Router
-- Lucide React
-- Recharts
-- Motion
 - Zustand
+- `fetch` nativo na integracao atual com o backend
+- inteligencia operacional derivada no frontend
 
-Backend planejado:
+O frontend converte respostas do backend antes da renderizacao:
 
-- Node.js
+```txt
+Backend facts
+  -> typed API client
+  -> DTO
+  -> DTO-to-View-Model mapper
+  -> derived operational intelligence
+  -> pages and components
+```
+
+React Query, SWR e Axios nao foram adotados e permanecem adiados ate existir uma necessidade arquitetural aprovada.
+
+### Backend
+
 - NestJS
-- PostgreSQL
+- TypeScript
 - Prisma
-- Socket.io
+- PostgreSQL
+- APIs REST-first
+- monolito modular
 
-## Estrutura
+O backend persiste fatos operacionais, incluindo campanhas, usuarios, squads, atividades, blockers, handoffs, notes e decision context. O endpoint `GET /campaigns/:campaignId/workspace` agrega os fatos persistidos necessarios ao Campaign Workspace.
+
+O backend nao e a fonte primaria de execution health, SLA state, operational risk, coordination state, workflow continuity, planning pressure, command center, timeline de apresentacao ou warnings do Dashboard. Esses sinais continuam derivados no frontend.
+
+## Fronteiras de dados atuais
+
+| Superficie | Fonte atual | Observacao |
+| --- | --- | --- |
+| Campaign Details / Workspace | Backend, somente leitura | Usa `GET /campaigns/:campaignId/workspace`, DTO tipado e mapper |
+| Dashboard | Mock/Zustand | Migracao para backend ainda nao aprovada |
+| Campaign List | Mock/Zustand | Criacao e atualizacoes permanecem locais |
+| Kanban | Mock/Zustand | Status compartilhado continua local |
+| Calendar | Mock/Zustand | Planejamento exibido a partir do estado local |
+
+As acoes rapidas do Campaign Workspace ainda atualizam apenas o estado local. Escritas do Workspace no backend permanecem fora do escopo atual.
+
+## Estrutura principal
 
 ```txt
 CRM operations/
-├── backend/
-├── database/
-├── docs/
-└── frontend/
-    ├── src/
-    │   ├── app/
-    │   ├── components/
-    │   │   ├── layout/
-    │   │   └── ui/
-    │   ├── hooks/
-    │   ├── modules/
-    │   │   ├── analytics/
-    │   │   ├── calendar/
-    │   │   ├── campaigns/
-    │   │   ├── dashboard/
-    │   │   └── kanban/
-    │   ├── pages/
-    │   ├── services/
-    │   ├── stores/
-    │   ├── types/
-    │   └── utils/
-    ├── App.tsx
-    ├── main.tsx
-    └── vite.config.ts
+|-- backend/       NestJS, Prisma, PostgreSQL e APIs REST
+|-- docs/          fontes de verdade do produto e da arquitetura
+|-- frontend/      React, UI operacional, estado e inteligencia derivada
+|-- tasks/         tarefas ativas e evidencias de execucao
+|-- AGENTS.md      regras para agentes de desenvolvimento
+`-- package.json   quality gates do repositorio
 ```
 
-## Fluxo Operacional
+## Como executar
 
-O fluxo principal de uma campanha no MVP segue estes status:
-
-```txt
-Briefing -> Copy -> Approval -> Development -> QA -> Scheduled -> Sent -> Completed
-```
-
-Canais previstos:
-
-- Email
-- Push
-- SMS
-- WhatsApp
-- Web Push
-- InApp
-
-## Como Rodar
-
-Entre no frontend:
+Instale as dependencias de frontend e backend a partir da raiz:
 
 ```bash
-cd frontend
+npm run install:all
 ```
 
-Instale as dependências:
+Com PostgreSQL e as variaveis do backend configurados, inicie os processos em terminais separados:
 
 ```bash
-npm install
+npm --prefix backend run start:dev
+npm --prefix frontend run dev
 ```
 
-Rode em desenvolvimento:
+Por padrao, o frontend usa `http://localhost:3000` e o backend usa `http://localhost:4000`. O Vite encaminha requisicoes locais de `/campaigns` para o backend.
+
+## Validacao
+
+Execute o quality gate completo na raiz:
 
 ```bash
-npm run dev
+npm run verify
 ```
 
-Acesse:
-
-```txt
-http://localhost:3000
-```
-
-## Scripts
+Validacoes isoladas tambem estao disponiveis:
 
 ```bash
-npm run dev
-npm run lint
-npm run build
-npm run preview
+npm run verify:frontend
+npm run verify:backend
+npm run verify:database
 ```
 
-## Validação Atual
-
-O frontend passa em:
-
-```bash
-npm run lint
-npm run build
-```
-
-O build ainda emite um aviso de bundle acima de 500 kB. Isso é esperado nesta fase e pode ser tratado depois com code splitting por rota.
+`verify:database` depende de configuracao valida do ambiente de banco e nao faz parte do quality gate padrao.
 
 ## Diretrizes
 
-- Preservar o visual aprovado do Stitch.
-- Fazer mudanças pequenas e incrementais.
-- Separar UI, domínio, serviços e estado aos poucos.
-- Evitar overengineering no MVP.
-- Não implementar backend antes da base frontend estar madura.
-- Manter a documentação em repositório privado.
+- Preservar o comportamento e a identidade visual aprovados.
+- Migrar superficies para o backend apenas por tarefas e decisoes aceitas.
+- Persistir fatos e derivar inteligencia operacional.
+- Manter DTOs do backend fora dos componentes visuais.
+- Usar Zustand para estado operacional compartilhado, nunca como substituto do backend.
+- Evitar overengineering, migracao global de mocks e novas dependencias sem necessidade aprovada.

@@ -1,0 +1,12 @@
+{
+  "name": "crm-operations-platform",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "verify:frontend": "npm --prefix frontend run lint && npm --prefix frontend run build",
+    "verify:backend": "npm --prefix backend run lint && npm --prefix backend run test && npm --prefix backend run build",
+    "verify": "git diff --check && npm run verify:frontend && npm run verify:backend",
+    "verify:database": "npm --prefix backend run prisma:validate"
+  }
+}
